@@ -1,0 +1,264 @@
+gulp = require('gulp')
+gulpfn = require('gulp-fn')
+plumber = require('gulp-plumber')
+uglify = require('gulp-uglify')
+gulpFilter = require('gulp-filter')
+concat = require('gulp-concat')
+sourcemaps = require('gulp-sourcemaps')
+jade = require('gulp-jade')
+yaml = require('gulp-yaml')
+data = require('gulp-data')
+coffee = require('gulp-coffee')
+stylus = require('gulp-stylus')
+nib = require('nib')
+rupture = require('rupture')
+poststylus = require('poststylus')
+bower = require('gulp-main-bower-files')
+mamp = require('gulp-mamp')
+browserSync = require('browser-sync').create()
+htmlInjector = require('bs-html-injector')
+path = require('path')
+notifier = require('node-notifier')
+gutil = require('gulp-util')
+
+
+paths =
+	public: '../'
+	polymer: 'lib/elements/**/*.jade'
+	stylus: 'lib/css/**/*.styl'
+	cofee: 'lib/js/**/*.coffee'
+	bower: 'lib/bower_components/'
+	assets: [
+		'lib/ui/**/*'
+		'lib/fonts/**/*'
+	]
+	buildicons: path.join('/Users/franz/Sites/_build-icons/')
+
+
+
+
+#--------------------
+# ERROR / SUCCESS handlers
+
+errorHandler = (stream, log, message, title, icon) ->
+	gutil.log log
+	gutil.beep()
+	notifier.notify
+		title: title
+		message: message
+		icon: paths.buildicons + icon
+	stream.end()
+	true
+
+successHandler = (message, title, icon) ->
+	notifier.notify
+		title: title
+		message: message
+		icon: paths.buildicons + icon
+	return
+
+
+
+#--------------------
+# JADE – POLYMER ELEMENTS
+# compile polymer elements, write to rekreators/lib/elements with sourcemaps
+
+gulp.task 'jade-polymer', ->
+	isError = false
+	stream = gulp.src(paths.polymer)
+	.pipe(sourcemaps.init())
+	.pipe(plumber(
+		errorHandler: (error)->
+			isError = errorHandler(stream, error.message, error.message, 'yaml', 'b_jade-e.png')
+	))
+	.pipe(jade(
+		pretty: true
+	))
+	.pipe(sourcemaps.write('.'))
+	.pipe(gulp.dest(paths.public + 'lib/elements/'))
+	.pipe(gulpfn(->
+		unless isError then successHandler 'Compiled Jade', 'jade', 'b_jade-s.png'
+		return
+	))
+	return
+
+
+
+
+#--------------------
+# YAML DATA TO JSON
+
+gulp.task 'data', ->
+	isError = false
+	stream = gulp.src('../_data/*.yml')
+	.pipe(plumber(
+		errorHandler: (error)->
+			isError = errorHandler(stream, error.message, error.message, 'YAML', 'b_jade-e.png')
+	))
+	.pipe(yaml())
+	.pipe(gulp.dest('../_data/'))
+	.pipe(gulpfn(->
+		unless isError then successHandler 'Compiled YAML', 'YAML', 'b_jade-s.png'
+		return
+	))
+	return
+
+
+#--------------------
+# JADE – THEME VIEWS
+# compile theme views with mockup data from front-matter
+
+gulp.task 'jade-views', ->
+	isError = false
+	stream = gulp.src('../_views/*.jade')
+	.pipe(plumber(
+		errorHandler: (error)->
+			isError = errorHandler(stream, error.message, error.message, 'jade', 'b_jade-e.png')
+	))
+	.pipe(data( (file)->
+		return require('../_data/data.json')
+	))
+	.pipe(jade(
+		pretty: true
+	))
+	.pipe(gulp.dest('../_html/'))
+	.pipe(gulpfn(->
+		unless isError then successHandler 'Compiled Jade', 'jade', 'b_jade-s.png'
+		return
+	))
+	return
+
+
+
+#--------------------
+# STYLUS
+# compile and minify, write to rekreators/lib/css/ with sourcemaps
+
+gulp.task 'stylus', ->
+	isError = false
+	stream = gulp.src('lib/css/*.styl')
+	.pipe(sourcemaps.init())
+	.pipe(stylus(
+		compress: true
+		use: [
+			nib()
+			rupture()
+			poststylus([ 'lost','autoprefixer' ])
+		]))
+	.on('error', (error) ->
+		isError = errorHandler(stream, error.message, error.message, 'stylus', 'b_stylus-e.png')
+		return
+	)
+	.pipe(sourcemaps.write('.'))
+	.pipe(gulp.dest(paths.public + 'lib/css'))
+	.pipe(gulpfn(->
+		unless isError then successHandler 'Compiled Stylus', 'stylus', 'b_stylus-s.png'
+		return
+	))
+	return
+
+
+
+
+#--------------------
+# COFFEE
+# compile and concat, write to rekreators/lib/js/main.min.js with sourcemaps
+
+gulp.task 'coffee', ->
+	isError = false
+	files = [
+		'lib/js/functions.coffee',
+		'lib/js/init.coffee'
+	]
+	stream = gulp.src(files)
+	.pipe(sourcemaps.init())
+	.pipe(coffee())
+	.on('error', (error) ->
+		errorHandler stream, error.stack, error.message, 'compile-coffee', 'b_coffee-e.png'
+		return
+	)
+	.pipe(concat('main.min.js'))
+	.pipe(uglify())
+	.pipe(sourcemaps.write('.'))
+	.pipe(gulp.dest(paths.public + 'lib/js'))
+	.pipe(gulpfn(->
+		unless isError then successHandler 'Compiled CoffeeScript', 'compile-coffee', 'b_coffee-s.png'
+		return
+	))
+	return
+
+
+
+
+
+#--------------------
+# BOWER
+# copy all bower libs, concat and uglify bower js deps, write to rekreators/lib/js/vendor.js
+
+gulp.task 'bower-all', ->
+	isError = false
+	stream = gulp.src(paths.bower + '**/*')
+	.pipe(gulp.dest(paths.public + 'lib/bower_components/'))
+	return
+
+gulp.task 'bower-deps', ->
+	isError = false
+	bower_deps = [
+		paths.bower + 'jquery/dist/jquery.js',
+		paths.bower + 'lodash/dist/lodash.js',
+		paths.bower + 'velocity/velocity.js',
+		paths.bower + 'webcomponentsjs/webcomponents-lite.js'
+	]
+
+	stream = gulp.src(bower_deps)
+	.pipe(sourcemaps.init())
+	.pipe(concat('vendor.min.js'))
+	.pipe(uglify())
+	.pipe(sourcemaps.write('.'))
+	.pipe(gulp.dest(paths.public + 'lib/js/'))
+	return
+
+
+#--------------------
+# UI AND FONTS
+# Just mirror them to dest folder
+
+gulp.task 'assets', ->
+	stream = gulp.src(paths.assets, { base: 'lib/' }).pipe(gulp.dest(paths.public + 'lib/'))
+
+
+
+#--------------------
+# SERVE
+# browserSync server with HTML injection
+# gulp.task 'serve', ->
+# 	browserSync.init
+# 		proxy: 'franz/rekreators.eu'
+# 	return
+
+
+#--------------------
+# RELOAD
+# reload browserSync
+# gulp.task 'reload', browserSync.reload
+
+
+
+#--------------------
+# WATCH
+gulp.task 'watch', ->
+	gulp.watch paths.polymer, [ 'jade-polymer' ]
+	gulp.watch paths.coffee, [ 'coffee' ]
+	gulp.watch paths.stylus, [ 'stylus' ]
+	gulp.watch paths.assets, [ 'assets' ]
+	return
+
+
+
+gulp.task 'default', [
+	'jade-polymer'
+	'coffee'
+	'stylus'
+	'assets'
+	'watch'
+]

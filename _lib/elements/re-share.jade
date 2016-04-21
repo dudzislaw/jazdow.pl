@@ -1,0 +1,134 @@
+link(rel="import" href="../bower_components/polymer/polymer.html")
+link(rel="import" href="../bower_components/iron-ajax/iron-ajax.html")
+link(rel="import" href="re-styles.html")
+
+dom-module#re-share
+	// ---------------------------------------------------------------	
+	style(include="re-styles")
+	style
+		:stylus
+			:host
+				a
+					display: block
+					span
+						display: block
+
+	// ---------------------------------------------------------------	
+	template
+		a(href='[[href]]')
+			span.share-name {{type}}
+			span.share-count {{stats.count}}
+
+	// ---------------------------------------------------------------	
+	script
+		:coffeescript
+			Polymer
+				is: 're-share'
+				properties:
+					type:
+						type: String
+						value: 'facebook'
+
+					options:
+						type: Object
+						value:
+							referer: 'rekreators.eu'
+							via: 'rekreators'
+							text: 'This is share text'
+							fbAppID: 548215208596151
+
+					href:
+						type: String
+						computed: 'makeHref(type, options)'
+
+					stats:
+						type: Object
+						computed: 'getStats(type)'
+
+
+				makeHref: (type, options)->
+					if type is 'facebook'
+						base = 'https://www.facebook.com/dialog/share?'
+						query =
+							app_id: 		options.fbAppID
+							display: 		'popup'
+							href: 			window.location.href
+							redirect_uri: 	window.location.href
+						return base + $.param query
+
+					else if type is 'twitter'
+						base = 'https://twitter.com/intent/tweet?'
+						query =
+							original_referer: 	options.referer
+							via: 				options.via
+							text: 				options.text
+							source: 			'tweetbutton'
+							url: 				window.location.href
+						return base + $.param query
+
+				getStats: (type)->
+					if type is 'facebook'
+						base = 'http://api.facebook.com/restserver.php?'
+						query =
+							method: 'links.getStats'
+							urls: window.location.href
+						url = base + $.param query
+						client = new XMLHttpRequest()
+						client.open "GET", url
+						client.send()
+						response = client.responseXML
+						stats =
+							shares: 	$(response).find('share_count').text()
+							likes: 		$(response).find('like_count').text()
+							comments: 	$(response).find('comment_count').text()
+							count: 		$(response).find('total_count').text()
+					else if type is 'twitter'
+						options =
+							url: 'http://opensharecount.com/count.json?url=' + window.location.href
+							type: 'get'
+							async: false
+							success: (response)->
+								stats = response
+						$.ajax options
+						if stats.count is 0 then stats.count = ''
+						return stats
+
+						
+
+			
+				
+				ready: ->
+					###
+					`ready` is called after all elements have been configured, but
+					propagates bottom-up. This element's children are ready, but parents
+					are not.
+					This is the point where you should make modifications to the DOM (when
+					necessary), or kick off any processes the element wants to perform.
+					###
+					this.check_deps(this.deps)
+					return
+				attached: ->
+					###
+					`attached` fires once the element and its parents have been inserted
+					into a document.
+					This is a good place to perform any work related to your element's
+					visual state or active behavior (measuring sizes, beginning animations,
+					loading resources, etc).
+					###
+					return
+				detached: ->
+					###
+					The analog to `attached`, `detached` fires when the element has been
+					removed from a document.
+					Use this to clean up anything you did in `attached`.
+					###
+					return
+
+
+				check_deps: ->
+					deps = ['jQuery']
+					thisis = this.is
+					for dep in deps
+						do (dep)->
+							if typeof window[dep] is 'undefined'
+								console.log thisis + ' polymer element needs ' + dep

@@ -1,0 +1,26 @@
+// font-face – after Bourbon
+fontface($font-family, $path, $weight = 400, $fontstyle = normal)
+    @font-face
+        font-family: $font-family
+        font-weight: $weight
+        font-style: $fontstyle
+        src: url($path+'.eot')
+        src: url($path+'.eot?#iefix') format('embedded-opentype'), url($path+'.woff') format('woff'), url($path+'.ttf') format('truetype'), url($path+'.svg#B') format('svg')
+
+all-text-inputs()
+	textarea,
+	input[type="color"],
+	input[type="date"],
+	input[type="datetime"],
+	input[type="datetime-local"],
+	input[type="email"],
+	input[type="month"],
+	input[type="number"],
+	input[type="password"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="text"],
+	input[type="time"],
+	input[type="url"],
+	input[type="week"]
+		{block}
