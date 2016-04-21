@@ -1,6 +1,6 @@
 # Theme Factory
 
-This is a starter theme for wordpress. It uses Gulp to build scripts and styles, it uses JADE as a template language, to which you pass php data, or front-matter data if you work on just the front end
+This is a starter theme for wordpress. It uses Gulp to build scripts and styles, it uses JADE as a template language, to which you pass php data, or front-matter data if you work on just the front end.
 Uses also:
 
 - stylus with nib, lost and autoprefixer
@@ -50,4 +50,3 @@ gulp
 
 go to:
 http://localhost:3000/html
-
