@@ -17,28 +17,11 @@ nib = require('nib')
 rupture = require('rupture')
 poststylus = require('poststylus')
 bower = require('gulp-main-bower-files')
-mamp = require('gulp-mamp')
 browserSync = require('browser-sync').create()
 htmlInjector = require('bs-html-injector')
 path = require('path')
 notifier = require('node-notifier')
 gutil = require('gulp-util')
-
-
-
-# WP-CLI commands to install plugins of choice
-install_wp_plugins = [
-	'cd ../../../../',
-	'wp plugin install force-regenerate-thumbnails',
-	'wp plugin install google-analytics-for-wordpress',
-	'wp plugin install option-tree',
-	'wp plugin install regenerate-thumbnails',
-	'wp plugin install seo-extended',
-	'wp plugin install types',
-	'wp plugin install wordpress-seo',
-	'wp plugin install wordpress-social-login',
-	'wp plugin install wp-meta-seo',
-]
 
 
 # Handy paths
@@ -89,16 +72,10 @@ successHandler = (message, title, icon) ->
 
 
 
-#--------------------
-# WP-CLI install plugins
-# Goes to root of the wp site and installs plugins (stored in install_wp_plugins)
-gulp.task('install-plugins', shell.task(install_wp_plugins))
-
-
 
 #--------------------
 # JADE – THEME VIEWS
-# compile to html with mockup data from front-matter
+# compile to html with mockup data from markdown files with the same name
 
 gulp.task 'views', ->
 	isError = false
@@ -128,7 +105,7 @@ gulp.task 'views', ->
 
 #--------------------
 # JADE – POLYMER ELEMENTS
-# compile polymer elements, write to rekreators/lib/elements with sourcemaps
+# compile polymer elements, write to /lib/elements with sourcemaps
 
 gulp.task 'jade-polymer', ->
 	isError = false
@@ -154,7 +131,7 @@ gulp.task 'jade-polymer', ->
 
 #--------------------
 # STYLUS
-# compile and minify, write to rekreators/lib/css/ with sourcemaps
+# compile and minify, write to /lib/css/ with sourcemaps
 
 gulp.task 'stylus', ->
 	isError = false
@@ -184,7 +161,7 @@ gulp.task 'stylus', ->
 
 #--------------------
 # COFFEE
-# compile and concat, write to rekreators/lib/js/main.min.js with sourcemaps
+# compile and concat, write to /lib/js/main.min.js with sourcemaps
 
 gulp.task 'coffee', ->
 	isError = false
@@ -217,7 +194,7 @@ gulp.task 'coffee', ->
 
 #--------------------
 # BOWER
-# concat and uglify bower js deps, write to rekreators/lib/js/vendor.js
+# concat and uglify bower js deps, write to /lib/js/vendor.js
 
 gulp.task 'bower-deps', ->
 	isError = false

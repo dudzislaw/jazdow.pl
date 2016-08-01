@@ -1,6 +1,6 @@
-# Theme Factory
+# Static Factory
 
-This is a starter theme for wordpress. It uses Gulp to build scripts and styles, it uses JADE as a template language, to which you pass php data, or front-matter data if you work on just the front end.
+This is a  static generator for websites. Forked from theme-factory. It uses Gulp to build scripts and styles, it uses JADE as a template language, to which you pass markdown and front-matter data.
 Uses also:
 
 - stylus with nib, lost and autoprefixer
@@ -9,12 +9,6 @@ Uses also:
 - polymer (if needed)
 
 ### Usage
-
-**install composer libraries**
-
-```shell
-composer install
-```
 
 **go to factory**
 
