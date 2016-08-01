@@ -16,6 +16,7 @@
     "gulp-data": "^1.2.1",
     "gulp-filter": "^3.0.1",
     "gulp-fn": "0.0.0",
+    "gulp-gh-pages": "^0.5.4",
     "gulp-include": "^2.1.0",
     "gulp-jade": "^1.1.0",
     "gulp-jade-for-php": "^1.0.9",

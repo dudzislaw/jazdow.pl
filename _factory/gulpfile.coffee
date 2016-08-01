@@ -22,7 +22,7 @@ htmlInjector = require('bs-html-injector')
 path = require('path')
 notifier = require('node-notifier')
 gutil = require('gulp-util')
-
+ghPages = require('gulp-gh-pages')
 
 # Handy paths
 paths =
@@ -258,3 +258,11 @@ gulp.task 'default', [
 	'watch'
 	'serve'
 ]
+
+
+
+#--------------------
+# DEPLOY TO GH PAGES
+
+gulp.task 'deploy', ->
+	return gulp.src('../dist/**/*').pipe(ghPages())
