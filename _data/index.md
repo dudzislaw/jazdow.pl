@@ -18,5 +18,5 @@ scripts:
     main: http://localhost:3000/lib/js/main.min.js
 
 
-home_url: http://localhost:3000/html/
+home_url: http://localhost:3000/
 ---
