@@ -32,7 +32,7 @@ paths =
 	polymer: 	'../_lib/elements/**/*.jade'
 	stylus: 	'../_lib/css/**/*.styl'
 	cofee: 		'../_lib/js/**/*.coffee'
-	bower: 		'../lib/bower_components/'
+	bower: 		'../dist/lib/bower_components/'
 	assets: [
 		'../_lib/ui/**/*'
 		'../_lib/fonts/**/*'
@@ -42,6 +42,7 @@ paths =
 
 # Bower deps - will be merged to lib/js/vendor.min.js by bower-deps task
 bower_deps = [
+	paths.bower + 'bluebird/js/browser/bluebird.min.js',
 	paths.bower + 'jquery/dist/jquery.js',
 	paths.bower + 'lodash/dist/lodash.js',
 	paths.bower + 'velocity/velocity.js',
@@ -93,7 +94,7 @@ gulp.task 'views', ->
 	.pipe(jade(
 		pretty: true
 	))
-	.pipe(gulp.dest('../html/'))
+	.pipe(gulp.dest('../dist/'))
 	.pipe(gulpfn(->
 		unless isError then successHandler 'Compiled Jade', 'jade', 'b_jade-s.png'
 		return
@@ -119,7 +120,7 @@ gulp.task 'jade-polymer', ->
 		pretty: true
 	))
 	.pipe(sourcemaps.write('.'))
-	.pipe(gulp.dest('../lib/elements/'))
+	.pipe(gulp.dest('../dist/lib/elements/'))
 	.pipe(gulpfn(->
 		unless isError then successHandler 'Compiled Jade', 'jade', 'b_jade-s.png'
 		return
@@ -149,7 +150,7 @@ gulp.task 'stylus', ->
 		return
 	)
 	.pipe(sourcemaps.write('.'))
-	.pipe(gulp.dest('../lib/css'))
+	.pipe(gulp.dest('../dist/lib/css'))
 	.pipe(gulpfn(->
 		unless isError then successHandler 'Compiled Stylus', 'stylus', 'b_stylus-s.png'
 		return
@@ -181,7 +182,7 @@ gulp.task 'coffee', ->
 	.pipe(concat('main.min.js'))
 	.pipe(uglify())
 	.pipe(sourcemaps.write('.'))
-	.pipe(gulp.dest('../lib/js'))
+	.pipe(gulp.dest('../dist/lib/js'))
 	.pipe(gulpfn(->
 		unless isError then successHandler 'Compiled CoffeeScript', 'compile-coffee', 'b_coffee-s.png'
 		return
@@ -203,7 +204,7 @@ gulp.task 'bower-deps', ->
 	.pipe(concat('vendor.min.js'))
 	.pipe(uglify())
 	.pipe(sourcemaps.write('.'))
-	.pipe(gulp.dest('../lib/js/'))
+	.pipe(gulp.dest('../dist/lib/js/'))
 	return
 
 
@@ -213,7 +214,7 @@ gulp.task 'bower-deps', ->
 # Just mirror them to dest folder
 
 gulp.task 'assets', ->
-	stream = gulp.src(paths.assets, { base: '../_lib/' }).pipe(gulp.dest('../lib/'))
+	stream = gulp.src(paths.assets, { base: '../_lib/' }).pipe(gulp.dest('../dist/lib/'))
 
 
 
@@ -221,9 +222,9 @@ gulp.task 'assets', ->
 # SERVE
 # browserSync server with HTML injection
 gulp.task 'serve', ->
-	browserSync.use htmlInjector, files: '../html/**/*.html'
+	browserSync.use htmlInjector, files: '../dist/**/*.html'
 	browserSync.init
-		server: baseDir: '../'
+		server: baseDir: '../dist'
 		files: '../lib/**/*.css'
 	return
 
