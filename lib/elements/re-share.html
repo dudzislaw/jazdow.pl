@@ -1,0 +1,152 @@
+
+<link rel="import" href="../bower_components/polymer/polymer.html"/>
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html"/>
+<link rel="import" href="re-styles.html"/>
+<dom-module id="re-share">
+  <!-- ---------------------------------------------------------------	-->
+  <style include="re-styles"></style>
+  <style>:host a {
+  display: block;
+}
+:host a span {
+  display: block;
+}
+
+  </style>
+  <!-- ---------------------------------------------------------------	-->
+  <template><a href="[[href]]"><span class="share-name">{{type}}</span><span class="share-count">{{stats.count}}</span></a></template>
+  <!-- ---------------------------------------------------------------	-->
+  <script>(function() {
+  Polymer({
+    is: 're-share',
+    properties: {
+      type: {
+        type: String,
+        value: 'facebook'
+      },
+      options: {
+        type: Object,
+        value: {
+          referer: 'rekreators.eu',
+          via: 'rekreators',
+          text: 'This is share text',
+          fbAppID: 548215208596151
+        }
+      },
+      href: {
+        type: String,
+        computed: 'makeHref(type, options)'
+      },
+      stats: {
+        type: Object,
+        computed: 'getStats(type)'
+      }
+    },
+    makeHref: function(type, options) {
+      var base, query;
+      if (type === 'facebook') {
+        base = 'https://www.facebook.com/dialog/share?';
+        query = {
+          app_id: options.fbAppID,
+          display: 'popup',
+          href: window.location.href,
+          redirect_uri: window.location.href
+        };
+        return base + $.param(query);
+      } else if (type === 'twitter') {
+        base = 'https://twitter.com/intent/tweet?';
+        query = {
+          original_referer: options.referer,
+          via: options.via,
+          text: options.text,
+          source: 'tweetbutton',
+          url: window.location.href
+        };
+        return base + $.param(query);
+      }
+    },
+    getStats: function(type) {
+      var base, client, options, query, response, stats, url;
+      if (type === 'facebook') {
+        base = 'http://api.facebook.com/restserver.php?';
+        query = {
+          method: 'links.getStats',
+          urls: window.location.href
+        };
+        url = base + $.param(query);
+        client = new XMLHttpRequest();
+        client.open("GET", url);
+        client.send();
+        response = client.responseXML;
+        return stats = {
+          shares: $(response).find('share_count').text(),
+          likes: $(response).find('like_count').text(),
+          comments: $(response).find('comment_count').text(),
+          count: $(response).find('total_count').text()
+        };
+      } else if (type === 'twitter') {
+        options = {
+          url: 'http://opensharecount.com/count.json?url=' + window.location.href,
+          type: 'get',
+          async: false,
+          success: function(response) {
+            return stats = response;
+          }
+        };
+        $.ajax(options);
+        if (stats.count === 0) {
+          stats.count = '';
+        }
+        return stats;
+      }
+    },
+    ready: function() {
+
+      /*
+      		`ready` is called after all elements have been configured, but
+      		propagates bottom-up. This element's children are ready, but parents
+      		are not.
+      		This is the point where you should make modifications to the DOM (when
+      		necessary), or kick off any processes the element wants to perform.
+       */
+      this.check_deps(this.deps);
+    },
+    attached: function() {
+
+      /*
+      		`attached` fires once the element and its parents have been inserted
+      		into a document.
+      		This is a good place to perform any work related to your element's
+      		visual state or active behavior (measuring sizes, beginning animations,
+      		loading resources, etc).
+       */
+    },
+    detached: function() {
+
+      /*
+      		The analog to `attached`, `detached` fires when the element has been
+      		removed from a document.
+      		Use this to clean up anything you did in `attached`.
+       */
+    },
+    check_deps: function() {
+      var dep, deps, i, len, results, thisis;
+      deps = ['jQuery'];
+      thisis = this.is;
+      results = [];
+      for (i = 0, len = deps.length; i < len; i++) {
+        dep = deps[i];
+        results.push((function(dep) {
+          if (typeof window[dep] === 'undefined') {
+            return console.log(thisis + ' polymer element needs ' + dep);
+          }
+        })(dep));
+      }
+      return results;
+    }
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

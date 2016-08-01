@@ -1,0 +1,1 @@
+{"version":3,"names":[],"mappings":"","sources":["re-styles.jade"],"sourcesContent":["dom-module#re-styles\n\ttemplate\n\t\tstyle\n\t\t\t:stylus\n\t\t\t\t:root\n\t\t\t\t\t--re-main-color: blue // Now this value can be used inside shadow dom\n"],"file":"re-styles.html","sourceRoot":"/source/"}
