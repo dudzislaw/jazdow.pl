@@ -1,0 +1,84 @@
+link(rel="import" href="../bower_components/polymer/polymer.html")
+link(rel="import" href="oj-styles.html")
+
+dom-module#oj-menu
+	// ---------------------------------------------------------------
+	style
+		:stylus
+			@import '../css/imports/*'
+			@import '../../.factory/node_modules/nib/lib/nib/*'
+			:host
+				#logo
+					display: block
+					float: left
+					size: 4rem
+					&:after
+						icon()
+						content: 'f'
+						display: block
+						color: $oj-violet
+						font-size: 4rem
+						line-height: 1em
+				#items
+					display: block
+					float: right
+					margin: 0
+					font-family: P
+					font-weight: 700
+					list-style-type: none
+					text-transform: uppercase
+					text-align: right
+					letter-spacing: .125em
+					font-size: 1rem
+					li
+						display: block
+						float: left
+						margin-left: 3rem
+						a
+							display: block
+							line-height: 1em
+							padding: 1.5rem 0
+							&[selected], &:hover
+								color: $oj-violet
+
+	// ---------------------------------------------------------------
+	template
+		a#logo(href='[[logo.href]]' title='[[logo.title]])')
+		ul#items
+			template(is="dom-repeat" items="[[menuItems]]")
+				li
+					a(href='[[item.href]]' title='[[item.title]]') [[item.title]]
+
+
+	// ---------------------------------------------------------------
+	script
+		:coffeescript
+			Polymer
+				is: 'oj-menu'
+				properties:
+					logo:
+						type: Object
+						value: ->
+							src: 'logo.svg'
+							href: '/'
+							title: 'Home page'
+					menuItems:
+						type: Array
+						value: ->
+							[{href: '/', title: 'Menu item'}]
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return
+
+
+				check_deps: ->
+					deps = []
+					thisis = this.is
+					for dep in deps
+						do (dep)->
+							if typeof window[dep] is 'undefined'
+								console.error thisis + ' polymer element needs ' + dep

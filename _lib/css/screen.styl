@@ -10,5 +10,104 @@ html
 	font-size: 16px
 body
 	// lost-utility: edit
+	// grid-guide(12, $gutter/2, $grid-width, 1rem)
 *
 	box-sizing: border-box
+
+section.bg
+	z-index: -100
+	position: fixed
+	top: 0
+	width: 100%
+	height: auto
+
+section.full
+	width: 100%
+	background-color: white
+	clearfix()
+
+section.full#main-menu-container
+	margin-top: 56.15vw
+
+.inner-section
+	lost-center: $grid-width 1rem flex
+	clearfix()
+	&.home-about
+		margin-top: 8rem
+	&.home-cards
+		margin-top: 8rem
+	&.home-events
+		margin-top: 8rem
+
+#big-logo
+	display: block
+	position: absolute
+	top: 10rem
+	text-align: center
+	z-index: 10
+	&:before
+		content: 'f'
+		icon()
+		display: block
+		font-size: 14rem
+	&:after
+		content: 'g'
+		icon()
+		display: block
+		font-size: 9rem
+		margin-top: 75%
+
+.card
+	lost-column: 1/3 3 $gutter flex
+	display: flex
+	flex-direction: column
+	justify-content: space-between
+	padding: 0.8rem 1.25rem 1.25rem 1.25rem
+	color: $oj-violet
+	background-color: $oj-pink
+	.card-title
+		font-size: 1rem
+		line-height: 1.2em
+		font-weight: 700
+		font-family: P
+		letter-spacing: 0.08em
+		text-transform: uppercase
+		padding-bottom: .5rem
+		margin-bottom: 1rem
+	.card-content
+		font-family: P
+		font-weight: 700
+		font-size: 2.5rem
+		margin-bottom: 2rem
+	.card-caption
+		font-size: 1.2rem
+		line-height 1.5em
+		letter-spacing 0.04em
+		margin-bottom: 1rem
+
+.calendar-col
+	lost-column: 2/3 2 $gutter flex
+	p
+		lost-column: 3/4 0 $gutter flex
+
+.extra-col
+	lost-column: 1/3 2 $gutter flex
+
+	.calendar-illustration
+		lost-column: 2/3 0 $gutter flex
+		img
+			width: 100%
+			margin-top: 6rem
+
+
+oj-menu
+	display: block
+	padding: 1.5rem 2rem
+	margin: 0 auto
+	clearfix()
+
+oj-expander
+	lost-column: 2/3 2 $gutter flex
+
+oj-calendar
+	width: 100%

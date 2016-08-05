@@ -1,0 +1,102 @@
+link(rel="import" href="../bower_components/polymer/polymer.html")
+link(rel="import" href="oj-styles.html")
+
+dom-module#oj-video
+	// ---------------------------------------------------------------	
+	style
+		:stylus
+			@import '../css/imports/variables'
+			:host
+				#video_overlay
+					position: absolute
+					z-index: 1
+					width: 100%
+					height: 56.15vw
+					color: white
+					cursor: pointer
+				#subtitles
+					position: absolute
+					top: 4rem
+					right: 2rem
+					display: inline-block
+					color: white
+					font-family: P
+					font-weight: 700
+					text-align: right
+					padding: .2em .5em
+					letter-spacing: .125em
+				video
+					width: 100%
+					height: auto
+					z-index: -1
+				video::cue
+					font-size: 0
+					background-color: transparent
+					
+	// ---------------------------------------------------------------	
+	template
+		#video_overlay(on-tap="_playToggle")
+			#subtitles
+			content
+		video#video(playsinline autoplay muted loop="true" poster="[[poster]]")
+			source(src="[[source.webm]]" type="video/webm")
+			source(src="[[source.mp4]]" type="video/mp4")
+			track#track(src="[[track]]" srclang="[[lang]]" kind="caption" on-cuechange="_updateSubs" default)
+
+	// ---------------------------------------------------------------	
+	script
+		:coffeescript
+			Polymer
+				is: 'oj-video'
+				properties:
+					poster: String
+					track: String
+					lang: String
+					source: Object
+
+				_updateSubs: ->
+					this.$.subtitles.innerHTML = this.caption = this.$.video.textTracks[0].activeCues[0].text
+
+				_playToggle: ->
+					video = this.$.video
+					if video.paused
+						video.play()
+					else
+						video.pause()
+						
+				ready: ->
+					###
+					`ready` is called after all elements have been configured, but
+					propagates bottom-up. This element's children are ready, but parents
+					are not.
+					This is the point where you should make modifications to the DOM (when
+					necessary), or kick off any processes the element wants to perform.
+					###
+					this._checkDeps()
+					document.addEventListener 'scroll', ->
+					return
+				attached: ->
+					###
+					`attached` fires once the element and its parents have been inserted
+					into a document.
+					This is a good place to perform any work related to your element's
+					visual state or active behavior (measuring sizes, beginning animations,
+					loading resources, etc).
+					###
+					return
+				detached: ->
+					###
+					The analog to `attached`, `detached` fires when the element has been
+					removed from a document.
+					Use this to clean up anything you did in `attached`.
+					###
+					return
+
+
+				_checkDeps: ->
+					deps = []
+					thisis = this.is
+					for dep in deps
+						do (dep)->
+							if typeof window[dep] is 'undefined'
+								console.error thisis + ' polymer element needs ' + dep

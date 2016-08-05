@@ -1,0 +1,78 @@
+style(is="custom-style")
+	:stylus
+		@import '../css/imports/variables'
+		:root
+			
+			paper-input, paper-textarea
+				input, textarea
+					font-family: $base_font_family
+					font-size: 1.2rem
+				input
+					line-height: 2.8em
+				textarea, #mirror
+					margin-top: .6rem
+				iron-autogrow-textarea#input
+					min-height: 2.8em
+					height: 100%
+				label
+					color: rgba(black, .6)
+					font-family: $base_font_family
+					font-size: 1.2rem
+					line-height: 2.8em
+					letter-spacing: .05em
+				[prefix]
+					font-family: icons
+				paper-input-char-counter
+					font-family: $base_font_family
+	
+				.label-is-floating
+					label
+						color: rgba(black, .4)
+						line-height: 1em
+						text-transform: uppercase
+					&.label-is-highlighted
+						label, input
+							color: blue
+					&.is-invalid
+						label, input, textarea
+							color: red
+	
+				.focused-line
+					background: blue
+					height: 1px
+				.underline.is-invalid
+					.focused-line
+						background: red
+	
+				.add-on-content
+					paper-input-error
+						font-family: $base_font_family
+						color: red
+						letter-spacing: .05em
+						text-transform: uppercase
+						text-align: right
+					&.is-highlighted
+						*
+							color: blue
+			
+			google-map
+				.gm-style-cc // google map copyright notice
+					display: none
+			
+			paper-tooltip
+				#tooltip
+					font-family: $base_font_family
+					font-size: 1rem
+					text-align: center
+					background-color: rgba(white, .8)
+					color: blue
+					padding: 0 0 0 .5em
+					box-shadow: 0 1px 4px 0 rgba(blue, .5)
+					span
+						background-color: blue
+						color: white
+						font-weight: 700
+						min-width: 2em
+						padding: .5em
+						margin-left: .5em
+						display: inline-block

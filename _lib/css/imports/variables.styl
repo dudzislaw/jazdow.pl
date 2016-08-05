@@ -2,7 +2,8 @@
 /////////////////////////////////////////////
 
 // GRID
-$grid-width = 1312px
+$grid-width = 84rem
+$gutter = 2.4rem
 
 // BREAKPOINTS
 $mobile-v = 400
@@ -11,11 +12,18 @@ $tablet-v = 800
 $tablet-h = 1050
 
 // COLORS
-$blue = blue
+$oj-light 	= #fafafc
+$oj-violet 	= #5200cc
+$oj-pink 	= #fdebe8
+$oj-dark 	= #404040
+$oj-grey 	= #d8d8d8
+$oj-dim 	= #151424
+
 
 
 // FONTS
-$M1 = 'M1', 'Helvetica Neue', Helvetica, Arial, sans-serif
+$SF = 'SF', 'SF UI Text', 'Acumin Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif
+$P = 'P', 'Platform', 'Brandon', 'Helvetica Neue', Helvetica, Arial, sans-serif
 
 // IMAGES
 $map-marker-svg = url('../ui/map-marker.svg')
@@ -32,7 +40,8 @@ $easeInOutCirc= cubic-bezier(0.785, 0.135, 0.15, 0.86)
 /////////////////////////////////////////////
 
 // BASE FONT
-$base_font_family= $M1
+$base_font_family = $SF
+$extra_font_family = $P
 
 // BASE SIZES
 $base_font_size= 20px
@@ -40,7 +49,7 @@ $base_line_height= $base_font_size * 1.5
 $base_weight= 400
 
 // BASE COLORS
-$base_font_color= black
+$base_font_color= $oj-dark
 $base_link_color= blue
 $base_hover_color= blue
 

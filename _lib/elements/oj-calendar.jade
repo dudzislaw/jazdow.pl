@@ -1,0 +1,68 @@
+link(rel="import" href="../bower_components/polymer/polymer.html")
+link(rel="import" href="../bower_components/iron-ajax/iron-ajax.html")
+
+dom-module#oj-calendar
+	// ---------------------------------------------------------------
+	style
+		:stylus
+			:host
+				display: block
+
+	// ---------------------------------------------------------------
+	template
+		template(is="dom-repeat" items="[[calendarUrls]]")
+			iron-ajax(
+				auto 
+				url="[[item]]"
+				handle-as='json' 
+				on-response= 'handleResponse'
+			)
+	// ---------------------------------------------------------------
+	script
+		:coffeescript
+			Polymer
+				is: 'oj-calendar'
+				properties:
+					limit:
+						type: Number
+						value: 10
+					apiKey: 
+						type: String
+					apiUrl: 
+						type: String
+						value: 'https://www.googleapis.com/calendar/v3/'
+					calendarIds: 
+						type: Array
+					calendarUrls:
+						type: String
+						computed: 'computeCalendarUrls(apiUrl, apiKey, calendarIds)'
+
+				computeCalendarUrls: (apiUrl, apiKey, calendarIds)->
+					return calendarIds.map((calID)->
+						return apiUrl + 'calendars/' + calID + '/events?key=' + apiKey
+					)
+					
+
+				handleResponse: (e, detail)->
+					calendar = Promise.resolve(detail.response)
+					calendar.then((response)->
+						console.log response
+					)
+
+				ready: ->
+					return
+					
+				attached: ->
+					return
+
+				detached: ->
+					return
+
+
+				check_deps: ->
+					deps = []
+					thisis = this.is
+					for dep in deps
+						do (dep)->
+							if typeof window[dep] is 'undefined'
+								console.error thisis + ' polymer element needs ' + dep
