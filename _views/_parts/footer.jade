@@ -1,0 +1,11 @@
+footer#page-footer
+	.inner-section.page-footer
+		.contacts
+			each contact in data.contacts 
+				.contact
+					h4.contact-title= contact.title.pl
+					.contact-details
+						p!= contact.details
+		.social
+			each link in data.social
+				a.social-icon(id=link.type href=link.href title=link.type)

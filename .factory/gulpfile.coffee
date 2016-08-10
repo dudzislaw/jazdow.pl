@@ -51,9 +51,10 @@ paths =
 # Bower deps - will be merged to lib/js/vendor.min.js by bower-deps task
 bower_deps = [
 	paths.bower + 'bluebird/js/browser/bluebird.min.js',
-	paths.bower + 'jquery/dist/jquery.js',
-	paths.bower + 'lodash/dist/lodash.js',
 	paths.bower + 'velocity/velocity.js',
+	paths.bower + 'jquery/dist/jquery.js',
+	paths.bower + 'axios/dist/axios.min.js',
+	paths.bower + 'moment/min/moment-with-locales.min.js'
 	paths.bower + 'webcomponentsjs/webcomponents-lite.js'
 
 ]
@@ -89,14 +90,16 @@ successHandler = (message, title, icon) ->
 
 gulp.task 'jade', ->
 	isError = false
-	stream = gulp.src('../_views/*.jade')
+	stream = gulp.src(['../_views/**/*.jade', '!../_views/_*/**/*'])
 	.pipe(plumber(
 		errorHandler: (error)->
 			isError = errorHandler(stream, error.message, error.message, 'jade', 'b_jade-e.png')
 	))
 	.pipe(data( (file)->
-		filepath = '../_data/' + path.basename(file.path, '.jade') + '.md'
-		file_obj = fm fs.readFileSync(filepath, 'utf8') 			# parse and store data from coresponding .md file
+		jadeFilePath = path.relative( file.cwd, file.path ) # file path relative to this gulpfile
+		mdFilePath = jadeFilePath.replace('_views/', '_data/').replace('.jade', '.md')
+
+		file_obj = fm fs.readFileSync(mdFilePath, 'utf8') 			# parse and store data from coresponding .md file
 		site_obj = fm fs.readFileSync('../_data/data.md', 'utf8') 	# parse and store sitewide data from data.md file
 		content = file_obj.attributes # merge the above
 		content.data = site_obj.attributes

@@ -2,49 +2,20 @@ doctype
 html(lang=lang)
 
 	head
-		include parts/head
+		include _parts/head
 
-	body
+	body.video-bg
 
-		section.bg
-			oj-video#video(
-				poster=data.video.poster
-				track=data.video.tracks.pl
-				lang=lang
-				source=JSON.stringify(data.video.source)
-				)
-				a#big-logo(href=data.home_url)
+		.trap-top
+		
+		include _parts/video
 
-		section.full#main-menu-container
-			oj-menu(
-				menu-items=JSON.stringify(data.main_menu)
-				logo=JSON.stringify(data.home_logo)
-				)
+		include _parts/main-menu
 
-		section.full#home-about
-			.inner-section.home-about
-				oj-expander(reveal="1" show-text="czytaj dalej" hide-text="ukryj tekst" is-hidden="false")
-					!=content
+		include _parts/about
+		
+		include _parts/cards
+		
+		include _parts/mini-calendar
 
-		section.full#home-cards
-			.inner-section.home-cards
-				each card in cards
-					a.card(href=card.href)
-						h3.card-title= card.title
-						.card-content!= card.content
-						p.card-caption!= card.caption
-
-		section.full#home-events
-			.inner-section.home-events
-				.calendar-col
-					h1.section-title= events.title
-					p= events.intro
-					oj-calendar(
-						limit=events.limit
-						api-key=data.google.apikey
-						calendar-ids=JSON.stringify(data.google.calendars)
-						)
-					oj-button(href=events.page)= events.labels.button
-				.extra-col
-					.calendar-illustration
-						img(src=events.image)
+		include _parts/footer

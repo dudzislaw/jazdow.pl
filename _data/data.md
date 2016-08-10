@@ -22,19 +22,54 @@ home_logo:
 main_menu:
     -
         title: wydarzenia
-        href: /wydarzenia.html
+        href: /wydarzenia/
     -
         title: historia
-        href: /historia.html
+        href: /historia/
     -
         title: model
-        href: /model.html
+        href: /model/
     -
         title: partnerstwo
-        href: /partnerstwo.html
+        href: /partnerstwo/
     -
         title: kontakt
-        href: /kontakt.html
+        href: /kontakt/
+
+contacts:
+    -
+        title:
+            pl: "Kontakt:"
+            en: "Contact:"
+        details: >
+            <p>Otwarty Jazdów<br>ul. Jazdów 3/12<br> 00-122 Warszawa</p>
+            <p>kontakt@jazdow.pl</p>
+            <p>+48 555 276 944<p>
+    -
+        title:
+            pl: "Koordynacja:"
+            en: "Coordinator:"
+        details: >
+            <p>Andrzej Górz<br>
+            kontakt@jazdow.pl<br>
+            +48 555 276 944<p>
+    -
+        title:
+            pl: "Wydarzenia:"
+            en: "Events:"
+        details: <p>Ewa Zielińska<br> ewa.zielinska@jazdow.pl<p/>
+
+social:
+    -
+        type: google
+        href: https://google.com
+    -
+        type: facebook
+        href: https://facebook.com
+    -
+        type: instagram
+        href: https://instagram.com
+
 
 google:
     apikey: AIzaSyB_td3L7GKbbTBdTf9IivwESNuyDrfzpyU

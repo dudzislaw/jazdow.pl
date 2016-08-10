@@ -1,0 +1,12 @@
+section#timeline.full
+	.inner-section.timeline
+		.timeline-intro
+			h1.section-title= title
+			p!= content		
+		#timeline
+			each event in timeline
+				.timeline-event
+					.timeline-event-date= event.date
+					.timeline-event-content
+						h4= event.title
+						p= event.caption

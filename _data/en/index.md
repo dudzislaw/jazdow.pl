@@ -16,22 +16,22 @@ scripts:
     vendor: /lib/js/vendor.min.js
     main: /lib/js/main.min.js
 
-lang: pl
+lang: en
 
 cards:
     -
         title: historia
-        href: /historia/
+        href: /historia.html
         content: <img src="/lib/ui/oj-history.svg">
         caption: Zobacz na osi czasu historię Jazdowa i Domków Fińskich od 1653 roku.
     -
         title: Model
-        href: /model/
+        href: /model.html
         content: <img src="/lib/ui/oj-model.svg">
         caption: Tworzymy społeczny model zarządzania and something and stuff.
     -
         title: Partnerstwo
-        href: /partnerstwo/
+        href: /partnerstwo.html
         content: 35
         caption: organizacji i osób prywatnych tworzy partnerstwo dla osiedla Jazdów.
 

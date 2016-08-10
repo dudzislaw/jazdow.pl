@@ -1,0 +1,4 @@
+section#main-menu-container.full
+	oj-menu#main-menu(logo=JSON.stringify(data.home_logo))
+		each item in data.main_menu
+			oj-menu-item(href=item.href title=item.title)= item.title

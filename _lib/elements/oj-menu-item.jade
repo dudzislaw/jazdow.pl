@@ -1,59 +1,42 @@
 link(rel="import" href="../bower_components/polymer/polymer.html")
 link(rel="import" href="oj-styles.html")
 
-dom-module#oj-menu
+dom-module#oj-menu-item
 	// ---------------------------------------------------------------
 	style
 		:stylus
 			@import '../css/imports/*'
 			@import '../../.factory/node_modules/nib/lib/nib/*'
 			:host
-				#logo
-					display: block
-					float: left
-					size: 4rem
-					&:after
-						icon()
-						content: 'f'
-						display: block
-						color: $oj-violet
-						font-size: 4rem
-						line-height: 1em
-				#items
-					display: block
-					float: right
-					margin: 0
-					font-family: P
-					font-weight: 700
-					list-style-type: none
-					text-transform: uppercase
-					text-align: right
-					letter-spacing: .125em
-					font-size: 1rem
-					::content > oj-menu-item
-							display: block
-							float: left
-							margin-left: 3rem
+				display: block
+				line-height: 1em
+				padding: 1.5rem 0
+				cursor: pointer
+				&:hover
+					color: $oj-violet
+				&[selected]
+					border-bottom: 4px solid $oj-dark
 
 	// ---------------------------------------------------------------
 	template
-		a#logo(href='[[logo.href]]' title='[[logo.title]])')
-		#items
-			content
+		a(href='[[href]]' title='[[title]]') [[title]]
+
 
 	// ---------------------------------------------------------------
 	script
 		:coffeescript
 			Polymer
-				is: 'oj-menu'
+				is: 'oj-menu-item'
 				properties:
-					logo:
-						type: Object
-						value: ->
-							src: 'logo.svg'
-							href: '/'
-							title: 'Home page'
-
+					href: String
+					title: String
+					selected:
+						type: Boolean
+						reflectToAttribute: true
+						computed: '_computeSelected(href)'
+					
+				_computeSelected: (href)->
+					if href is window.location.pathname then return true else return false
 
 				ready: ->
 					this._checkDeps()
@@ -67,7 +50,7 @@ dom-module#oj-menu
 
 
 				_checkDeps: ->
-					deps = ['Velocity']
+					deps = []
 					thisis = this.is
 					for dep in deps
 						do (dep)->
