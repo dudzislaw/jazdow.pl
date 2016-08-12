@@ -1,0 +1,12 @@
+section#home-events-main.full
+	.inner-section.main-events
+		.main-calendar-info-col
+			h1.section-title= title
+			p!= content
+		.main-calendar-col
+			oj-calendar(
+				limit=events.limit
+				show-days=events.showDays
+				api-key=data.google.apikey
+				calendar-ids=JSON.stringify(data.google.calendars)
+				)

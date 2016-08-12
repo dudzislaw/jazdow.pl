@@ -1,0 +1,12 @@
+section#partners.full
+	.inner-section.partners
+		.partners-intro
+			h1.section-title= title
+			p!= content
+		.partners-list
+			each partner in partners
+				.partner(class=partner.type)
+					a.partner-image(href=partner.href title=partner.name)
+						img(src=partner.image)
+					a.partner-name(href=partner.href)= partner.name
+					p.partner-caption= partner.caption
