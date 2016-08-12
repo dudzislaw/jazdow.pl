@@ -33,21 +33,21 @@ cards:
         title: historia
         href: /historia/
         content: <img src="/lib/ui/oj-history.svg">
-        caption: Zobacz na osi czasu historię Jazdowa i Domków Fińskich od 1653 roku.
+        caption: Zobacz na osi czasu historię domków fińskich i Otwartego Jazdowa.
     -
         title: Model
         href: /model/
         content: <img src="/lib/ui/oj-model.svg">
-        caption: Tworzymy społeczny model zarządzania and something and stuff.
+        caption: Tworzymy model społecznościowego zarządzania przestrzenią miejską.
     -
         title: Partnerstwo
         href: /partnerstwo/
         content: 35
-        caption: organizacji i osób prywatnych tworzy partnerstwo dla osiedla Jazdów.
+        caption: Partnerstwo dla osiedla Jazdów tworzą organizacje, instytucje publiczne i osoby prywatne.
 
 events:
     title: Wydarzenia
-    intro: "W domkach fińskich działa 16 organizacji, oferujących wiele ciekawych wydarzeń. Zobacz co dzieje się na Jazdowie w najbliższych dniach:"
+    intro: "W domkach fińskich działa wiele organizacji, oferujących ciekawe wydarzenia. Chcesz w nich uczestniczyć? Zobacz co dzieje się na Jazdowie w najbliższych dniach:"
     page: /wydarzenia/
     image: /assets/images/arch-duo.png
     limit: 10
@@ -63,9 +63,3 @@ Naszą misją jest łączenie różnych grup, aby wspólnie rozwijać przestrze�
 Historia osiedla Jazdów sięga końca II Wojny Światowej. Domki fińskie, sprowadzone tu w 1945 roku, służyły za mieszkania pracownikom Biura Odbudowy Stolicy.
 
 Dziś Otwarty Jazdów łączy w sobie funkcje rezydencjalne i te związane z misją publiczną. W 27 drewnianych domkach i przyległych ogrodach żyją i działają obok siebie mieszkańcy, organizacje pozarządowe, miejscy ogrodnicy i pszczelarze, akademicy i studenci, artyści oraz pracownicy firm, spółdzielni, ambasad i instytucji publicznych.
-
-Chcesz uczestniczyć w wydarzeniu? [Zajrzyj do naszego kalendarza](/wydarzenia/).
-
-Chcesz zorganizować wydarzenie w konkretnym domku? Wybierz na mapie domek i skontaktuj się z jego koordynatorem.
-
-Chcesz zorganizować wydarzenie na osiedlu Jazdów i dowiedzieć się więcej, jakie są możliwości – [napisz do nas](#page-footer).

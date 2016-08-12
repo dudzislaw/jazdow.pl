@@ -31,4 +31,4 @@ events:
         where: Gdzie
         what: Co
 ---
-W domkach fińskich działa 16 organizacji, oferujących wiele ciekawych wydarzeń. Zobacz co dzieje się na Jazdowie w najbliższych dniach:
+Jeśli Chcesz zorganizować wydarzenie na osiedlu Jazdów i dowiedzieć się, jakie są możliwości – [napisz do nas](#page-footer).

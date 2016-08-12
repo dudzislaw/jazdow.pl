@@ -21,6 +21,9 @@ main_menu:
             title: wydarzenia
             href: /wydarzenia/
         -
+            title: mapa
+            href: /mapa/
+        -
             title: historia
             href: /historia/
         -
@@ -36,6 +39,9 @@ main_menu:
         -
             title: events
             href: /events/
+        -
+            title: map
+            href: /map/
         -
             title: history
             href: /history/
@@ -55,33 +61,15 @@ contacts:
             pl: "Kontakt:"
             en: "Contact:"
         details: >
-            <p>Otwarty Jazdów<br>ul. Jazdów 3/12<br> 00-122 Warszawa</p>
-            <p>kontakt@jazdow.pl</p>
-            <p>+48 555 276 944<p>
-    -
-        title:
-            pl: "Koordynacja:"
-            en: "Coordinator:"
-        details: >
-            <p>Andrzej Górz<br>
-            kontakt@jazdow.pl<br>
-            +48 555 276 944<p>
-    -
-        title:
-            pl: "Wydarzenia:"
-            en: "Events:"
-        details: <p>Ewa Zielińska<br> ewa.zielinska@jazdow.pl<p/>
-
+            <p>Otwarty Jazdów<br>ul. Jazdów 3/11<br> 00-122 Warszawa</p>
+            <p>otwarty@jazdow.pl</p>
 social:
     -
-        type: google
-        href: https://google.com
-    -
         type: facebook
-        href: https://facebook.com
+        href: https://facebook.com/jazdow/
     -
         type: instagram
-        href: https://instagram.com
+        href: https://www.instagram.com/jazdow/
 
 
 google:

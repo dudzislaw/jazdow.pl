@@ -9,7 +9,10 @@ section#history.full
 					.timeline-event-date= event.date
 					.timeline-event-content
 						h4= event.title
-						p!= event.caption
-						if event.image
+						p!= event.text
+						if event.photo
 							.event-image
-								img(src=event.image alt=event.title)
+								img(src=event.photo.image alt=event.title)
+						if event.photo
+							.event-caption
+								p!= event.photo.caption
