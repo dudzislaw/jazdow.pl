@@ -7,15 +7,31 @@ dom-module#oj-menu-item
 		:stylus
 			@import '../css/imports/*'
 			@import '../../.factory/node_modules/nib/lib/nib/*'
+			@import '../../.factory/node_modules/rupture/rupture/index.styl'
 			:host
 				display: block
 				line-height: 1em
 				padding: 1.5rem 0
 				cursor: pointer
+				color: inherit
+				float: left
+				margin-left: 3rem
 				&:hover
 					color: $oj-violet
 				&[selected]
 					border-bottom: 4px solid $oj-dark
+				// Tablets:
+				+below(1100px)
+					float: none
+					margin-left: 0
+					border-bottom: 1px solid $oj-grey
+					&:first-of-type
+						border-top: 1px solid $oj-grey
+					&[selected]
+						border-bottom: 1px solid $oj-grey
+						color: $oj-violet
+				a
+					color: inherit
 
 	// ---------------------------------------------------------------
 	template

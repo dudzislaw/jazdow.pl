@@ -25,6 +25,11 @@ $.fn.extend(
 		#		edge <'top'> or <'bottom'> 		– whether the top or the bottom edge should become a trap
 		#	windowTrap: <boolean> 				– whether use window as a trap or not
 
+		if this.css('position') is 'fixed'
+			this.css "transform":"translateY(0px)"
+			return
+		# if the element position is fixed then fuck it. traping should not kick in. Also reset translateY to 0
+
 		if windowTrap
 			offsetTop = $(document).scrollTop() - this[0].offsetTop
 			offsetBottom = $(document).scrollTop() + window.innerHeight - this[0].offsetTop - this[0].offsetHeight

@@ -11,30 +11,43 @@ video:
         webm: ../../assets/videos/video.webm
         mp4: ../../assets/videos/video.mp4
 
-    tracks:
-        pl: ../../assets/videos/video-pl.vtt
-        en: ../../assets/videos/video-en.vtt
-
 home_logo:
-    title: Otwary Jazdów – Strona Glówna
+    title: Otwary Jazdów – Strona Główna
     href: /
 
 main_menu:
-    -
-        title: wydarzenia
-        href: /wydarzenia/
-    -
-        title: historia
-        href: /historia/
-    -
-        title: model
-        href: /model/
-    -
-        title: partnerstwo
-        href: /partnerstwo/
-    -
-        title: kontakt
-        href: /kontakt/
+    pl:
+        -
+            title: wydarzenia
+            href: /wydarzenia/
+        -
+            title: historia
+            href: /historia/
+        -
+            title: model
+            href: /model/
+        -
+            title: partnerstwo
+            href: /partnerstwo/
+        -
+            title: kontakt
+            href: "#page-footer"
+    en:
+        -
+            title: events
+            href: /events/
+        -
+            title: history
+            href: /history/
+        -
+            title: model
+            href: /model-en/
+        -
+            title: partnership
+            href: /partnership/
+        -
+            title: contact
+            href: "#page-footer"
 
 contacts:
     -

@@ -5,7 +5,9 @@ dom-module#oj-video
 	// ---------------------------------------------------------------	
 	style
 		:stylus
-			@import '../css/imports/variables'
+			@import '../css/imports/*'
+			@import '../../.factory/node_modules/nib/lib/nib/*'
+			@import '../../.factory/node_modules/rupture/rupture/index.styl'
 			:host
 				#video_overlay
 					position: absolute
@@ -20,11 +22,39 @@ dom-module#oj-video
 					right: 2rem
 					display: inline-block
 					color: white
-					font-family: P
+					font-family: $P
 					font-weight: 700
 					text-align: right
-					padding: .2em .5em
 					letter-spacing: .125em
+					+below(1100px)
+						top: 2rem
+						right: 1rem
+				#bannertext
+					position: absolute
+					display: flex
+					flex-direction: column
+					justify-content: center
+					width: 50%
+					height: 100%
+					top: 0
+					left: 25%
+					p
+						display: block
+						margin: 0 auto
+						font-family: $P
+						font-weight: 700
+						text-align: center
+						line-height: 1em
+						color: rgba(white, .9)
+						padding: 1rem 0
+						border-top: 8px solid rgba(white, .9)
+						border-bottom: 8px solid rgba(white, .9)
+						font-size: 7rem
+						+below(1600px)
+							font-size: 5rem
+						+below(1100px)
+							font-size: 3.5rem
+						
 				video
 					width: 100%
 					height: auto
@@ -37,11 +67,14 @@ dom-module#oj-video
 	template
 		#video_overlay(on-tap="_playToggle")
 			#subtitles
+			#bannertext
+				p [[bannertext]]
 			content
 		video#video(playsinline muted autoplay loop="true" poster="[[poster]]")
 			source(src="[[source.webm]]" type="video/webm")
 			source(src="[[source.mp4]]" type="video/mp4")
 			track#track(src="[[track]]" srclang="[[lang]]" kind="caption" on-cuechange="_updateSubs" default)
+			track#banner(src="[[banner]]" srclang="[[lang]]" kind="caption" on-cuechange="_updateBanner" default)
 
 	// ---------------------------------------------------------------	
 	script
@@ -50,16 +83,30 @@ dom-module#oj-video
 				is: 'oj-video'
 				properties:
 					poster: String
-					track: String
 					lang: String
 					source: Object
+					track: String
+					banner: String
+					caption:
+						type: String
+						reflectToAttribute: true
+					bannertext:
+						type: String
+						reflectToAttribute: true
+					
 
 				_updateSubs: ->
 					this.$.subtitles.innerHTML = this.caption = this.$.video.textTracks[0].activeCues[0].text
+					return
+					
+				_updateBanner: ->
+					this.$.bannertext.children[0].innerHTML = this.bannertext = this.$.video.textTracks[1].activeCues[0].text
+					return
 
 				_playToggle: ->
 					video = this.$.video
 					if video.paused then video.play() else video.pause()
+					return
 
 				ready: ->
 					this._checkDeps()

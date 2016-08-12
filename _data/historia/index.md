@@ -18,45 +18,65 @@ title: Historia osiedla Jazdów
 
 timeline:
     -
-        date: 28.06.1945
-        title: Budowa Domków Fińskich
-        caption: Zapada decyzja, że Warszawa zostanie odbudowana
+        date: 27-29 października 2016
+        title: Konferencja o społecznościowym zarządzaniu przestrzenią miejską.
     -
-        date: 12.02.1948
-        title: Trwa budowa ambasady francuskiej
-        caption:
+        date: listopad-grudzień 2015
+        title: konkurs na działania społeczno-kulturalne w domkach fińskich
+        image: https://placeimg.com/640/480/any
+        caption: "Dzięki naszym staraniom konkurs na działania w domkach fińskich przeprowadzono w partnerstwie strony społecznej i urzędów dzielnicy i miasta. Jako strona społeczna wystawiliśmy do jury sześć osób, które miały łącznie 5 głosów na 9. Zmodyfikowaliśmy formułę konkursu: organizacje, które aplikowały w konkursie, mogły spotkać się przed rozstrzygnięciem i ewentualnie połączyć siły, aby zwiększyć swoje szanse i lepiej wykorzystać możliwość, jakie daje domek.  
+Obecnych gospodarzy domków znajdziesz na „Mapie” osiedla.  "
     -
-        date: maj 1950
-        title: Trwa budowa Trasy Łazienkowskiej
-        caption: W tzw. Czarnej alejce między osiedlem, a Parkiem Ujazdowskim, zostaje nadane imię Johna Lennona
+        date: styczeń-grudzień 2016
+        title: realizacja projektu „ Community Management Model for Jazdów Settlement”
+        caption: Tworzymy model społecznościowego zarządzania przestrzenią Jazdowa. Projekt relizowany jest przy wsparciu European Cultural Foundation i Biura Obsługi Inicjatyw i Ruchów Społecznych. Więcej informacji znajdziesz w zakładce „Model”.
     -
-        date: 28.06.1956
-        title: Budowa Domków Fińskich
-        caption: Rozebranie kilkudziesięciu domków fińskich pod budowę ambasady francuskiej przy ulicy Pięknej 1
+        date: 28 kwietnia 2015
+        title: uznanie wyników konsultacji społecznych i podpisanie listu intencyjnego
+        caption: Władze Warszawy uznały za wiążące wyniki konsultacji społecznych dotyczących Jazdowa, prowadzonych przez Stowarzyszenie Kulturotwórcze Miastodwa, i podpisały list intencyjny z Otwartym Jazdowem – Partnerstwem dla Osiedla Jazdów, w sprawie realizacji wyników konsultacji.
     -
-        date: 24.05.1968
-        title: Trwa budowa Trasy Łazienkowskiej
-        caption: Na Jazdowie stoi 29 domków. Kolonia na Ujazdowie wygrywa plebiscyt internetowy "Miejsce Stołeczne – Społeczne" w kategorii "Miejsce z doświadczeniem"
+        date: od lutego 2015
+        title: prace nad partnerstwem Otwarty Jazdów
+        image: https://placeimg.com/640/480/any
+        caption: 'Pod opieką Biura Obsługi Ruchów i Inicjatyw Społecznych jako członkowie wciąż nieformalnej grupy Otwarty Jazdów przystąpiliśmy do tworzenia partnerstwa lokalnego, które mogłoby tymczasowo zarządzać osiedlem we współpracy z urzędami dzielnicy i miasta. Więcej informacji o partnerstwie znajdziesz w zakładce „Partnerstwo”. '
     -
-        date: 28.06.1974
-        title: Trwa budowa ambasady francuskiej
-        caption: Rada Narodowa Warszawa Śródmieście ogłasza, że domki fińskie na Jazdowie zostaną rozebrane do 1974 roku
+        date: luty-październik 2014
+        title: konsultacje społeczne na temat przyszłości terenu osiedla Jazdów
+        caption: '11 lipca 2013 roku Rada m.st. Warszawy podjęła uchwałę, w myśl której konsultacje społeczne mogą odbywać się na wniosek mieszkańców Warszawy podpisany przez co najmniej 1 000 osób. Już we wrześniu tego samego roku Stowarzyszenie Mieszkańców Domków Fińskich Jazdów wykorzystało tę możliwość, składając wniosek o  przeprowadzenie konsultacji w sprawie terenu Osiedla Jazdów, podpisany przez ponad 2 000 osób. Władze m.st. Warszawy przychyliły się do złożonego wniosku i  przystąpiły do realizacji procesu konsultacji społecznych, których celem było wypracowanie społecznej koncepcji zagospodarowania terenu Osiedla Jazdów. Warsztaty konsultacyjne prowadziło Stowarzyszenie Kulturotwórcze Miastodwa. <a href="http://konsultacje.um.warszawa.pl/sites/konsultacje.um.warszawa.pl/files/raport_konsultacje_osiedle_jazdow.pdf">Link do raportu</a> (obowiązujące są wyniki „grupy wspólnej”)'
     -
-        date: 28.06.1989
-        title: Zapada decyzja, że Warszawa zostanie odbudowana
-        caption: Rozebranie kilkudziesięciu domków fińskich pod budowę ambasady francuskiej przy ulicy Pięknej 1
+        date: maj 2013
+        title: festiwal „Otwarty Jazdów”
+        image: https://placeimg.com/640/480/any
+        caption: 'Z inicjatywy mieszkańców Jazdowa i Warszawy zorganizowany zostaje festiwal społeczno-kulturalny „Otwarty Jazdów”.'
     -
-        date: 28.06.1991
-        title: Budowa Domków Fińskich
-        caption: Z inicjatywy mieszkańców zostaje zorganizowana pierwsza Noc Muzeów na Jazdowie
+        date: grudzień 2012
+        title: decyzją władz dzielnicy rozebrano 4 domki fińskie
+        caption: Na przełomie listopada i grudnia 2012 r. 4 domki fińskie zostały zlikwidowane, sprzedane i wywiezione z Jazdowa.
     -
-        date: 28.06.1998
-        title: Trwa budowa ambasady Fińskich
-        caption: Zapada decyzja, że Warszawa zostanie odbudowana
+        date: grudzień 2012
+        title: osiedle Jazdów wygrywa plebiscyt internetowy „Miejsce Stołeczne – Społeczne”
+        caption: 'Osiedle Jazdów głosami mieszkańców Warszawy zwyciężyło w kategorii  „Miejsce z doświadczeniem” w ramach trzeciej edycji Stołeczne-Społeczne – plebiscytu organizowanego przez serwis <a href="http://warszawa.ngo.pl">warszawa.ngo.pl</a>, którego celem jest odkrycie i nagrodzenie miejsc aktywizujących i integrujących mieszkańców stolicy. Jak piszą organizatorzy konkursu: „Miejsc, które zaspokajają rozmaite potrzeby warszawiaków oraz pozwalają im realizować własne aspiracje – obywatelskie, kulturalne, edukacyjne. W końcu miejsc, które decydują o tożsamości miasta.”'
     -
-        date: 28.06.2010
-        title: Budowa Domków Fińskich
-        caption: W tzw. Czarnej alejce między osiedlem, a Parkiem Ujazdowskim, zostaje nadane imię Johna Lennona
+        date: 2011
+        title: powstaje Stowarzyszenie Mieszkańców Domków Fińskich Jazdów
+    -
+        date: 2011
+        title: Władze Śródmieścia postanowiły zburzyć domki
+        caption: W latach 2011-2014 wokół osiedla Jazdów toczyły się burzliwe dyskusje, a wręcz obywatelska batalia, aby to miejsce nie zniknęło z mapy Warszawy. Władze dzielnicy Śródmieście postanowiły przeznaczyć ten atrakcyjny teren do zabudowy na cele komercyjne i użyteczności publicznej. Jednak mieszkańcy i aktywiści miejscy utworzyli inicjatywę o nazwie Otwarty Jazdów broniącą historycznego osiedla. W kolejnych miesiącach odbyło się szereg wydarzeń społecznych, kulturalnych, edukacyjnych i artystycznych, które pokazywały olbrzymi potencjał osiedla Jazdów.
+    -
+        date: 2005
+        title: Rozebranie kilku domków pod budowę ambasady Niemiec
+        image: https://placeimg.com/640/480/any
+    -
+        date: 1968
+        title: Rozebranie kilkunastu domków pod budowę Trasy Łazienkowskiej
+    -
+        date: 1967
+        title: Rozebranie kilku domków pod budowę ambasady Francji
+    -
+        date: czerwiec 1945
+        title: Rozpoczęcie budowy osiedla „domków fińskich”
+        caption: Drewniane domy wchodzące w skład kolonii pochodziły z reparacji wojennych, jakie Finlandia była zmuszona świadczyć po II wojnie światowej na rzecz ZSRR. Oddane przez Związek Radziecki Polsce domki te wznoszono później w różnych częściach kraju, w tym w zburzonej Warszawie, gdzie palącym problemem był brak mieszkań. Osiedle Jazdów, składające się ze 100 takich domków, zostało zaplanowane jako rozwiązanie prowizoryczne na okres 5 lat. Przetrwało do dziś jako jedno z nielicznych tego typu, stanowiąc ciekawostkę warszawskiego Śródmieścia.
 
 ---
 Osiedle Jazdów w Warszawie to kolonia parterowych drewnianych domków jednorodzinnych powstała w 1945 roku i znajdująca się na tyłach Parku Ujazdowskiego w Warszawie.

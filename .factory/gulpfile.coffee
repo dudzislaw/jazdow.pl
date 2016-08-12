@@ -22,6 +22,7 @@ bower = require('gulp-main-bower-files')
 browserSync = require('browser-sync').create()
 htmlInjector = require('bs-html-injector')
 path = require('path')
+del = require('del')
 notifier = require('node-notifier')
 gutil = require('gulp-util')
 ghPages = require('gulp-gh-pages')
@@ -241,6 +242,31 @@ gulp.task 'ui', ->
 gulp.task 'assets', ->
 	stream = gulp.src(paths.assets, { base: '../_assets/' }).pipe(gulp.dest('../dist/assets/'))
 	return
+
+
+
+#--------------------
+# EMPTY DIST FOLDER
+
+gulp.task 'clean', ->
+	return del ['../dist/**/*'], force:true
+
+
+
+#--------------------
+# REBUILD PROJECT
+
+gulp.task 'rebuild', [
+	'clean'
+	'bower-deps'
+	'jade'
+	'jade-polymer'
+	'coffee'
+	'stylus'
+	'ui'
+	'assets'
+]
+
 
 
 #--------------------

@@ -28,7 +28,7 @@ h1, h2, h3, h4, h5, h6
 	color: $oj-violet
 
 h1
-	font-size: 1.8rem
+	font-size: 2rem
 	line-height: 1.4em
 	font-weight: 700
 	font-style: normal
@@ -36,7 +36,7 @@ h1
 
 
 h2
-	font-size: 1.4rem
+	font-size: 1.8rem
 	line-height: 1.4em
 	font-weight: 700
 	font-style: normal
@@ -84,9 +84,15 @@ p
 
 
 a
-	color: inherit
+	color: $base_link_color
 	text-decoration: none
 
+
+em
+	font-style: italic
+
+strong
+	font-weight: 700
 
 
 // DESTINATION SPECIFIC LINKS:
@@ -122,6 +128,7 @@ table
 	tfoot
 	tbody
 	tr
+		border-bottom: 1px solid $table_border_color
 	th
 		font-weight: 700
 		padding: 10px
@@ -134,25 +141,23 @@ table
 // ! LISTS
 
 
+ul, ol
+	padding-left: $base_line_height
+	font-size: $base_font_size
+	line-height $base_line_height
+	letter-spacing 0.02em
+	margin-bottom: 2em
+	margin-left: .6em
+	ol, ul
+		font-size: 1em
+
+
 ul
 	list-style-type: disc
-	margin-bottom: $base_line_height / 2
-	padding-left: $base_line_height
-	font-size: 0.9em
-	ol, ul
-		font-size: 1em
-
-
 ol
 	list-style-type: decimal
-	margin-bottom: $base_line_height / 2
-	padding-left: $base_line_height
-	font-size: 0.9em
 	ol
 		list-style-type:lower-alpha
-
-	ol, ul
-		font-size: 1em
 
 
 
@@ -180,11 +185,14 @@ del
 
 pre
 	overflow:auto
-	font-size: 0.8em
+	display: block
+	font-size: 1.2rem
 	line-height: 1.4em
-	padding: 0 2em
+	font-family: monospace
+	padding: 1em
 	border-left: 1px solid $light
 	margin: 0.5em 0
+	background-color: #EEE
 
 hr
 	border-bottom: 1px solid $base_border_color

@@ -7,6 +7,8 @@ imports:
     -
         "/lib/elements/oj-menu.html"
     -
+        "/lib/elements/oj-menu-item.html"
+    -
         "/lib/elements/oj-calendar.html"
 
 styles:
@@ -18,27 +20,36 @@ scripts:
 
 lang: en
 
+title: Home
+
+video:
+    track: ../../assets/videos/video-en.vtt
+    banner: ../../assets/videos/banner-en.vtt
+
+
+about_title: Open Jazdów is the community of the Warsaw settlement of wooden Finnish houses, offering a social, cultural and ecological public program.
+
 cards:
     -
-        title: historia
-        href: /historia.html
+        title: History
+        href: /history/
         content: <img src="/lib/ui/oj-history.svg">
-        caption: Zobacz na osi czasu historię Jazdowa i Domków Fińskich od 1653 roku.
+        caption: The history timeline of Jazdów settlement, since 1945
     -
         title: Model
-        href: /model.html
+        href: /model-en/
         content: <img src="/lib/ui/oj-model.svg">
-        caption: Tworzymy społeczny model zarządzania and something and stuff.
+        caption: We are creating the model of blah blah blah
     -
         title: Partnerstwo
-        href: /partnerstwo.html
+        href: /partnership/
         content: 35
-        caption: organizacji i osób prywatnych tworzy partnerstwo dla osiedla Jazdów.
+        caption: Organisations and
 
 events:
     title: Wydarzenia
     intro: "W domkach fińskich działa 16 organizacji, oferujących wiele ciekawych wydarzeń. Zobacz co dzieje się na Jazdowie w najbliższych dniach:"
-    page: /wydarzenia.html
+    page: /events/
     image: /assets/images/arch-duo.png
     limit: 10
     showDays: 7
@@ -48,6 +59,8 @@ events:
         what: Co
     button: cały kalendarz
 ---
-Osiedle Jazdów w Warszawie to kolonia parterowych drewnianych domków jednorodzinnych powstała w 1945 roku i znajdująca się na tyłach Parku Ujazdowskiego w Warszawie.
+Open Jazdów is both the name of community and actions undertaken in Jazdów settlement in Warsaw, just behind The Ujazdowski Public Garden. After The Second World War, the colony of Finnish houses, that were constructed here, served as residential area for workers of Warsaw Reconstruction Bureau.
 
-Uses include accessing computed style information, and adding document-level event listeners. (If you use declarative event handling, such as annotated event listeners or the listeners object, Polymer automatically adds listeners on attach and removes them on detach.)
+Today, Open Jazdów splits together residential and public functions. In 27 wooden houses and the adjacent gardens live and act next to each other: residents, non-governmental organizations, urban gardeners and beekeepers, academics and students, artists and workers of businesses, cooperatives, embassies and public institutions.
+
+Our mission is to mix and match different groups to commonly develop public space, to create social and cultural program available to everyone, to practice alternative models of financing and sharing, to cultivate the gardens and just to hang well. We prove that a city can serve all: people, animals, insects and plants, and be a source of inexhaustible wealth posed by increasing social capital.

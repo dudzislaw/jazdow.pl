@@ -1,7 +1,9 @@
 section#video-background.bg
 	oj-video#video(
 		poster=data.video.poster
-		track=data.video.tracks.pl
+		track=video.track
+		banner=video.banner
+		bannertext=video.bannertext
 		lang=lang
 		source=JSON.stringify(data.video.source)
 		)
