@@ -1,0 +1,130 @@
+
+<link rel="import" href="../bower_components/polymer/polymer.html"/>
+<dom-module id="oj-expander">
+  <!-- ----------------------------------------------------------------->
+  <style>* {
+  box-sizing: border-box;
+}
+.card-title {
+  font-size: 1rem;
+  line-height: 1.2em;
+  font-weight: 700;
+  font-family: P;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.oj-button-a {
+  display: inline-block;
+  width: 24rem;
+  font-family: $P;
+  font-weight: 700;
+  color: $oj-violet;
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: 0.1em;
+  min-width: 7.5rem;
+  border: 1px solid $oj-violet;
+  box-shadow: 0 2px 4px 0 $oj-green;
+  padding: 1.25rem 1rem;
+}
+.trap-top {
+  position: fixed;
+}
+:host #read-more {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-decoration: underline;
+  font-family: P;
+  font-weight: 700;
+  cursor: pointer;
+  color: #5200cc;
+}
+
+  </style>
+  <!-- ----------------------------------------------------------------->
+  <template>
+    <div id="content">
+      <content></content>
+    </div><a id="read-more" on-tap="_toggleHide">[[currentText]]</a>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-expander',
+    properties: {
+      reveal: {
+        type: Number,
+        value: 1
+      },
+      showText: {
+        type: String,
+        value: 'Read more'
+      },
+      hideText: {
+        type: String,
+        value: 'Hide this'
+      },
+      currentText: String,
+      isHidden: {
+        type: Boolean,
+        value: false
+      }
+    },
+    _hide: function() {
+      var i, item, key, len, ref;
+      ref = this.$.content.children;
+      for (key = i = 0, len = ref.length; i < len; key = ++i) {
+        item = ref[key];
+        if (key >= this.reveal) {
+          item.style.display = 'none';
+        }
+      }
+      this.currentText = this.showText;
+      this.isHidden = true;
+    },
+    _reveal: function() {
+      var i, item, key, len, ref;
+      ref = this.$.content.children;
+      for (key = i = 0, len = ref.length; i < len; key = ++i) {
+        item = ref[key];
+        item.style.display = 'inherit';
+      }
+      this.currentText = this.hideText;
+      this.isHidden = false;
+    },
+    _toggleHide: function() {
+      if (this.isHidden) {
+        this._reveal();
+      } else {
+        this._hide();
+      }
+    },
+    ready: function() {
+      if (this.isHidden) {
+        this._hide();
+      }
+    },
+    attached: function() {},
+    detached: function() {},
+    check_deps: function() {
+      var dep, deps, i, len, results, thisis;
+      deps = [];
+      thisis = this.is;
+      results = [];
+      for (i = 0, len = deps.length; i < len; i++) {
+        dep = deps[i];
+        results.push((function(dep) {
+          if (typeof window[dep] === 'undefined') {
+            return console.error(thisis + ' polymer element needs ' + dep);
+          }
+        })(dep));
+      }
+      return results;
+    }
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

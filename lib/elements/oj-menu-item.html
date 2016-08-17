@@ -1,0 +1,115 @@
+
+<link rel="import" href="../bower_components/polymer/polymer.html"/>
+<link rel="import" href="oj-styles.html"/>
+<dom-module id="oj-menu-item">
+  <!-- ----------------------------------------------------------------->
+  <style>* {
+  box-sizing: border-box;
+}
+.card-title {
+  font-size: 1rem;
+  line-height: 1.2em;
+  font-weight: 700;
+  font-family: P;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.oj-button-a {
+  display: inline-block;
+  width: 24rem;
+  font-family: $P;
+  font-weight: 700;
+  color: $oj-violet;
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: 0.1em;
+  min-width: 7.5rem;
+  border: 1px solid $oj-violet;
+  box-shadow: 0 2px 4px 0 $oj-green;
+  padding: 1.25rem 1rem;
+}
+.trap-top {
+  position: fixed;
+}
+:host {
+  display: block;
+  line-height: 1em;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  color: inherit;
+  float: left;
+  margin-left: 3rem;
+}
+:host:hover {
+  color: #5200cc;
+}
+:host[selected] {
+  border-bottom: 4px solid #404040;
+}
+@media only screen and (max-width: 1100px) {
+  :host {
+    float: none;
+    margin-left: 0;
+    border-bottom: 1px solid #d8d8d8;
+  }
+  :host:first-of-type {
+    border-top: 1px solid #d8d8d8;
+  }
+  :host[selected] {
+    border-bottom: 1px solid #d8d8d8;
+    color: #5200cc;
+  }
+}
+:host a {
+  color: inherit;
+}
+
+  </style>
+  <!-- ----------------------------------------------------------------->
+  <template><a href="[[href]]" title="[[title]]">[[title]]</a></template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-menu-item',
+    properties: {
+      href: String,
+      title: String,
+      selected: {
+        type: Boolean,
+        reflectToAttribute: true,
+        computed: '_computeSelected(href)'
+      }
+    },
+    _computeSelected: function(href) {
+      if (href === window.location.pathname) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    ready: function() {
+      this._checkDeps();
+    },
+    attached: function() {},
+    detached: function() {},
+    _checkDeps: function() {
+      var dep, deps, i, len, results, thisis;
+      deps = [];
+      thisis = this.is;
+      results = [];
+      for (i = 0, len = deps.length; i < len; i++) {
+        dep = deps[i];
+        results.push((function(dep) {
+          if (typeof window[dep] === 'undefined') {
+            return console.error(thisis + ' polymer element needs ' + dep);
+          }
+        })(dep));
+      }
+      return results;
+    }
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>
