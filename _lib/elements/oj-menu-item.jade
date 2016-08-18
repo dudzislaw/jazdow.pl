@@ -11,7 +11,7 @@ dom-module#oj-menu-item
 			:host
 				display: block
 				line-height: 1em
-				padding: 1.5rem 0
+				padding: 1.5rem 0 1.75rem 0
 				cursor: pointer
 				color: inherit
 				float: left
@@ -20,6 +20,8 @@ dom-module#oj-menu-item
 					color: $oj-violet
 				&[selected]
 					border-bottom: 4px solid $oj-dark
+					&:hover
+						border-color: $oj-violet
 				// Tablets:
 				+below(1100px)
 					float: none
