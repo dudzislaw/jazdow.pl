@@ -19,19 +19,19 @@ main_menu:
     pl:
         -
             title: wydarzenia
-            href: /wydarzenia/
+            href: /#/wydarzenia/
         -
             title: mapa
-            href: /mapa/
+            href: /#/mapa/
         -
             title: historia
-            href: /historia/
+            href: /#/historia/
         -
             title: model
-            href: /model/
+            href: /#/model/
         -
             title: partnerstwo
-            href: /partnerstwo/
+            href: /#/partnerstwo/
         -
             title: kontakt
             href: "#page-footer"

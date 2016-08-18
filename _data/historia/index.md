@@ -1,6 +1,8 @@
 ---
 imports:
     -
+        "/lib/elements/oj-app.html"
+    -
         "/lib/elements/oj-menu.html"
     -
         "/lib/elements/oj-menu-item.html"

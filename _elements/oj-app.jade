@@ -1,0 +1,51 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="../lib/bower_components/app-route/app-location.html")
+link(rel="import" href="../lib/bower_components/app-route/app-route.html")
+
+dom-module#oj-app
+	// ---------------------------------------------------------------
+	style
+		:stylus
+			:host
+				display: block
+
+	// ---------------------------------------------------------------
+	template
+		app-location#location(
+			route='{{route}}'
+			use-hash-as-path
+		)
+		app-route#route(
+			route='{{route}}'
+			pattern='/:page'
+			data='{{pageData}}'
+			tail='{{pageTail}}'
+		)
+		h2 {{pageData.page}}
+		
+		content
+
+	// ---------------------------------------------------------------
+	script
+		:coffeescript
+			Polymer
+				is: 'oj-app'
+
+				ready: ->
+					return
+				attached: ->
+					console.log this.route
+					if !this.route.path
+						this.set 'route.path', '/home'
+					return
+				detached: ->
+					return
+
+
+				check_deps: ->
+					deps = []
+					thisis = this.is
+					for dep in deps
+						do (dep)->
+							if typeof window[dep] is 'undefined'
+								console.error thisis + ' polymer element needs ' + dep

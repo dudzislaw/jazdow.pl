@@ -1,6 +1,8 @@
 ---
 imports:
     -
+        "/lib/elements/oj-app.html"
+    -
         "/lib/elements/oj-video.html"
     -
         "/lib/elements/oj-expander.html"
