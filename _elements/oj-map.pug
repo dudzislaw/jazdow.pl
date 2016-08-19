@@ -4,9 +4,7 @@ dom-module#oj-map
 	// ---------------------------------------------------------------
 	style
 		:stylus
-			@import '../_lib/css/imports/*'
-			@import '../.factory/node_modules/nib/lib/nib/*'
-			@import '../.factory/node_modules/rupture/rupture/index.styl'
+			@import '../_lib/css/elements.imports.styl'
 			$oj-map-dark = $oj-violet
 			
 			:host
@@ -272,7 +270,7 @@ dom-module#oj-map
 
 	// ---------------------------------------------------------------
 	script
-		:coffeescript
+		:coffee-script
 			Polymer
 				is: 'oj-map'
 				properties:

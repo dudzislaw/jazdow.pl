@@ -8,7 +8,7 @@ uglify = require('gulp-uglify')
 gulpFilter = require('gulp-filter')
 concat = require('gulp-concat')
 sourcemaps = require('gulp-sourcemaps')
-jade = require('gulp-jade')
+pug = require('gulp-pug')
 marked  = require 'marked'
 yaml = require('gulp-yaml')
 fm = require('front-matter')
@@ -17,7 +17,10 @@ coffee = require('gulp-coffee')
 stylus = require('gulp-stylus')
 nib = require('nib')
 rupture = require('rupture')
+autoprefixer = require('autoprefixer')
+lost = require('lost')
 poststylus = require('poststylus')
+htmlpostcss = require('gulp-html-postcss')
 bower = require('gulp-main-bower-files')
 browserSync = require('browser-sync').create()
 htmlInjector = require('bs-html-injector')
@@ -30,12 +33,13 @@ vulcanize = require('gulp-vulcanize')
 bower = require('gulp-bower')
 
 
+
 # Handy paths
 paths =
 	public: 	'../'
 	data: 		'../_data/**/*'
-	views: 		'../_views/**/*.jade'
-	elements: 	'../_elements/**/*.jade'
+	views: 		'../_views/**/*.pug'
+	elements: 	'../_elements/**/*.pug'
 	stylus: 	'../_lib/css/**/*.styl'
 	cofee: 		'../_lib/js/**/*.coffee'
 	bower: 		'../dist/lib/bower_components/'
@@ -62,7 +66,6 @@ bower_deps = [
 ]
 
 
-
 #--------------------
 # ERROR / SUCCESS handlers
 
@@ -87,41 +90,6 @@ successHandler = (message, title, icon) ->
 
 
 #--------------------
-# JADE – THEME VIEWS
-# compile to html with data from markdown files with the same name
-
-gulp.task 'views', ->
-	isError = false
-	stream = gulp.src(['../_views/**/*.jade', '!../_views/_*/**/*'])
-	.pipe(plumber(
-		errorHandler: (error)->
-			isError = errorHandler(stream, error.message, error.message, 'jade', 'b_jade-e.png')
-	))
-	.pipe(data( (file)->
-		jadeFilePath = path.relative( file.cwd, file.path ) # file path relative to this gulpfile
-		mdFilePath = jadeFilePath.replace('_views/', '_data/').replace('.jade', '.md')
-
-		file_obj = fm fs.readFileSync(mdFilePath, 'utf8') 			# parse and store data from coresponding .md file
-		site_obj = fm fs.readFileSync('../_data/data.md', 'utf8') 	# parse and store sitewide data from data.md file
-		content = file_obj.attributes # merge the above
-		content.data = site_obj.attributes
-		content.content = marked file_obj.body
-		return content
-	))
-	.pipe(jade(
-		pretty: true
-	))
-	.pipe(gulp.dest('../dist/'))
-	.pipe(gulpfn(->
-		unless isError then successHandler 'Compiled Jade', 'jade', 'b_jade-s.png'
-		return
-	))
-	return
-
-
-
-
-#--------------------
 # DATA - MARKDOWN TO JSON
 # compile _data/markdown files to json, write to dist/data
 gulp.task 'data', ->
@@ -129,7 +97,7 @@ gulp.task 'data', ->
 	stream = gulp.src(['../_data/**/*.md'])
 	.pipe(plumber(
 		errorHandler: (error)->
-			isError = errorHandler(stream, error.message, error.message, 'jade', 'b_jade-e.png')
+			isError = errorHandler(stream, error.message, error.message, 'pug', 'b_jade-e.png')
 	))
 	.pipe(data( (file)->
 		dataObject = fm fs.readFileSync(file.path, 'utf8')
@@ -148,26 +116,78 @@ gulp.task 'data', ->
 
 
 
+#--------------------
+# PUG – THEME VIEWS
+# compile to html with data from markdown files with the same name
+
+gulp.task 'views', ->
+	isError = false
+	stream = gulp.src(['../_views/**/*.pug', '!../_views/_*/**/*'])
+	.pipe(plumber(
+		errorHandler: (error)->
+			isError = errorHandler(stream, error.message, error.message, 'pug', 'b_jade-e.png')
+	))
+	.pipe(data( (file)->
+		pugFilePath = path.relative( file.cwd, file.path ) # file path relative to this gulpfile
+		mdFilePath = pugFilePath.replace('_views/', '_data/').replace('.pug', '.md')
+
+		file_obj = fm fs.readFileSync(mdFilePath, 'utf8') 			# parse and store data from coresponding .md file
+		site_obj = fm fs.readFileSync('../_data/data.md', 'utf8') 	# parse and store sitewide data from data.md file
+		content = file_obj.attributes # merge the above
+		content.data = site_obj.attributes
+		content.content = marked file_obj.body
+		return content
+	))
+	.pipe(pug(
+		pretty: true
+	))
+	.pipe(htmlpostcss(
+		[
+			autoprefixer( browsers: ['last 1 version'] ),
+			lost()
+		],
+	))
+	.pipe(gulp.dest('../dist/'))
+	.pipe(gulpfn(->
+		unless isError then successHandler 'Compiled Pug', 'pug', 'b_jade-s.png'
+		return
+	))
+	return
+
+
+
 
 #--------------------
-# JADE – POLYMER ELEMENTS
-# compile polymer elements, write to dist/elements with sourcemaps
+# PUG – POLYMER ELEMENTS
+# compile polymer elements, write to dist/elements, also passing in site data from data.md
 
 gulp.task 'elements', ->
 	isError = false
-	stream = gulp.src('../_elements/**/*.jade')
+	stream = gulp.src('../_elements/**/*.pug')
 	.pipe(sourcemaps.init())
 	.pipe(plumber(
 		errorHandler: (error)->
 			isError = errorHandler(stream, error.message, error.message, 'yaml', 'b_jade-e.png')
 	))
-	.pipe(jade(
+	.pipe(data( (file)->
+		site_obj = fm fs.readFileSync('../_data/data.md', 'utf8') 	# parse and store sitewide data from data.md file
+		content.data = site_obj.attributes
+		content.content = marked site_obj.body
+		return content
+	))
+	.pipe(pug(
 		pretty: true
+	))
+	.pipe(htmlpostcss(
+		[
+			autoprefixer( browsers: ['last 1 version'] ),
+			lost()
+		],
 	))
 	.pipe(sourcemaps.write('.'))
 	.pipe(gulp.dest('../dist/elements/'))
 	.pipe(gulpfn(->
-		unless isError then successHandler 'Compiled Jade', 'jade', 'b_jade-s.png'
+		unless isError then successHandler 'Compiled PUG', 'pug', 'b_jade-s.png'
 		return
 	))
 	return
@@ -187,7 +207,13 @@ gulp.task 'stylus', ->
 		use: [
 			nib()
 			rupture()
-			poststylus([ 'lost','autoprefixer' ])
+			poststylus(
+				[ 'lost','autoprefixer' ],
+				(message)->
+					if message.type is not 'warning'
+						console.info message.text
+						console.info message.node.source.input.file
+			)
 		]))
 	.on('error', (error) ->
 		isError = errorHandler(stream, '', error.message, 'stylus', 'b_stylus-e.png')

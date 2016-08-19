@@ -4,7 +4,7 @@ dom-module#oj-expander
 	// ---------------------------------------------------------------
 	style
 		:stylus
-			@import '../_lib/css/imports/*'
+			@import '../_lib/css/elements.imports.styl'
 			:host
 				#content
 					//- ::content > *
@@ -29,7 +29,7 @@ dom-module#oj-expander
 
 	// ---------------------------------------------------------------
 	script
-		:coffeescript
+		:coffee-script
 			Polymer
 				is: 'oj-expander'
 				properties:

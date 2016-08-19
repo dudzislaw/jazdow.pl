@@ -6,8 +6,13 @@ dom-module#oj-app
 	// ---------------------------------------------------------------
 	style
 		:stylus
+			@import '../_lib/css/elements.imports.styl'
 			:host
 				display: block
+				lost-center: 960px 2em flex
+				background-color: $oj-pink
+				&:after
+					icon()
 
 	// ---------------------------------------------------------------
 	template
@@ -27,7 +32,7 @@ dom-module#oj-app
 
 	// ---------------------------------------------------------------
 	script
-		:coffeescript
+		:coffee-script
 			Polymer
 				is: 'oj-app'
 

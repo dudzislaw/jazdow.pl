@@ -5,9 +5,7 @@ dom-module#oj-menu
 	// ---------------------------------------------------------------
 	style
 		:stylus
-			@import '../_lib/css/imports/*'
-			@import '../.factory/node_modules/nib/lib/nib/*'
-			@import '../.factory/node_modules/rupture/rupture/index.styl'
+			@import '../_lib/css/elements.imports.styl'
 			:host
 				display: block
 				position: relative
@@ -83,7 +81,7 @@ dom-module#oj-menu
 
 	// ---------------------------------------------------------------
 	script
-		:coffeescript
+		:coffee-script
 			Polymer
 				is: 'oj-menu'
 				properties:

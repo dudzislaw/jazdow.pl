@@ -5,8 +5,7 @@ dom-module#oj-calendar
 	// ---------------------------------------------------------------
 	style
 		:stylus
-			@import '../_lib/css/imports/*'
-			@import '../.factory/node_modules/nib/lib/nib/*'
+			@import '../_lib/css/elements.imports.styl'
 			:host
 				width: 100%
 				color: $oj-violet
@@ -50,7 +49,7 @@ dom-module#oj-calendar
 
 	// ---------------------------------------------------------------
 	script
-		:coffeescript
+		:coffee-script
 			Polymer
 				is: 'oj-calendar'
 				properties:
