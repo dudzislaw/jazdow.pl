@@ -75,12 +75,3 @@ dom-module#oj-expander
 
 				detached: ->
 					return
-
-
-				check_deps: ->
-					deps = []
-					thisis = this.is
-					for dep in deps
-						do (dep)->
-							if typeof window[dep] is 'undefined'
-								console.error thisis + ' polymer element needs ' + dep

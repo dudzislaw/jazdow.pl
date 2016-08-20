@@ -102,8 +102,8 @@ gulp.task 'data', ->
 	.pipe(data( (file)->
 		dataObject = fm fs.readFileSync(file.path, 'utf8')
 		parsedObject = dataObject.attributes
-		parsedObject.content = marked dataObject.body
-		file.contents = new Buffer(JSON.stringify(parsedObject))
+		parsedObject.content = dataObject.body
+		file.contents = new Buffer(JSON.stringify(parsedObject), 'utf8')
 		file.path = file.path.replace '.md', '.json'
 	))
 	.pipe(gulp.dest('../dist/data/'))
@@ -314,8 +314,9 @@ gulp.task 'serve', ->
 			baseDir: '../dist'
 		https: true
 		files: [
-			'../dist/lib/**/*.css'
 			'../dist/**/*.html'
+			'../dist/data/**/*'
+			'../dist/lib/**/*.css'
 			'../dist/lib/js/**/*'
 			'../dist/lib/ui/**/*'
 			'../dist/lib/fonts/**/*'
@@ -331,6 +332,7 @@ gulp.task 'serve', ->
 #--------------------
 # WATCH
 gulp.task 'watch', ->
+	gulp.watch paths.data, ['data']
 	gulp.watch paths.elements, ['elements']
 	gulp.watch paths.views, ['views']
 	gulp.watch paths.ui, ['ui']

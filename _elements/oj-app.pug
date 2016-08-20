@@ -2,6 +2,11 @@ link(rel="import" href="../lib/bower_components/polymer/polymer.html")
 link(rel="import" href="../lib/bower_components/app-route/app-location.html")
 link(rel="import" href="../lib/bower_components/app-route/app-route.html")
 
+link(rel="import" href="oj-menu.html")
+link(rel="import" href="oj-menu-item.html")
+link(rel="import" href="oj-page.html")
+link(rel="import" href="oj-footer.html")
+
 dom-module#oj-app
 	// ---------------------------------------------------------------
 	style
@@ -9,10 +14,8 @@ dom-module#oj-app
 			@import '../_lib/css/elements.imports.styl'
 			:host
 				display: block
-				lost-center: 960px 2em flex
-				background-color: $oj-pink
-				&:after
-					icon()
+				.trap-top
+					position: fixed
 
 	// ---------------------------------------------------------------
 	template
@@ -26,9 +29,17 @@ dom-module#oj-app
 			data='{{pageData}}'
 			tail='{{pageTail}}'
 		)
-		h2 {{pageData.page}}
 		
+		.trap-top
+		oj-menu#main-menu(logo=JSON.stringify(data.home_logo))
+			each item in data.main_menu.pl
+				oj-menu-item(href=item.href title=item.title)= item.title
+
+		oj-page(page='[[pageData.page]]' route='[[pageTail]]')
+
 		content
+
+		oj-footer
 
 	// ---------------------------------------------------------------
 	script
@@ -39,18 +50,8 @@ dom-module#oj-app
 				ready: ->
 					return
 				attached: ->
-					console.log this.route
 					if !this.route.path
-						this.set 'route.path', '/home'
+						this.set 'route.path', '/'
 					return
 				detached: ->
 					return
-
-
-				check_deps: ->
-					deps = []
-					thisis = this.is
-					for dep in deps
-						do (dep)->
-							if typeof window[dep] is 'undefined'
-								console.error thisis + ' polymer element needs ' + dep

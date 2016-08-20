@@ -1,17 +1,7 @@
 ---
 imports:
     -
-        "/lib/elements/oj-app.html"
-    -
-        "/lib/elements/oj-video.html"
-    -
-        "/lib/elements/oj-expander.html"
-    -
-        "/lib/elements/oj-menu.html"
-    -
-        "/lib/elements/oj-menu-item.html"
-    -
-        "/lib/elements/oj-calendar.html"
+        "/elements/oj-app.html"
 
 styles:
     screen: /lib/css/screen.css

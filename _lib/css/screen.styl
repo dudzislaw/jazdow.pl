@@ -31,7 +31,7 @@ section.full, article.full
 	clearfix()
 
 oj-app.video-bg
-	section#main-menu-container
+	oj-menu
 		margin-top: 56.15vw
 		+below(1100px)
 			margin-top: 64vw
@@ -41,10 +41,6 @@ oj-app.video-bg
 	clearfix()
 	+below(1100px)
 		padding: 0 1rem
-	&.home-about
-		margin-top: 8rem
-		+below(1100px)
-			margin-top: 6rem
 	&.home-cards
 		margin-top: 8rem
 	&.home-events
@@ -320,67 +316,6 @@ oj-app.video-bg
 
 
 // FOOTER
-footer#page-footer
-	width: 100%
-	clearfix()
-	display: block
-	padding: 4.5rem 0 0 0
-	background-image: url('/assets/images/jazdow-pw.png')
-	background-position: right bottom
-	background-repeat: no-repeat
-	background-color: $oj-light
-	+below(800px)
-		padding: 2.5rem 0 0 0
-	.inner-section.page-footer
-		display: flex
-	.contacts
-		lost-column: 3/4 2 $gutter flex
-		margin-bottom: 8rem
-		padding-bottom: 2rem
-		background-color: rgba($oj-light, .7)
-		+below(800px)
-			lost-column: 1/1 1 $gutter flex
-			margin-bottom: 3rem
-			padding: 3rem 0
-		.contact
-			display: block
-			float: left
-			margin-right: $gutter
-			.contact-title
-				@extend .card-title
-			.contact-details
-				p
-					font-size: 1.2rem
-					line-height 1.5em
-					letter-spacing 0.04em
-					margin-bottom: 1rem
-	.social
-		lost-column: 1/4 2 $gutter flex
-		+below(800px)
-			lost-column: 1/1 1 $gutter flex
-			margin-bottom: 6rem
-			text-align: center
-		.social-icon
-			icon()
-			display: block
-			size: 2rem
-			float: right
-			color: $oj-violet
-			font-size: 2rem
-			text-align: right
-			margin-left: $gutter
-			&#facebook:after
-				content: 'b'
-			&#google:after
-				content: 'a'
-			&#instagram:after
-				content: 'd'
-			+below(800px)
-				float: none
-				margin-left: 0
-				margin-right: $gutter
-				display: inline-block
-
 
 
 
@@ -390,24 +325,9 @@ oj-menu.trapped.top
 	background-color: rgba(white, .95)
 	box-shadow: 0 1px 5px rgba(black, .15)
 
-oj-expander
-	lost-column: 2/3 0 $gutter flex
-	+below(1100px)
-		lost-offset: -2/12 row $gutter
-		text-align: center
-		p
-			font-size: 1.8rem
-	+below(600px)
-		display: block
-		width: 100%
-		lost-offset: 0 row $gutter
-
 oj-calendar
 	width: 100%
 	margin: 4rem 0
 	text-align: left
 	+below(1100px)
 		margin: 1rem 0 2rem 0
-
-.trap-top
-	position: fixed

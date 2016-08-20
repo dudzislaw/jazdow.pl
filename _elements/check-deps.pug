@@ -1,0 +1,10 @@
+script
+	:coffee-script
+		window.checkDeps =
+				
+			check: (element, deps)->
+				for dep in deps
+					do (dep)->
+						if typeof window[dep] is 'undefined'
+							console.error element + ' needs ' + dep
+						else console.info element + ' is using ' + dep

@@ -8,12 +8,12 @@ site_title: Otwarty Jazdów
 video:
     poster: ../../assets/videos/poster.jpg
     source:
-        webm: ../../assets/videos/video.webm
-        mp4: ../../assets/videos/video.mp4
+        webm: ../assets/videos/video.webm
+        mp4: ../assets/videos/video.mp4
 
 home_logo:
     title: Otwary Jazdów – Strona Główna
-    href: /
+    href: /#/
 
 main_menu:
     pl:
