@@ -1,7 +1,10 @@
 link(rel="import" href="../lib/bower_components/polymer/polymer.html")
 link(rel="import" href="../lib/bower_components/app-route/app-route.html")
 link(rel="import" href="../lib/bower_components/iron-ajax/iron-ajax.html")
-link(rel="import" href="oj-about.html")
+link(rel="import" href="oj-video.html")
+link(rel="import" href="oj-layout-about.html")
+link(rel="import" href="oj-layout-events-mini.html")
+link(rel="import" href="oj-layout-cards.html")
 
 dom-module#oj-page
 	// ---------------------------------------------------------------
@@ -11,6 +14,7 @@ dom-module#oj-page
 			:host
 				display: block
 				min-height: 10rem
+				background-color: white
 
 	// ---------------------------------------------------------------
 	template
@@ -27,7 +31,11 @@ dom-module#oj-page
 			last-response='{{load}}'
 		)
 		template(is='dom-if' if='{{layout.home}}')
-			oj-about(data='[[load]]')
+			oj-video(params='[[load.video]]')
+			oj-layout-about(params='[[load.about]]' content='[[load.content]]')
+			oj-layout-cards(cards='[[load.cards]]')
+			oj-layout-events-mini(params='[[load.events]]')
+
 		template(is='dom-if' if='{{layout.events}}')
 			h1 [[load.title]]
 		template(is='dom-if' if='{{layout.map}}')

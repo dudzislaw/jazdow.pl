@@ -1,54 +1,54 @@
 ---
-imports:
-    -
-        "/elements/oj-app.html"
-
-styles:
-    screen: /lib/css/screen.css
-
-scripts:
-    vendor: /lib/js/vendor.min.js
-    main: /lib/js/main.min.js
-
 lang: pl
 
 title: Strona główna
 
-about_title: Otwarty Jazdów to społeczność warszawskiego osiedla drewnianych domków fińskich, prowadząca ogólnodostępne działania społeczne, kulturalne i ekologiczne.
+about:
+    title: Otwarty Jazdów to społeczność warszawskiego osiedla drewnianych domków fińskich, prowadząca ogólnodostępne działania społeczne, kulturalne i ekologiczne.
 
 video:
-    track: ../../assets/videos/video-pl.vtt
-    banner: ../../assets/videos/banner-pl.vtt
+    webm: /assets/videos/video.webm
+    mp4: /assets/videos/video.mp4
+    poster: /assets/videos/poster.jpg
+    subs: /assets/videos/video-pl.vtt
+    banner: /assets/videos/banner-pl.vtt
+    lang: pl
 
 cards:
     -
         title: historia
-        href: /historia/
-        content: <img src="/lib/ui/oj-history.svg">
+        href: /#/historia/
+        cover: /lib/ui/oj-history.svg
         caption: Zobacz na osi czasu historię domków fińskich i Otwartego Jazdowa.
     -
         title: Model
-        href: /model/
-        content: <img src="/lib/ui/oj-model.svg">
+        href: /#/model/
+        cover: /lib/ui/oj-model.svg
         caption: Tworzymy model społecznościowego zarządzania przestrzenią miejską.
     -
         title: Partnerstwo
-        href: /partnerstwo/
-        content: 35
+        href: /#/partnerstwo/
+        cover: /lib/ui/oj-model.svg
         caption: Partnerstwo dla osiedla Jazdów tworzą organizacje, instytucje publiczne i osoby prywatne.
 
 events:
     title: Wydarzenia
     intro: "W domkach fińskich działa wiele organizacji, oferujących ciekawe wydarzenia. Chcesz w nich uczestniczyć? Zobacz co dzieje się na Jazdowie w najbliższych dniach:"
-    page: /wydarzenia/
+    page: /#/wydarzenia/
     image: /assets/images/arch-duo.png
-    limit: 10
+    limit: 2
     showDays: 7
     labels:
         when: Kiedy
         where: Gdzie
         what: Co
     button: cały kalendarz
+    google:
+        apikey: AIzaSyB_td3L7GKbbTBdTf9IivwESNuyDrfzpyU
+        calendars:
+            - smrfb88k185n4bnm7lh1q4sijc@group.calendar.google.com # Domek A
+            - jdbscspb3vqjm9q5kno1vuegv4@group.calendar.google.com # Domek B
+
 ---
 Naszą misją jest łączenie różnych grup, aby wspólnie rozwijać przestrzeń publiczną, tworzyć ofertę społeczną i kulturalną dostępną dla każdego, sprawdzać w praktyce alternatywne modele finansowania i wymiany bezpieniężnej, wspólnie uprawiać ogrody i po prostu dobrze spędzać czas wolny.
 

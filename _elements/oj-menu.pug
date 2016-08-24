@@ -7,10 +7,9 @@ dom-module#oj-menu
 			@import '../_lib/css/elements.imports.styl'
 			:host
 				display: block
-				position: relative
 				width: 100%
 				z-index: 9
-				padding: .75rem 2rem 0 2rem
+				padding: .75rem 2rem
 				margin: 0 auto
 				background-color: white
 				clearfix()
@@ -39,21 +38,6 @@ dom-module#oj-menu
 						color: $oj-violet
 						font-size: 4rem
 						line-height: 1em
-				#items
-					display: block
-					float: right
-					margin: 0
-					font-family: P
-					font-weight: 700
-					list-style-type: none
-					text-transform: uppercase
-					text-align: right
-					letter-spacing: .125em
-					font-size: 1rem
-					+below(1100px)
-						width: 100%
-						margin-top: 2rem
-						display: none
 				a#icon
 					display: none
 					float: right
@@ -70,20 +54,61 @@ dom-module#oj-menu
 					+below(1100px)
 						display: block
 						margin-top: .25rem
+				#items
+					display: block
+					float: right
+					margin: 0
+					font-family: P
+					font-weight: 700
+					list-style-type: none
+					text-transform: uppercase
+					text-align: right
+					letter-spacing: .125em
+					font-size: 1rem
+					+below(1100px)
+						width: 100%
+						margin-top: 2rem
+						display: none
+					a
+						display: block
+						line-height: 1em
+						padding: 1.5rem 0 1.75rem 0
+						cursor: pointer
+						color: inherit
+						float: left
+						margin-left: 3rem
+						&:hover
+							color: $oj-violet
+						&[selected]
+							border-bottom: 4px solid $oj-dark
+							&:hover
+								border-color: $oj-violet
+						// Tablets:
+						+below(1100px)
+							float: none
+							margin-left: 0
+							border-bottom: 1px solid $oj-grey
+							&:first-of-type
+								border-top: 1px solid $oj-grey
+							&[selected]
+								border-bottom: 1px solid $oj-grey
+								color: $oj-violet
 					
 	// ---------------------------------------------------------------
 	template
-		a#logo(href='[[logo.href]]' title='[[logo.title]])')
-		a#icon(on-tap="toggleMenu") menu
+		a#logo(href='[[logo.href]]' title='[[logo.title]])' on-tap='toggleMenu' force='close')
+		a#icon(on-tap='toggleMenu') menu
 		#items
-			content
-
+			template(is='dom-repeat' items='[[items]]')
+				a(href='[[item.href]]' title='[[item.title]]' on-tap='toggleMenu') [[item.title]]
 	// ---------------------------------------------------------------
 	script
 		:coffee-script
 			Polymer
 				is: 'oj-menu'
 				properties:
+					items:
+						type: Array
 					logo:
 						type: Object
 						value: ->
@@ -95,12 +120,15 @@ dom-module#oj-menu
 						value: false
 						reflectToAttribute: true
 						
-				toggleMenu: ->
-					this.open = not this.open
+				toggleMenu: (e)->
+					force = e.target.getAttribute('force')
+					switch force
+						when 'open' then this.open = true
+						when 'close' then this.open = false
+						else this.open = !this.open
 					return
 
 				ready: ->
-					this._checkDeps()
 					return
 
 				attached: ->
@@ -108,12 +136,3 @@ dom-module#oj-menu
 
 				detached: ->
 					return
-
-
-				_checkDeps: ->
-					deps = ['Velocity']
-					thisis = this.is
-					for dep in deps
-						do (dep)->
-							if typeof window[dep] is 'undefined'
-								console.error thisis + ' polymer element needs ' + dep

@@ -3,7 +3,6 @@ link(rel="import" href="../lib/bower_components/app-route/app-location.html")
 link(rel="import" href="../lib/bower_components/app-route/app-route.html")
 
 link(rel="import" href="oj-menu.html")
-link(rel="import" href="oj-menu-item.html")
 link(rel="import" href="oj-page.html")
 link(rel="import" href="oj-footer.html")
 
@@ -14,8 +13,22 @@ dom-module#oj-app
 			@import '../_lib/css/elements.imports.styl'
 			:host
 				display: block
-				.trap-top
-					position: fixed
+				&.video-bg
+					main
+						margin-top: $video-ratio
+						+below(1100px)
+							margin-top: 64vw
+				&.trap-menu
+					main
+						padding-top: 5.7rem
+					oj-menu#main_menu
+						position: fixed
+						top 0
+						box-shadow: 0 1px 5px rgba(black, .15)
+				main
+					margin-top: 0
+					transition: margin-top .5s ease
+
 
 	// ---------------------------------------------------------------
 	template
@@ -30,16 +43,13 @@ dom-module#oj-app
 			tail='{{pageTail}}'
 		)
 		
-		.trap-top
-		oj-menu#main-menu(logo=JSON.stringify(data.home_logo))
-			each item in data.main_menu.pl
-				oj-menu-item(href=item.href title=item.title)= item.title
+		main#main
+		
+			oj-menu#main_menu(logo=JSON.stringify(data.home_logo) items=JSON.stringify(data.main_menu.pl))
 
-		oj-page(page='[[pageData.page]]' route='[[pageTail]]')
+			oj-page(page='[[pageData.page]]' route='[[pageTail]]')
 
-		content
-
-		oj-footer
+			oj-footer
 
 	// ---------------------------------------------------------------
 	script
@@ -47,11 +57,37 @@ dom-module#oj-app
 			Polymer
 				is: 'oj-app'
 
+				observers: ['_routeChanged(route.*)']
+
+				_scrollToPosition: ->
+					belowTop =  this.$.main.offsetTop - window.innerHeight
+					scrollUp = belowTop + 100
+					main = this.$.main
+					
+					Velocity(
+						document.querySelector('html'),
+						'scroll',
+						offset: "#{scrollUp}px", duration: 500, delay: 2000
+					)
+
+				_routeChanged: (newRoute, oldRoute)->
+					if this.route.path is '/' or !this.route.path
+						this.toggleClass 'video-bg', true
+						this._scrollToPosition()
+					else
+						this.toggleClass 'video-bg', false
+					
 				ready: ->
+					window.addEventListener 'scroll', ((e)->
+						pastTop = window.scrollY >= this.$.main.offsetTop
+						this.toggleClass 'trap-menu', pastTop
+					).bind this
 					return
+					
 				attached: ->
 					if !this.route.path
 						this.set 'route.path', '/'
+						this._scrollToPosition()
 					return
 				detached: ->
 					return

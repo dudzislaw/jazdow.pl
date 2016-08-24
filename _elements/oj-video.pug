@@ -1,5 +1,4 @@
 link(rel="import" href="../lib/bower_components/polymer/polymer.html")
-link(rel="import" href="oj-styles.html")
 
 dom-module#oj-video
 	// ---------------------------------------------------------------	
@@ -7,72 +6,99 @@ dom-module#oj-video
 		:stylus
 			@import '../_lib/css/elements.imports.styl'
 			:host
-				#video_overlay
-					position: absolute
-					z-index: 1
-					width: 100%
-					height: 56.15vw
-					color: white
-					cursor: pointer
-				#subtitles
-					position: absolute
-					top: 4rem
-					right: 2rem
-					display: inline-block
-					color: white
+				z-index: -100
+				position: fixed
+				top: 0
+				width: 100%
+				height: auto
+				+below(1100px)
+					top: 5.5rem
+			#big-logo
+				display: block
+				position: absolute
+				top: 10rem
+				text-align: center
+				z-index: 10
+				color: white
+				+below(1100px)
+					display: none
+				&:before
+					content: 'f'
+					icon()
+					display: block
+					font-size: 14rem
+				&:after
+					content: 'g'
+					icon()
+					display: block
+					font-size: 9rem
+					margin-top: 75%
+			#video_overlay
+				position: absolute
+				z-index: 1
+				width: 100%
+				height: $video-ratio
+				color: white
+				cursor: pointer
+			#subtitles
+				position: absolute
+				top: 4rem
+				right: 2rem
+				display: inline-block
+				color: white
+				font-family: $P
+				font-weight: 700
+				text-align: right
+				letter-spacing: .125em
+				+below(1100px)
+					top: 2rem
+					right: 1rem
+			#bannertext
+				position: absolute
+				display: flex
+				flex-direction: column
+				justify-content: center
+				width: 50%
+				height: 100%
+				top: 0
+				left: 25%
+				p
+					display: block
+					margin: -15% auto 0 auto
 					font-family: $P
 					font-weight: 700
-					text-align: right
-					letter-spacing: .125em
+					text-align: center
+					line-height: 1em
+					color: rgba(white, .9)
+					padding: 1rem 0
+					border-top: 8px solid rgba(white, .9)
+					border-bottom: 8px solid rgba(white, .9)
+					font-size: 5rem
+					+below(1600px)
+						font-size: 4rem
 					+below(1100px)
-						top: 2rem
-						right: 1rem
-				#bannertext
-					position: absolute
-					display: flex
-					flex-direction: column
-					justify-content: center
-					width: 50%
-					height: 100%
-					top: 0
-					left: 25%
-					p
-						display: block
-						margin: 0 auto
-						font-family: $P
-						font-weight: 700
-						text-align: center
-						line-height: 1em
-						color: rgba(white, .9)
-						padding: 1rem 0
-						border-top: 8px solid rgba(white, .9)
-						border-bottom: 8px solid rgba(white, .9)
-						font-size: 7rem
-						+below(1600px)
-							font-size: 5rem
-						+below(1100px)
-							font-size: 3.5rem
-						
-				video
-					width: 100%
-					height: auto
-					z-index: -1
-				video::cue
-					font-size: 0
-					background-color: transparent
+						font-size: 3.5rem
 					
+			video
+				width: 100%
+				height: auto
+				z-index: -1
+			video::cue
+				font-size: 0
+				background-color: transparent
+
 	// ---------------------------------------------------------------	
 	template
 		#video_overlay(on-tap="_playToggle")
-			#subtitles
+			a#big-logo
+			#subtitles [[currentSubCue1]] [[currentSubText1]]
 			#bannertext
-				p [[bannertext]]
+				p [[currentTime]]
 			content
-		video#video(playsinline muted autoplay loop="true" poster="[[poster]]")
-			source(src="[[source.webm]]" type="video/webm")
-			source(src="[[source.mp4]]" type="video/mp4")
-			track#track(src="[[track]]" srclang="[[lang]]" kind="caption" on-cuechange="_updateSubs" default)
-			track#banner(src="[[banner]]" srclang="[[lang]]" kind="caption" on-cuechange="_updateBanner" default)
+		video#video(playsinline='true' muted='true' loop="true" poster="[[params.poster]]")
+			source#webm(src="[[params.webm]]" type="video/webm")
+			source#mp4(src="[[params.mp4]]" type="video/mp4")
+
 
 	// ---------------------------------------------------------------	
 	script
@@ -80,26 +106,60 @@ dom-module#oj-video
 			Polymer
 				is: 'oj-video'
 				properties:
-					poster: String
-					lang: String
-					source: Object
-					track: String
-					banner: String
-					caption:
-						type: String
-						reflectToAttribute: true
-					bannertext:
-						type: String
-						reflectToAttribute: true
-					
+					params:
+						type: Object
+						value: ->
+							{
+								webm: 		"/assets/videos/video.webm"
+								mp4: 		"/assets/videos/video.mp4"
+								poster: 	"/assets/videos/poster.jpg"
+								track: 		"/assets/videos/video-pl.vtt"
+								banner: 	"/assets/videos/banner-pl.vtt"
+								lang: 		"pl"
+							}	
 
-				_updateSubs: ->
-					this.$.subtitles.innerHTML = this.caption = this.$.video.textTracks[0].activeCues[0].text
-					return
+					currentTime:
+						type: Number
+						reflectToAttribute: true
+						value: 0
 					
-				_updateBanner: ->
-					this.$.bannertext.children[0].innerHTML = this.bannertext = this.$.video.textTracks[1].activeCues[0].text
-					return
+					currentSubCue1:
+						type: Number
+						reflectToAttribute: true
+						value: 0
+						computed: '_computeCurrentSubCue1(currentTime, subs1)'
+					
+					currentSubText1:
+						type: String
+						reflectToAttribute: true
+						computed: '_computeCurrentSubText(currentSubCue1, subs1)'
+
+					subs1:
+						type: Array
+						value: ->
+							return [
+								[0, 'start!']
+								[7.666, 'time with fractions!']
+								[10, '']
+								[12, 'saw that? was empty!']
+							]
+							
+					subs2:
+						type: Array
+						value: ->
+							return [
+								[0, 'cześć!']
+								[7, 'Witamy w Otwartym Jazdowie']
+							]
+
+				_computeCurrentSubCue1: (time, subs)->
+					cue = this.currentSubCue1
+					if time < subs[1][0] then return 0 # GO TO THE FIRST CUE
+					if cue >= subs.length-1 then return cue # REACHED THE LAST CUE. STAY UNTIL TIME RESTARTS
+					if time > subs[cue+1][0] then return cue+1 else return cue #PASSED CURRENT CUE. GO TO NEXT
+
+				_computeCurrentSubText: (cue, subs)->
+					return subs[cue][1]
 
 				_playToggle: ->
 					video = this.$.video
@@ -107,8 +167,14 @@ dom-module#oj-video
 					return
 
 				ready: ->
-					this._checkDeps()
+					video = this.$.video
+					updateProgress = setInterval((->
+						if video.paused then return else this.currentTime = video.currentTime
+					).bind(this), 1000
+					)
+
 					return
+
 				attached: ->
 					return
 				detached: ->

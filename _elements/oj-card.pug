@@ -1,0 +1,55 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+
+dom-module#oj-card
+	template
+		style
+			:stylus
+				@import '../_lib/css/elements.imports.styl'
+				:host
+					lost-column: 4/12 3 $gutter flex
+					display: flex
+					flex-direction: column
+					justify-content: space-between
+					padding: 0.8rem 1.25rem 1.25rem 1.25rem
+					color: $oj-violet
+					background-color: $oj-pink
+					+below(600px)
+						lost-column: 8/12 1 $gutter flex
+						lost-offset: -2/12 row flex
+						margin-bottom: $gutter
+						text-align: center
+					.card-title
+						padding-bottom: .5rem
+						margin-bottom: 1rem
+					.card-content
+						font-family: P
+						font-weight: 700
+						font-size: 2.5rem
+						margin-bottom: 2rem
+						height: 5rem
+					.card-caption
+						font-size: 1.2rem
+						line-height 1.5em
+						letter-spacing 0.04em
+						margin-bottom: 1rem
+
+
+		a.card(href='[[href]]')
+			h3.card-title [[title]]
+			.card-content 
+				img(src='[[cover]]' title='[[title]]')
+			p.card-caption [[caption]]
+
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-card'
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return

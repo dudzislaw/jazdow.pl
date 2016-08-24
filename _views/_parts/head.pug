@@ -1,12 +1,12 @@
 meta(charset='UTF-8')
 meta(name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0')
-title #{title} - #{data.site_title}
+title #{data.site_title}
 
-each src in scripts
+each src in data.scripts
 	script(src=src)
 
-each href in styles
+each href in data.styles
 	link(rel='stylesheet' href=href)
 
-each href in imports
+each href in data.imports
 	link(rel="import" href=href)

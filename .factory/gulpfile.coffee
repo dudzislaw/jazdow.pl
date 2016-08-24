@@ -56,9 +56,7 @@ paths =
 
 # Bower deps - will be merged to lib/js/vendor.min.js by bower-deps task
 bower_deps = [
-	paths.bower + 'bluebird/js/browser/bluebird.min.js',
 	paths.bower + 'velocity/velocity.js',
-	paths.bower + 'jquery/dist/jquery.js',
 	paths.bower + 'axios/dist/axios.min.js',
 	paths.bower + 'moment/min/moment-with-locales.min.js'
 	paths.bower + 'webcomponentsjs/webcomponents-lite.js'
@@ -97,7 +95,7 @@ gulp.task 'data', ->
 	stream = gulp.src(['../_data/**/*.md'])
 	.pipe(plumber(
 		errorHandler: (error)->
-			isError = errorHandler(stream, error.message, error.message, 'pug', 'b_jade-e.png')
+			isError = errorHandler(stream, error.message, error.message, 'pug', 'b_md-e.png')
 	))
 	.pipe(data( (file)->
 		dataObject = fm fs.readFileSync(file.path, 'utf8')
@@ -108,7 +106,7 @@ gulp.task 'data', ->
 	))
 	.pipe(gulp.dest('../dist/data/'))
 	.pipe(gulpfn(->
-		unless isError then successHandler 'Compiled Markdown to JSON', 'data', 'b_jade-s.png'
+		unless isError then successHandler 'Compiled Markdown to JSON', 'data', 'b_md-s.png'
 		return
 	))
 	return
@@ -149,7 +147,7 @@ gulp.task 'views', ->
 	))
 	.pipe(gulp.dest('../dist/'))
 	.pipe(gulpfn(->
-		unless isError then successHandler 'Compiled Pug', 'pug', 'b_jade-s.png'
+		unless isError then successHandler 'Compiled views PUG -> HTML', 'pug', 'b_jade-s.png'
 		return
 	))
 	return
@@ -187,7 +185,7 @@ gulp.task 'elements', ->
 	.pipe(sourcemaps.write('.'))
 	.pipe(gulp.dest('../dist/elements/'))
 	.pipe(gulpfn(->
-		unless isError then successHandler 'Compiled PUG', 'pug', 'b_jade-s.png'
+		unless isError then successHandler 'Compiled Polymer elemets PUG -> HTML', 'pug', 'b_jade-s.png'
 		return
 	))
 	return
@@ -200,7 +198,7 @@ gulp.task 'elements', ->
 
 gulp.task 'stylus', ->
 	isError = false
-	stream = gulp.src('../_lib/css/*.styl')
+	stream = gulp.src(['../_lib/css/*.styl'])
 	.pipe(sourcemaps.init())
 	.pipe(stylus(
 		compress: true
@@ -344,6 +342,7 @@ gulp.task 'watch', ->
 
 
 gulp.task 'default', [
+	'bower-deps'
 	'data'
 	'elements'
 	'views'

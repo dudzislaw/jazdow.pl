@@ -2,17 +2,33 @@ link(rel="import" href="../lib/bower_components/polymer/polymer.html")
 link(rel="import" href="../lib/bower_components/marked-element/marked-element.html")
 link(rel="import" href="oj-expander.html")
 
-dom-module#oj-about
+dom-module#oj-layout-about
 	// ---------------------------------------------------------------
 	style
 		:stylus
 			@import '../_lib/css/elements.imports.styl'
 			:host
 				display: block
-			.inner-section
-				margin-top: 8rem
+				background-color: white
+				padding-top: 14rem
 				+below(1100px)
-					margin-top: 6rem
+					padding-top: 8rem
+			.inner-section
+				lost-center: $grid-width $gutter/2 flex
+				clearfix()
+				+below(1100px)
+					padding: 0 1rem
+			.section-title
+				lost-column: 2/3 0 $gutter flex
+				display: block
+				letter-spacing: .075em
+				+below(1100px)
+					lost-offset: -1/6 row $gutter
+					text-align: center
+				+below(600px)
+					display: block
+					width: 100%
+					lost-offset: 0 row $gutter
 			oj-expander
 				lost-column: 2/3 0 $gutter flex
 				+below(1100px)
@@ -28,9 +44,9 @@ dom-module#oj-about
 	// ---------------------------------------------------------------
 	template
 		.inner-section
-			h1.section-title [[data.about_title]]
+			h1.section-title [[params.title]]
 			oj-expander#about_content(reveal="0" show-text="czytaj dalej" hide-text="ukryj tekst" is-hidden="false")
-				marked-element(markdown="[[data.content]]")
+				marked-element(markdown="[[content]]")
 
 
 
@@ -38,7 +54,7 @@ dom-module#oj-about
 	script
 		:coffee-script
 			Polymer
-				is: 'oj-about'
+				is: 'oj-layout-about'
 				
 				ready: ->
 					return
