@@ -196,32 +196,24 @@ dom-module#oj-map
 						polygon.building(points='1174.06 368.2 1174.06 373.8 1169.16 371 1174.06 368.2')
 						line.building(x1='1174.06', y1='374.1', x2='1174.06', y2='373.8')
 				g#oj-map-houses-open
-					use.house.open#oj-10-8(width='55', height='40', transform='translate(877 408)', xlink:href='#house-open')
-					use.house.open#oj-8-1(width='55', height='40', transform='translate(949 470)', xlink:href='#house-open')
-					use.house.open#oj-8-2(width='55', height='40', transform='translate(1000 500)', xlink:href='#house-open')
-					use.house.open#oj-3-5(width='55', height='40', transform='translate(992 616)', xlink:href='#house-open')
-					use.house.open#oj-3-18(width='55', height='40', transform='translate(854 720)', xlink:href='#house-open')
-					use.house.open#oj-3-17(width='55', height='40', transform='translate(809 695.5)', xlink:href='#house-open')
-					use.house.open#oj-3-20(width='55', height='40', transform='translate(763.5 667)', xlink:href='#house-open')
-					use.house.open#oj-3-11(width='55', height='40', transform='translate(737 579)', xlink:href='#house-open')
-					use.house.open#oj-5a-3(width='55', height='40', transform='translate(603 551.5)', xlink:href='#house-open')
-					use.house.open#oj-5a-4(width='55', height='40', transform='translate(600 590.5)', xlink:href='#house-open')
-					use.house.open#oj-7-30(width='55', height='40', transform='translate(433.5 470)', xlink:href='#house-open')
+					template(is='dom-repeat' items='[[houses.open]]')
+						use.house.open(
+							id$='[[item.id]]'
+							width$='[[item.width]]'
+							height$='[[item.height]]'
+							transform$='translate([[item.coords]])'
+							xlink:href='#house-open'
+							name='[[item.name]]'
+						)
 				g#oj-map-houses-closed
-					use.house.closed#oj-7-14(width='55', height='40', transform='translate(506 423)', xlink:href='#house-closed')
-					use.house.closed#oj-3-6(width='55', height='40', transform='translate(1039.5 645)', xlink:href='#house-closed' on-tap='_housetap')
-					use.house.closed#oj-3-4(width='55', height='40', transform='translate(925 602)', xlink:href='#house-closed')
-					use.house.closed#oj-3-9(width='55', height='40', transform='translate(877 628)', xlink:href='#house-closed')
-					use.house.closed#oj-3-12(width='55', height='40', transform='translate(811 621.5)', xlink:href='#house-closed')
-					use.house.closed#oj-3-8(width='55', height='40', transform='translate(779.5 555)', xlink:href='#house-closed')
-					use.house.closed#oj-10-2(width='55', height='40', transform='translate(759 395)', xlink:href='#house-closed')
-					use.house.closed#oj-10-5(width='55', height='40', transform='translate(748 345)', xlink:href='#house-closed')
-					use.house.closed#oj-3-19(width='55', height='40', transform='translate(632 647)', xlink:href='#house-closed')
-					use.house.closed#oj-5a-7(width='55', height='40', transform='translate(506.5 584.5)', xlink:href='#house-closed')
-					use.house.closed#oj-5a-1(width='55', height='40', transform='translate(500.5 505.5)', xlink:href='#house-closed')
-					use.house.closed#oj-5a-8(width='55', height='40', transform='translate(463 529)', xlink:href='#house-closed')
-					use.house.closed#oj-7-29(width='55', height='40', transform='translate(391 497)', xlink:href='#house-closed')
-					use.house.closed#oj-10-4(width='55', height='40', transform='translate(840 431)', xlink:href='#house-closed')
+					template(is='dom-repeat' items='[[houses.closed]]')
+						use.house.closed(
+							id$='[[item.id]]'
+							width$='[[item.width]]'
+							height$='[[item.height]]'
+							transform$='translate([[item.coords]])'
+							xlink:href='#house-closed'
+						)
 				g#oj-map-streets
 					text.street-label(transform='matrix(0.87, -0.5, 0.5, 0.87, 41.15, 308.02)') ul. Piękna
 					text.street-label(transform='translate(435.7 282.35) rotate(28.11)') ul. Jazdów
@@ -283,31 +275,41 @@ dom-module#oj-map
 	// ---------------------------------------------------------------
 	script
 		:coffee-script
+			# Templates inside SVG won't work in polymer-1.0 without some monkeypatching.
+			do ->
+				doc = document.currentScript.ownerDocument
+				root = doc.querySelector('dom-module > template').content
+				templates = root.querySelectorAll('svg template')
+				el = undefined
+				template = undefined
+				attribs = undefined
+				attrib = undefined
+				count = undefined
+				child = undefined
+				content = undefined
+				i = 0
+				while i < templates.length
+					el = templates[i]
+					template = el.ownerDocument.createElement('template')
+					el.parentNode.insertBefore template, el
+					attribs = el.attributes
+					count = attribs.length
+					while count-- > 0
+						attrib = attribs[count]
+						template.setAttribute attrib.name, attrib.value
+						el.removeAttribute attrib.name
+					el.parentNode.removeChild el
+					content = template.content
+					while child = el.firstChild
+						content.appendChild child
+					i++
+				return
+
 			Polymer
 				is: 'oj-map'
 				properties:
 					houses:
 						type: Object
-						observer: '_housesLoaded'
-
-				_housesLoaded: (houses)->
-					return
-					
-				_buildHouses: (houses)->
-					newHouses = document.createDocumentFragment()
-					for house in houses
-						newHouse = document.createElementNS 'http://www.w3.org/2000/svg', 'use'
-						newHouse.setAttributeNS 'http://www.w3.org/1999/xlink', 'xlink:href', '#house-open'
-						newHouse.setAttribute 'id', house.id
-						newHouse.setAttribute 'width', house.width
-						newHouse.setAttribute 'height', house.height
-						newHouse.setAttribute 'transform', "translate(#{house.coords})"
-						newHouse.setAttribute 'on-tap', '_housetap'
-						newHouses.appendChild(newHouse)
-					return newHouses
-
-				_housetap: ->
-					console.log 'tap tap!'
 
 				ready: ->
 					return
