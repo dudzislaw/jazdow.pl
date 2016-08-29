@@ -1,0 +1,102 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="../lib/bower_components/app-route/app-route.html")
+link(rel="import" href="../lib/bower_components/iron-ajax/iron-ajax.html")
+link(rel="import" href="oj-video.html")
+link(rel="import" href="oj-layout-about.html")
+link(rel="import" href="oj-layout-cards.html")
+link(rel="import" href="oj-layout-events.html")
+link(rel="import" href="oj-layout-map.html")
+link(rel="import" href="oj-layout-history.html")
+link(rel="import" href="oj-layout-partners.html")
+link(rel="import" href="oj-layout-article.html")
+
+dom-module#oj-page
+	// ---------------------------------------------------------------
+	style
+		:stylus
+			@import '../_lib/css/elements.imports.styl'
+			:host
+				display: block
+				min-height: 10rem
+				background-color: white
+
+	// ---------------------------------------------------------------
+	template
+		app-route#route(
+			route='{{route}}'
+			pattern='/:view'
+			active='{{viewActive}}'
+			data='{{viewData}}'
+		)
+		iron-ajax(
+			auto
+			url='[[_computeURL(page)]]'
+			handle-as='json'
+			last-response='{{load}}'
+		)
+
+
+
+		template(is='dom-if' if='{{layout.home}}')
+			oj-video(sources='[[load.video.sources]]' subs='[[load.video.subs]]')
+			oj-layout-about(title='[[load.about.title]]' content='[[load.content]]' lang='[[load.lang]]')
+			oj-layout-cards(cards='[[load.cards]]')
+
+		template(is='dom-if' if='{{layout.events}}')
+			oj-layout-events(
+				title='[[load.title]]'
+				image='[[load.image]]'
+				content='[[load.content]]'
+				params='[[load.events]]'
+				lang='[[load.lang]]')
+
+		template(is='dom-if' if='{{layout.map}}')
+			oj-layout-map(title='[[load.title]]' content='[[load.content]]' houses='[[load.houses]]')
+
+		template(is='dom-if' if='{{layout.history}}')
+			oj-layout-history(
+				title='[[load.title]]'
+				content='[[load.content]]'
+				timeline='[[load.timeline]]')
+
+		template(is='dom-if' if='{{layout.model}}')
+			oj-layout-article(title='[[load.title]]' content='[[load.content]]')
+			
+		template(is='dom-if' if='{{layout.partnership}}')
+			oj-layout-partners(title='[[load.title]]' content='[[load.content]]' partners='[[load.partners]]')
+
+		template(is='dom-if' if='{{layout.default}}')
+			oj-layout-article(title='[[load.title]]' content='[[load.content]]')
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-page'
+				
+				properties:
+					layout:
+						type: Object
+						computed: '_computeLayout(page)'
+				
+				_computeLayout: (page)->
+					layout = {}
+					switch page
+						when ''								then layout.home = true
+						when 'wydarzenia','events' 			then layout.events = true
+						when 'mapa','map' 					then layout.map = true
+						when 'historia','history' 			then layout.history = true
+						when 'model' 						then layout.model = true
+						when 'partnerstwo','partnership' 	then layout.partnership = true
+						else layout.default = true
+					return layout
+				
+				_computeURL: (page)->
+					return "/data/#{page}/index.json"
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return

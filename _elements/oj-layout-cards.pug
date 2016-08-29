@@ -1,0 +1,42 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="oj-card.html")
+
+dom-module#oj-layout-cards
+	template
+		style
+			:stylus
+				@import '../_lib/css/elements.imports.styl'
+				:host
+					display: block
+					background-color: white
+				.inner-section
+					lost-center: $grid-width 1rem flex
+					clearfix()
+					margin-top: 8rem
+					+below(1100px)
+						padding: 0 1rem
+
+
+
+
+		.inner-section
+			template(is='dom-repeat' items='[[cards]]')
+				oj-card(
+					href='[[item.href]]'
+					title='[[item.title]]'
+					cover='[[item.cover]]'
+					caption='[[item.caption]]'
+				)
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-layout-cards'
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return

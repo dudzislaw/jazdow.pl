@@ -1,62 +1,55 @@
 ---
-imports:
-    -
-        "/lib/elements/oj-video.html"
-    -
-        "/lib/elements/oj-expander.html"
-    -
-        "/lib/elements/oj-menu.html"
-    -
-        "/lib/elements/oj-menu-item.html"
-    -
-        "/lib/elements/oj-calendar.html"
-
-styles:
-    screen: /lib/css/screen.css
-
-scripts:
-    vendor: /lib/js/vendor.min.js
-    main: /lib/js/main.min.js
-
 lang: pl
 
 title: Strona główna
 
-about_title: Otwarty Jazdów to społeczność warszawskiego osiedla drewnianych domków fińskich, prowadząca ogólnodostępne działania społeczne, kulturalne i ekologiczne.
+about:
+    title: >
+        Otwarty Jazdów to społeczność warszawskiego osiedla drewnianych domków fińskich, prowadząca ogólnodostępne działania społeczne, kulturalne i ekologiczne.
 
 video:
-    track: ../../assets/videos/video-pl.vtt
-    banner: ../../assets/videos/banner-pl.vtt
+    sources:
+        webm: /assets/videos/video.webm
+        mp4: /assets/videos/video.mp4
+        poster: /assets/videos/poster.jpg
+    subs:
+        - # Subs 1
+            -
+                - 0
+                - ''
+            -
+                - 0.1
+                - >
+                    Motyka i Słońce <br>
+                    8/12
+        - # Subs 2
+            -
+                - 0
+                - cześć!
+            -
+                - 3
+                - Witamy w Otwartym Jazdowie
+            -
+                - 7
+                - ''
 
 cards:
     -
         title: historia
-        href: /historia/
-        content: <img src="/lib/ui/oj-history.svg">
+        href: /#/historia/
+        cover: /lib/ui/oj-history.svg
         caption: Zobacz na osi czasu historię domków fińskich i Otwartego Jazdowa.
     -
         title: Model
-        href: /model/
-        content: <img src="/lib/ui/oj-model.svg">
+        href: /#/model/
+        cover: /lib/ui/oj-model.svg
         caption: Tworzymy model społecznościowego zarządzania przestrzenią miejską.
     -
         title: Partnerstwo
-        href: /partnerstwo/
-        content: 35
+        href: /#/partnerstwo/
+        cover: /lib/ui/oj-model.svg
         caption: Partnerstwo dla osiedla Jazdów tworzą organizacje, instytucje publiczne i osoby prywatne.
 
-events:
-    title: Wydarzenia
-    intro: "W domkach fińskich działa wiele organizacji, oferujących ciekawe wydarzenia. Chcesz w nich uczestniczyć? Zobacz co dzieje się na Jazdowie w najbliższych dniach:"
-    page: /wydarzenia/
-    image: /assets/images/arch-duo.png
-    limit: 10
-    showDays: 7
-    labels:
-        when: Kiedy
-        where: Gdzie
-        what: Co
-    button: cały kalendarz
 ---
 Naszą misją jest łączenie różnych grup, aby wspólnie rozwijać przestrzeń publiczną, tworzyć ofertę społeczną i kulturalną dostępną dla każdego, sprawdzać w praktyce alternatywne modele finansowania i wymiany bezpieniężnej, wspólnie uprawiać ogrody i po prostu dobrze spędzać czas wolny.
 

@@ -1,0 +1,63 @@
+@import '../elements.imports.styl'
+:host
+	display: block
+	background-color: white
+	padding-top: 16rem
+	+below(1100px)
+		padding-top: 6rem
+.inner-section
+	lost-center: $grid-width $gutter/2 flex
+.section-title
+	lost-column: 2/3 0 $gutter flex
+	display: block
+	letter-spacing: .075em
+	+below(1100px)
+		lost-offset: -1/6 row $gutter
+		text-align: center
+	+below(600px)
+		display: block
+		width: 100%
+		lost-offset: 0 row $gutter
+.calendar-info-col
+	lost-column: 2/3 2 $gutter flex
+	p
+		lost-column: 3/4 0 $gutter flex
+	+below(1100px)
+		lost-column: 1/1 0 $gutter flex
+		p
+			lost-column: 8/12 1 $gutter flex
+			lost-offset: -2/12 row flex
+			text-align: center
+			font-size: 1.8rem
+	+below(600px)
+		p
+			lost-column: 1/1 0 $gutter flex
+			lost-offset: 0 row flex
+.extra-col
+	lost-column: 1/3 2 $gutter flex
+	+below(1100px)
+		display: block
+		margin: 0
+		width: 100%
+	.calendar-illustration
+		+above(1100px)
+			lost-column: 2/3 0 $gutter flex
+			lost-offset: -1/4 row $gutter
+			img
+				width: 100%
+				transform: translateY(6rem)
+		+below(1100px)
+			width: 12rem
+			margin: 0 auto
+.calendar-col
+	lost-column: 3/4 0 $gutter flex
+	margin-bottom: 10rem
+	+below(1100px)
+		lost-column: 3/4 0 $gutter flex
+		lost-offset: -1/8 row flex
+		text-align: center
+	+below(800px)
+		lost-column: 1/1 0 $gutter flex
+		lost-offset: 0 row flex
+	oj-calendar
+		margin-bottom: 4rem

@@ -1,10 +1,10 @@
-link(rel="import" href="../bower_components/polymer/polymer.html")
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
 
 dom-module#oj-expander
 	// ---------------------------------------------------------------
 	style
 		:stylus
-			@import '../css/imports/*'
+			@import '../_lib/css/elements.imports.styl'
 			:host
 				#content
 					//- ::content > *
@@ -29,7 +29,7 @@ dom-module#oj-expander
 
 	// ---------------------------------------------------------------
 	script
-		:coffeescript
+		:coffee-script
 			Polymer
 				is: 'oj-expander'
 				properties:
@@ -75,12 +75,3 @@ dom-module#oj-expander
 
 				detached: ->
 					return
-
-
-				check_deps: ->
-					deps = []
-					thisis = this.is
-					for dep in deps
-						do (dep)->
-							if typeof window[dep] is 'undefined'
-								console.error thisis + ' polymer element needs ' + dep

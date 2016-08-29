@@ -8,7 +8,7 @@ uglify = require('gulp-uglify')
 gulpFilter = require('gulp-filter')
 concat = require('gulp-concat')
 sourcemaps = require('gulp-sourcemaps')
-jade = require('gulp-jade')
+pug = require('gulp-pug')
 marked  = require 'marked'
 yaml = require('gulp-yaml')
 fm = require('front-matter')
@@ -17,7 +17,10 @@ coffee = require('gulp-coffee')
 stylus = require('gulp-stylus')
 nib = require('nib')
 rupture = require('rupture')
+autoprefixer = require('autoprefixer')
+lost = require('lost')
 poststylus = require('poststylus')
+htmlpostcss = require('gulp-html-postcss')
 bower = require('gulp-main-bower-files')
 browserSync = require('browser-sync').create()
 htmlInjector = require('bs-html-injector')
@@ -27,14 +30,16 @@ notifier = require('node-notifier')
 gutil = require('gulp-util')
 ghPages = require('gulp-gh-pages')
 vulcanize = require('gulp-vulcanize')
+bower = require('gulp-bower')
+
 
 
 # Handy paths
 paths =
 	public: 	'../'
 	data: 		'../_data/**/*'
-	views: 		'../_views/**/*.jade'
-	polymer: 	'../_lib/elements/**/*.jade'
+	views: 		'../_views/**/*.pug'
+	elements: 	'../_elements/**/*.pug'
 	stylus: 	'../_lib/css/**/*.styl'
 	cofee: 		'../_lib/js/**/*.coffee'
 	bower: 		'../dist/lib/bower_components/'
@@ -51,15 +56,14 @@ paths =
 
 # Bower deps - will be merged to lib/js/vendor.min.js by bower-deps task
 bower_deps = [
-	paths.bower + 'bluebird/js/browser/bluebird.min.js',
-	paths.bower + 'velocity/velocity.js',
-	paths.bower + 'jquery/dist/jquery.js',
-	paths.bower + 'axios/dist/axios.min.js',
+	paths.bower + 'axios/dist/axios.min.js'
+	paths.bower + 'jquery/dist/jquery.slim.min.js'
+	paths.bower + 'animejs/anime.min.js'
+	paths.bower + 'velocity/velocity.min.js'
 	paths.bower + 'moment/min/moment-with-locales.min.js'
 	paths.bower + 'webcomponentsjs/webcomponents-lite.js'
 
 ]
-
 
 
 #--------------------
@@ -86,19 +90,46 @@ successHandler = (message, title, icon) ->
 
 
 #--------------------
-# JADE – THEME VIEWS
-# compile to html with mockup data from markdown files with the same name
-
-gulp.task 'jade', ->
+# DATA - MARKDOWN TO JSON
+# compile _data/markdown files to json, write to dist/data
+gulp.task 'data', ->
 	isError = false
-	stream = gulp.src(['../_views/**/*.jade', '!../_views/_*/**/*'])
+	stream = gulp.src(['../_data/**/*.md'])
 	.pipe(plumber(
 		errorHandler: (error)->
-			isError = errorHandler(stream, error.message, error.message, 'jade', 'b_jade-e.png')
+			isError = errorHandler(stream, error.message, error.message, 'pug', 'b_md-e.png')
 	))
 	.pipe(data( (file)->
-		jadeFilePath = path.relative( file.cwd, file.path ) # file path relative to this gulpfile
-		mdFilePath = jadeFilePath.replace('_views/', '_data/').replace('.jade', '.md')
+		dataObject = fm fs.readFileSync(file.path, 'utf8')
+		parsedObject = dataObject.attributes
+		parsedObject.content = dataObject.body
+		file.contents = new Buffer(JSON.stringify(parsedObject), 'utf8')
+		file.path = file.path.replace '.md', '.json'
+	))
+	.pipe(gulp.dest('../dist/data/'))
+	.pipe(gulpfn(->
+		unless isError then successHandler 'Compiled Markdown to JSON', 'data', 'b_md-s.png'
+		return
+	))
+	return
+
+
+
+
+#--------------------
+# PUG – THEME VIEWS
+# compile to html with data from markdown files with the same name
+
+gulp.task 'views', ->
+	isError = false
+	stream = gulp.src(['../_views/**/*.pug', '!../_views/_*/**/*'])
+	.pipe(plumber(
+		errorHandler: (error)->
+			isError = errorHandler(stream, error.message, error.message, 'pug', 'b_jade-e.png')
+	))
+	.pipe(data( (file)->
+		pugFilePath = path.relative( file.cwd, file.path ) # file path relative to this gulpfile
+		mdFilePath = pugFilePath.replace('_views/', '_data/').replace('.pug', '.md')
 
 		file_obj = fm fs.readFileSync(mdFilePath, 'utf8') 			# parse and store data from coresponding .md file
 		site_obj = fm fs.readFileSync('../_data/data.md', 'utf8') 	# parse and store sitewide data from data.md file
@@ -107,12 +138,18 @@ gulp.task 'jade', ->
 		content.content = marked file_obj.body
 		return content
 	))
-	.pipe(jade(
+	.pipe(pug(
 		pretty: true
+	))
+	.pipe(htmlpostcss(
+		[
+			autoprefixer( browsers: ['last 1 version'] ),
+			lost()
+		],
 	))
 	.pipe(gulp.dest('../dist/'))
 	.pipe(gulpfn(->
-		unless isError then successHandler 'Compiled Jade', 'jade', 'b_jade-s.png'
+		unless isError then successHandler 'Compiled views PUG -> HTML', 'pug', 'b_jade-s.png'
 		return
 	))
 	return
@@ -121,34 +158,40 @@ gulp.task 'jade', ->
 
 
 #--------------------
-# JADE – POLYMER ELEMENTS
-# compile polymer elements, write to /lib/elements with sourcemaps
+# PUG – POLYMER ELEMENTS
+# compile polymer elements, write to dist/elements, also passing in site data from data.md
 
-gulp.task 'jade-polymer', ->
+gulp.task 'elements', ->
 	isError = false
-	stream = gulp.src(paths.polymer)
+	stream = gulp.src('../_elements/**/*.pug')
 	.pipe(sourcemaps.init())
 	.pipe(plumber(
 		errorHandler: (error)->
 			isError = errorHandler(stream, error.message, error.message, 'yaml', 'b_jade-e.png')
 	))
-	.pipe(jade(
+	.pipe(data( (file)->
+		site_obj = fm fs.readFileSync('../_data/data.md', 'utf8') 	# parse and store sitewide data from data.md file
+		content.data = site_obj.attributes
+		content.content = marked site_obj.body
+		return content
+	))
+	.pipe(pug(
 		pretty: true
 	))
+	.pipe(htmlpostcss(
+		[
+			autoprefixer( browsers: ['last 1 version'] ),
+			lost()
+		],
+	))
 	.pipe(sourcemaps.write('.'))
-	.pipe(gulp.dest('../dist/lib/elements/'))
+	.pipe(gulp.dest('../dist/elements/'))
 	.pipe(gulpfn(->
-		unless isError then successHandler 'Compiled Jade', 'jade', 'b_jade-s.png'
+		unless isError then successHandler 'Compiled Polymer elemets PUG -> HTML', 'pug', 'b_jade-s.png'
 		return
 	))
 	return
 
-
-
-gulp.task 'vulcanize', ->
-	stream = gulp.src '../dist/lib/elements/*.html'
-	.pipe(vulcanize())
-	.pipe(gulp.dest('../dist/lib/vulcanized/'))
 
 
 #--------------------
@@ -157,14 +200,20 @@ gulp.task 'vulcanize', ->
 
 gulp.task 'stylus', ->
 	isError = false
-	stream = gulp.src('../_lib/css/*.styl')
+	stream = gulp.src(['../_lib/css/*.styl'])
 	.pipe(sourcemaps.init())
 	.pipe(stylus(
 		compress: true
 		use: [
 			nib()
 			rupture()
-			poststylus([ 'lost','autoprefixer' ])
+			poststylus(
+				[ 'lost','autoprefixer' ],
+				(message)->
+					if message.type is not 'warning'
+						console.info message.text
+						console.info message.node.source.input.file
+			)
 		]))
 	.on('error', (error) ->
 		isError = errorHandler(stream, '', error.message, 'stylus', 'b_stylus-e.png')
@@ -213,23 +262,6 @@ gulp.task 'coffee', ->
 
 
 
-
-#--------------------
-# BOWER
-# concat and uglify bower js deps, write to /lib/js/vendor.js
-
-gulp.task 'bower-deps', ->
-	isError = false
-	stream = gulp.src(bower_deps)
-	.pipe(sourcemaps.init())
-	.pipe(concat('vendor.min.js'))
-	.pipe(uglify())
-	.pipe(sourcemaps.write('.'))
-	.pipe(gulp.dest('../dist/lib/js/'))
-	return
-
-
-
 #--------------------
 # UI AND FONTS
 # Just mirror them to dest folder
@@ -245,50 +277,53 @@ gulp.task 'assets', ->
 
 
 
+
+#--------------------
+# BOWER
+# concat and uglify bower js deps, write to /lib/js/vendor.js
+gulp.task 'bower', ->
+	return bower()
+
+
+gulp.task 'bower-deps', ->
+	isError = false
+	stream = gulp.src(bower_deps)
+	.pipe(sourcemaps.init())
+	.pipe(concat('vendor.min.js'))
+	.pipe(uglify())
+	.pipe(sourcemaps.write('.'))
+	.pipe(gulp.dest('../dist/lib/js/'))
+	return
+
+
+
 #--------------------
 # EMPTY DIST FOLDER
 
 gulp.task 'clean', ->
-	return del ['../dist/**/*'], force:true
+	return del ['../dist/**/*'], force: true
 
-
-
-#--------------------
-# REBUILD PROJECT
-
-gulp.task 'rebuild', [
-	'clean'
-	'bower-deps'
-	'jade'
-	'jade-polymer'
-	'coffee'
-	'stylus'
-	'ui'
-	'assets'
-]
-
-
-
-#--------------------
-# RELOAD
-# reload browserSync
-gulp.task 'reload', ->
-	browserSync.reload()
 
 
 #--------------------
 # SERVE
 # browserSync server with HTML injection
 gulp.task 'serve', ->
-	browserSync.use htmlInjector, files: ['../dist/**/*.html']
 	browserSync.init(
 		server:
 			baseDir: '../dist'
 		https: true
-		files: ['../dist/lib/**/*.css']
+		files: [
+			'../dist/data/**/*'
+			'../dist/**/*.html'
+			'../dist/lib/**/*.css'
+			'../dist/lib/js/**/*'
+			'../dist/lib/ui/**/*'
+			'../dist/lib/fonts/**/*'
+			'../dist/assets/**/*'
+		]
 		open: false
 		reloadOnRestart: true
-		injectChanges: true
 	)
 	return
 
@@ -296,21 +331,22 @@ gulp.task 'serve', ->
 #--------------------
 # WATCH
 gulp.task 'watch', ->
-	gulp.watch paths.views, ['jade','reload']
-	gulp.watch paths.data, ['jade', 'reload']
-	gulp.watch paths.polymer, ['jade-polymer','reload']
+	gulp.watch paths.data, ['data']
+	gulp.watch paths.elements, ['elements']
+	gulp.watch paths.views, ['views']
 	gulp.watch paths.ui, ['ui']
 	gulp.watch paths.assets, ['assets']
 	gulp.watch paths.stylus, ['stylus']
-	gulp.watch '../_lib/js/**/*.coffee', ['coffee','reload']
-	gulp.watch '../dist/lib/js/*.js', ['reload']
+	gulp.watch '../_lib/js/**/*.coffee', ['coffee']
 	return
 
 
 
 gulp.task 'default', [
-	'jade'
-	'jade-polymer'
+	'bower-deps'
+	'data'
+	'elements'
+	'views'
 	'coffee'
 	'stylus'
 	'ui'
