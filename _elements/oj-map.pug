@@ -196,24 +196,7 @@ dom-module#oj-map
 						polygon.building(points='1174.06 368.2 1174.06 373.8 1169.16 371 1174.06 368.2')
 						line.building(x1='1174.06', y1='374.1', x2='1174.06', y2='373.8')
 				g#oj-map-houses-open
-					template(is='dom-repeat' items='[[houses.open]]')
-						use.house.open(
-							id$='[[item.id]]'
-							width$='[[item.width]]'
-							height$='[[item.height]]'
-							transform$='translate([[item.coords]])'
-							xlink:href='#house-open'
-							name='[[item.name]]'
-						)
 				g#oj-map-houses-closed
-					template(is='dom-repeat' items='[[houses.closed]]')
-						use.house.closed(
-							id$='[[item.id]]'
-							width$='[[item.width]]'
-							height$='[[item.height]]'
-							transform$='translate([[item.coords]])'
-							xlink:href='#house-closed'
-						)
 				g#oj-map-streets
 					text.street-label(transform='matrix(0.87, -0.5, 0.5, 0.87, 41.15, 308.02)') ul. Piękna
 					text.street-label(transform='translate(435.7 282.35) rotate(28.11)') ul. Jazdów
@@ -275,41 +258,37 @@ dom-module#oj-map
 	// ---------------------------------------------------------------
 	script
 		:coffee-script
-			# patch: https://gist.github.com/bendavis78/15528ca2f501c44f2fa4
-			do ->
-				doc = document.currentScript.ownerDocument
-				root = doc.querySelector('dom-module > template').content
-				templates = root.querySelectorAll('svg template')
-				el = undefined
-				template = undefined
-				attribs = undefined
-				attrib = undefined
-				count = undefined
-				child = undefined
-				content = undefined
-				i = 0
-				while i < templates.length
-					el = templates[i]
-					template = el.ownerDocument.createElement('template')
-					el.parentNode.insertBefore template, el
-					attribs = el.attributes
-					count = attribs.length
-					while count-- > 0
-						attrib = attribs[count]
-						template.setAttribute attrib.name, attrib.value
-						el.removeAttribute attrib.name
-					el.parentNode.removeChild el
-					content = template.content
-					while child = el.firstChild
-						content.appendChild child
-					i++
-				return
-
 			Polymer
 				is: 'oj-map'
 				properties:
 					houses:
 						type: Object
+						observer: '_housesLoaded'
+
+				_housesLoaded: (houses)->
+					openHouses = this._buildHouses(houses.open)
+					Polymer.dom(this.$['oj-map-houses-open']).appendChild openHouses
+
+					closedHouses = this._buildHouses(houses.closed)
+					this.$['oj-map-houses-closed'].appendChild closedHouses
+
+					Polymer.dom.flush()
+					return
+					
+				_buildHouses: (houses)->
+					newHouses = document.createDocumentFragment()
+					for house in houses
+						newHouse = document.createElementNS 'http://www.w3.org/2000/svg', 'use'
+						newHouse.setAttributeNS 'http://www.w3.org/1999/xlink', 'xlink:href', '#house-open'
+						newHouse.setAttribute 'id', house.id
+						newHouse.setAttribute 'width', house.width
+						newHouse.setAttribute 'height', house.height
+						newHouse.setAttribute 'transform', "translate(#{house.coords})"
+						newHouses.appendChild(newHouse)
+					return newHouses
+
+				_taptap: ->
+					console.log 'tap tap!!!'
 
 				ready: ->
 					return
