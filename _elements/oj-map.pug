@@ -267,7 +267,8 @@ dom-module#oj-map
 
 				_housesLoaded: (houses)->
 					openHouses = this._buildHouses(houses.open)
-					Polymer.dom(this.$['oj-map-houses-open']).appendChild openHouses
+					this.$['oj-map-houses-open'].appendChild openHouses
+					console.log this.$['oj-map-houses-open']
 
 					closedHouses = this._buildHouses(houses.closed)
 					this.$['oj-map-houses-closed'].appendChild closedHouses
