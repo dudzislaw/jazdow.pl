@@ -275,7 +275,7 @@ dom-module#oj-map
 	// ---------------------------------------------------------------
 	script
 		:coffee-script
-			# Templates inside SVG won't work in polymer-1.0 without some monkeypatching.
+			# patch: https://gist.github.com/bendavis78/15528ca2f501c44f2fa4
 			do ->
 				doc = document.currentScript.ownerDocument
 				root = doc.querySelector('dom-module > template').content
