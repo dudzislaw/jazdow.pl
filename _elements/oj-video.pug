@@ -1,4 +1,5 @@
 link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="../lib/bower_components/marked-element/marked-element.html")
 
 dom-module#oj-video
 	// ---------------------------------------------------------------	
@@ -45,14 +46,18 @@ dom-module#oj-video
 				top: 4rem
 				right: 2rem
 				display: inline-block
-				color: white
-				font-family: $P
-				font-weight: 700
-				text-align: right
-				letter-spacing: .125em
 				+below(1100px)
 					top: 2rem
 					right: 1rem
+			.markdown-html
+				*
+					color: white
+					font-family: $P
+					font-weight: 700
+					font-size: 1.6rem
+					text-align: right
+					letter-spacing: .125em
+					list-style-type: none
 			#bannertext
 				position: absolute
 				display: flex
@@ -64,7 +69,8 @@ dom-module#oj-video
 				left: 25%
 				p
 					display: block
-					margin: -15% auto 0 auto
+					margin: -18% auto 0 auto
+					max-width: 6em
 					font-family: $P
 					font-weight: 700
 					text-align: center
@@ -83,21 +89,19 @@ dom-module#oj-video
 				width: 100%
 				height: auto
 				z-index: -1
-			video::cue
-				font-size: 0
-				background-color: transparent
 
 	// ---------------------------------------------------------------	
 	template
 		#video_overlay(on-tap="_playToggle")
 			a#big-logo
-			#subtitles [[currentSubCue1]] [[currentSubText1]]
+			marked-element#subtitles(markdown='[[currentSubs.0]]')
+				.markdown-html
 			#bannertext
-				p [[currentTime]]
+				p [[currentSubs.1]]
 			content
-		video#video(playsinline='true' muted='true' loop="true" poster="[[params.poster]]")
-			source#webm(src="[[params.webm]]" type="video/webm")
-			source#mp4(src="[[params.mp4]]" type="video/mp4")
+		video#video(playsinline muted loop autoplay poster="[[sources.poster]]")
+			source#webm(src="[[sources.webm]]" type="video/webm")
+			source#mp4(src="[[sources.mp4]]" type="video/mp4")
 
 
 	// ---------------------------------------------------------------	
@@ -106,61 +110,70 @@ dom-module#oj-video
 			Polymer
 				is: 'oj-video'
 				properties:
-					params:
+					sources:
 						type: Object
 						value: ->
 							{
-								webm: 		"/assets/videos/video.webm"
-								mp4: 		"/assets/videos/video.mp4"
-								poster: 	"/assets/videos/poster.jpg"
-								track: 		"/assets/videos/video-pl.vtt"
-								banner: 	"/assets/videos/banner-pl.vtt"
-								lang: 		"pl"
+								webm: 	"/assets/videos/video.webm"
+								mp4: 	"/assets/videos/video.mp4"
+								poster: "/assets/videos/poster.jpg"
 							}	
+
+					options:
+						type: Object
+						value: ->
+							{
+								muted: 'muted'
+								loop: 'loop'
+								autoplay: 'autoplay'
+							}
 
 					currentTime:
 						type: Number
 						reflectToAttribute: true
 						value: 0
 					
-					currentSubCue1:
-						type: Number
+					currentCues:
+						type: Array
 						reflectToAttribute: true
-						value: 0
-						computed: '_computeCurrentSubCue1(currentTime, subs1)'
+						value: ->
+							return [0,0]
+						computed: '_computeCurrentCues(currentTime, subs)'
 					
-					currentSubText1:
-						type: String
+					subs:
+						type: Array
 						reflectToAttribute: true
-						computed: '_computeCurrentSubText(currentSubCue1, subs1)'
-
-					subs1:
-						type: Array
 						value: ->
-							return [
-								[0, 'start!']
-								[7.666, 'time with fractions!']
-								[10, '']
-								[12, 'saw that? was empty!']
+							[
+								[ [0, 'start 1'],[5, 'next 1'] ]
+								[ [0, 'start 2'],[5, 'next 2'] ]
 							]
+
+					currentSubs:
+						type: Array
+						reflectToAttribute: true
+						computed: '_computeCurrentSubs(currentTime, currentCues, subs)'
+						value: ->
+							return ['a', 'b']
+
 							
-					subs2:
-						type: Array
-						value: ->
-							return [
-								[0, 'cześć!']
-								[7, 'Witamy w Otwartym Jazdowie']
-							]
+				_computeCurrentCues: (time, subs)->
+					cues = this.currentCues
+					for cue, i in cues
+						if time < subs[i][1][0]
+							cues[i] = 0
+						else if cue >= subs[i].length-1
+							cues[i] = cue
+						else if time > subs[i][cue+1][0]
+							cues[i] = cue+1
+						else cues[i] = cue
+					return cues
 
-				_computeCurrentSubCue1: (time, subs)->
-					cue = this.currentSubCue1
-					if time < subs[1][0] then return 0 # GO TO THE FIRST CUE
-					if cue >= subs.length-1 then return cue # REACHED THE LAST CUE. STAY UNTIL TIME RESTARTS
-					if time > subs[cue+1][0] then return cue+1 else return cue #PASSED CURRENT CUE. GO TO NEXT
-
-				_computeCurrentSubText: (cue, subs)->
-					return subs[cue][1]
-
+				_computeCurrentSubs: (time, cues, subs)->
+					return cues.map((cue, i)->
+						return subs[i][cue][1]
+					)
+					
 				_playToggle: ->
 					video = this.$.video
 					if video.paused then video.play() else video.pause()
@@ -170,7 +183,7 @@ dom-module#oj-video
 					video = this.$.video
 					updateProgress = setInterval((->
 						if video.paused then return else this.currentTime = video.currentTime
-					).bind(this), 1000
+					).bind(this), 500
 					)
 
 					return

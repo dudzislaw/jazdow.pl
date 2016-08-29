@@ -8,7 +8,6 @@ styles:
 
 scripts:
     vendor: /lib/js/vendor.min.js
-    polyfill: https://cdn.jsdelivr.net/polyfills/polyfill.js-clsls,mtchs
     main: /lib/js/main.min.js
 
 

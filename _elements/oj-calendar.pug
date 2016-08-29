@@ -7,46 +7,63 @@ dom-module#oj-calendar
 		:stylus
 			@import '../_lib/css/elements.imports.styl'
 			:host
+				+below(1100px)
+					margin: 1rem 0 2rem 0
+			.calendar.header
+				padding: .5rem .5rem .5rem 0
+				font-family: $P
+				font-weight: 700
+				font-size: 1.4rem
+				letter-spacing: 0.05em
+				margin-bottom: 4rem
+			#calendar
 				width: 100%
 				color: $oj-violet
 				display: flex
 				flex-flow: row wrap
 				justify-content: space-around
-				+below(1100px)
-					margin: 1rem 0 2rem 0
-				.cell.header
-					font-family: $P
-					font-weight: 700
-					font-size: 1rem
-					letter-spacing: 0.05em
-					text-transform: uppercase
-					padding: .5rem .5rem .5rem 0
-					border-bottom: 1px solid rgba($oj-violet, .4)
-				.cell.content
-					padding: 1rem .5rem 1rem 0
-					border-bottom: 1px solid rgba($oj-violet, .4)
-				.cell.when
-					flex-basis: 15%
-					flex-grow: 1
-				.cell.where
-					flex-basis: 35%
-					flex-grow: 1
-				.cell.what
-					flex-basis: 50%
-					flex-grow: 1
+			.cell.header
+				font-family: $P
+				font-weight: 700
+				font-size: 1rem
+				letter-spacing: 0.05em
+				text-transform: uppercase
+				padding: .5rem .5rem .5rem 0
+				border-bottom: 1px solid rgba($oj-violet, .4)
+			a.event-row
+				display: flex
+				width: 100%
+				cursor: pointer
+				&:hover
+					background-color: rgba($oj-violet, .05)
+			.cell.content
+				padding: 1rem .5rem 1rem 0
+				border-bottom: 1px solid rgba($oj-violet, .4)
+			.cell.when
+				flex-basis: 15%
+				flex-grow: 1
+			.cell.where
+				flex-basis: 35%
+				flex-grow: 1
+			.cell.what
+				flex-basis: 50%
+				flex-grow: 1
 					
 
 	// ---------------------------------------------------------------
 	template
-		.cell.header.when Kiedy:
-		.cell.header.where Gdzie:
-		.cell.header.what Co:
-		template(is="dom-repeat" items="{{calendarEvents}}")
-			.cell.content.when 
-				b {{item.when.day}} 
-				span {{item.when.weekday}}
-			.cell.content.where {{item.where}}
-			.cell.content.what {{item.what}}
+		h4.calendar.header [[labels.header]] [[options.other.lastDay]]
+		#calendar
+			.cell.header.when [[labels.when]]
+			.cell.header.where [[labels.where]]
+			.cell.header.what [[labels.what]]
+			template(is="dom-repeat" items="{{calendarEvents}}")
+				a.event-row(href="[[item.href]]" target="_blank" title='[[item.what]]')
+					.cell.content.when 
+						b {{item.when.day}} 
+						span {{item.when.weekday}}
+					.cell.content.where {{item.where}}
+					.cell.content.what {{item.what}}
 
 
 	// ---------------------------------------------------------------
@@ -73,8 +90,8 @@ dom-module#oj-calendar
 						value: 10
 					options:
 						type: Object
-						computed: 'computeOptions(apiKey, apiUrl, calendarIds, maxResults, showDays)'
-						observer: 'getEvents'
+						computed: '_computeOptions(apiKey, apiUrl, calendarIds, maxResults, showDays, limit)'
+						observer: '_getEvents'
 					# Async:
 					calendarEvents:
 						type: Array
@@ -82,26 +99,28 @@ dom-module#oj-calendar
 							return []
 
 
-				computeCalendarUrls: (apiUrl, calendarIds)->
+				_computeCalendarUrls: (apiUrl, calendarIds)->
 					if calendarIds
 						return calendarIds.map((calID)->
 							return apiUrl + 'calendars/' + calID + '/events'
 						)
 					
-				computeOptions: (apiKey, apiUrl, calendarIds, maxResults, showDays)->
+				_computeOptions: (apiKey, apiUrl, calendarIds, maxResults, showDays, limit)->
 					return {
-						urls: this.computeCalendarUrls(apiUrl, calendarIds)
+						urls: this._computeCalendarUrls(apiUrl, calendarIds)
 						params:
 							key: apiKey
 							maxResults: maxResults
-							limit: this.limit
+							limit: limit
 							timeMin: moment('2016-01-01T02:07:39+02:00').format()
 							timeMax: moment().add(showDays, 'days').format()
 							orderBy: 'startTime'
 							singleEvents: true
+						other:
+							lastDay: moment().add(showDays, 'days').locale('pl').format('D MMMM')
 					}
 
-				getEvents: ->
+				_getEvents: ->
 					options = this.options
 
 					if not options or not options.urls

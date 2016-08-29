@@ -56,8 +56,10 @@ paths =
 
 # Bower deps - will be merged to lib/js/vendor.min.js by bower-deps task
 bower_deps = [
-	paths.bower + 'velocity/velocity.js',
-	paths.bower + 'axios/dist/axios.min.js',
+	paths.bower + 'axios/dist/axios.min.js'
+	paths.bower + 'jquery/dist/jquery.slim.min.js'
+	paths.bower + 'animejs/anime.min.js'
+	paths.bower + 'velocity/velocity.min.js'
 	paths.bower + 'moment/min/moment-with-locales.min.js'
 	paths.bower + 'webcomponentsjs/webcomponents-lite.js'
 
@@ -312,8 +314,8 @@ gulp.task 'serve', ->
 			baseDir: '../dist'
 		https: true
 		files: [
-			'../dist/**/*.html'
 			'../dist/data/**/*'
+			'../dist/**/*.html'
 			'../dist/lib/**/*.css'
 			'../dist/lib/js/**/*'
 			'../dist/lib/ui/**/*'
@@ -322,7 +324,6 @@ gulp.task 'serve', ->
 		]
 		open: false
 		reloadOnRestart: true
-		injectChanges: true
 	)
 	return
 

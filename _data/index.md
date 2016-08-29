@@ -4,15 +4,34 @@ lang: pl
 title: Strona główna
 
 about:
-    title: Otwarty Jazdów to społeczność warszawskiego osiedla drewnianych domków fińskich, prowadząca ogólnodostępne działania społeczne, kulturalne i ekologiczne.
+    title: >
+        Otwarty Jazdów to społeczność warszawskiego osiedla drewnianych domków fińskich, prowadząca ogólnodostępne działania społeczne, kulturalne i ekologiczne.
 
 video:
-    webm: /assets/videos/video.webm
-    mp4: /assets/videos/video.mp4
-    poster: /assets/videos/poster.jpg
-    subs: /assets/videos/video-pl.vtt
-    banner: /assets/videos/banner-pl.vtt
-    lang: pl
+    sources:
+        webm: /assets/videos/video.webm
+        mp4: /assets/videos/video.mp4
+        poster: /assets/videos/poster.jpg
+    subs:
+        - # Subs 1
+            -
+                - 0
+                - ''
+            -
+                - 0.1
+                - >
+                    Motyka i Słońce <br>
+                    8/12
+        - # Subs 2
+            -
+                - 0
+                - cześć!
+            -
+                - 3
+                - Witamy w Otwartym Jazdowie
+            -
+                - 7
+                - ''
 
 cards:
     -
@@ -30,24 +49,6 @@ cards:
         href: /#/partnerstwo/
         cover: /lib/ui/oj-model.svg
         caption: Partnerstwo dla osiedla Jazdów tworzą organizacje, instytucje publiczne i osoby prywatne.
-
-events:
-    title: Wydarzenia
-    intro: "W domkach fińskich działa wiele organizacji, oferujących ciekawe wydarzenia. Chcesz w nich uczestniczyć? Zobacz co dzieje się na Jazdowie w najbliższych dniach:"
-    page: /#/wydarzenia/
-    image: /assets/images/arch-duo.png
-    limit: 2
-    showDays: 7
-    labels:
-        when: Kiedy
-        where: Gdzie
-        what: Co
-    button: cały kalendarz
-    google:
-        apikey: AIzaSyB_td3L7GKbbTBdTf9IivwESNuyDrfzpyU
-        calendars:
-            - smrfb88k185n4bnm7lh1q4sijc@group.calendar.google.com # Domek A
-            - jdbscspb3vqjm9q5kno1vuegv4@group.calendar.google.com # Domek B
 
 ---
 Naszą misją jest łączenie różnych grup, aby wspólnie rozwijać przestrzeń publiczną, tworzyć ofertę społeczną i kulturalną dostępną dla każdego, sprawdzać w praktyce alternatywne modele finansowania i wymiany bezpieniężnej, wspólnie uprawiać ogrody i po prostu dobrze spędzać czas wolny.

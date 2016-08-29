@@ -10,15 +10,15 @@ dom-module#oj-layout-about
 			:host
 				display: block
 				background-color: white
-				padding-top: 14rem
+				padding-top: 10rem
 				+below(1100px)
 					padding-top: 8rem
 			.inner-section
-				lost-center: $grid-width $gutter/2 flex
+				lost-center: $grid-width 1rem flex
 				clearfix()
 				+below(1100px)
 					padding: 0 1rem
-			.section-title
+			.title
 				lost-column: 2/3 0 $gutter flex
 				display: block
 				letter-spacing: .075em
@@ -44,7 +44,7 @@ dom-module#oj-layout-about
 	// ---------------------------------------------------------------
 	template
 		.inner-section
-			h1.section-title [[params.title]]
+			h1.title [[title]]
 			oj-expander#about_content(reveal="0" show-text="czytaj dalej" hide-text="ukryj tekst" is-hidden="false")
 				marked-element(markdown="[[content]]")
 

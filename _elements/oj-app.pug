@@ -57,37 +57,46 @@ dom-module#oj-app
 			Polymer
 				is: 'oj-app'
 
-				observers: ['_routeChanged(route.*)']
+				observers: ['_routeChanged(route)']
 
-				_scrollToPosition: ->
-					belowTop =  this.$.main.offsetTop - window.innerHeight
-					scrollUp = belowTop + 100
-					main = this.$.main
-					
-					Velocity(
-						document.querySelector('html'),
-						'scroll',
-						offset: "#{scrollUp}px", duration: 500, delay: 2000
+				_scrollToPosition: (delay, offset)->
+					setTimeout(
+						(->
+							$.Velocity.animate(
+								$('html')
+								'scroll',
+								{duration: 300, offset: offset}
+							)
+
+						).bind(this),
+						delay
 					)
+					
+				_trapMenu: ()->
+					pastTop = window.scrollY > this.$.main.offsetTop
+					this.toggleClass 'trap-menu', pastTop
+					
 
-				_routeChanged: (newRoute, oldRoute)->
+				_routeChanged: (newRoute)->
+					this._trapMenu()
 					if this.route.path is '/' or !this.route.path
+						offset = this.$.main.offsetTop - window.innerHeight + 100
+						console.log this.$.main
 						this.toggleClass 'video-bg', true
-						this._scrollToPosition()
+						this._scrollToPosition(500, offset)
 					else
 						this.toggleClass 'video-bg', false
-					
+						window.scroll 0,0
+
 				ready: ->
 					window.addEventListener 'scroll', ((e)->
-						pastTop = window.scrollY >= this.$.main.offsetTop
-						this.toggleClass 'trap-menu', pastTop
+						this._trapMenu()
 					).bind this
 					return
 					
 				attached: ->
 					if !this.route.path
 						this.set 'route.path', '/'
-						this._scrollToPosition()
 					return
 				detached: ->
 					return

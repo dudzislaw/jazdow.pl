@@ -1,0 +1,56 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="oj-map.html")
+
+dom-module#oj-layout-map
+	template
+		style
+			:stylus
+				@import '../_lib/css/elements.imports.styl'
+				:host
+					display: block
+				.inner-section
+					display: block
+					margin-top: 8rem
+					lost-center: $grid-width 1rem flex
+					clearfix()
+					+below(1100px)
+						padding: 0 1rem
+						margin-top: 12rem
+				.intro
+					lost-column: 3/4 0 $gutter
+					margin-bottom: 8rem
+					+below(1100px)
+						lost-column: 8/12 0 $gutter flex
+						lost-offset: -1/12 row flex
+					+below(600px)
+						lost-column: 1/1 0 $gutter flex
+						lost-offset: 0 row flex
+					.title
+						+below(1100px)
+							text-align: left
+					p
+						font-size: 1.2rem
+				.map-section
+					padding: 0 1rem
+					margin-bottom: 10rem
+
+
+		.inner-section
+			.intro
+				h1.title [[title]]
+				marked-element(markdown="[[content]]")
+					.markdown-html
+		.map-section
+			oj-map(houses='[[houses]]')
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-layout-map'
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return

@@ -3,8 +3,12 @@ link(rel="import" href="../lib/bower_components/app-route/app-route.html")
 link(rel="import" href="../lib/bower_components/iron-ajax/iron-ajax.html")
 link(rel="import" href="oj-video.html")
 link(rel="import" href="oj-layout-about.html")
-link(rel="import" href="oj-layout-events-mini.html")
 link(rel="import" href="oj-layout-cards.html")
+link(rel="import" href="oj-layout-events.html")
+link(rel="import" href="oj-layout-map.html")
+link(rel="import" href="oj-layout-history.html")
+link(rel="import" href="oj-layout-partners.html")
+link(rel="import" href="oj-layout-article.html")
 
 dom-module#oj-page
 	// ---------------------------------------------------------------
@@ -30,24 +34,39 @@ dom-module#oj-page
 			handle-as='json'
 			last-response='{{load}}'
 		)
+
+
+
 		template(is='dom-if' if='{{layout.home}}')
-			oj-video(params='[[load.video]]')
-			oj-layout-about(params='[[load.about]]' content='[[load.content]]')
+			oj-video(sources='[[load.video.sources]]' subs='[[load.video.subs]]')
+			oj-layout-about(title='[[load.about.title]]' content='[[load.content]]' lang='[[load.lang]]')
 			oj-layout-cards(cards='[[load.cards]]')
-			oj-layout-events-mini(params='[[load.events]]')
 
 		template(is='dom-if' if='{{layout.events}}')
-			h1 [[load.title]]
+			oj-layout-events(
+				title='[[load.title]]'
+				image='[[load.image]]'
+				content='[[load.content]]'
+				params='[[load.events]]'
+				lang='[[load.lang]]')
+
 		template(is='dom-if' if='{{layout.map}}')
-			h1 [[load.title]]
+			oj-layout-map(title='[[load.title]]' content='[[load.content]]' houses='[[load.houses]]')
+
 		template(is='dom-if' if='{{layout.history}}')
-			h1 [[load.title]]
+			oj-layout-history(
+				title='[[load.title]]'
+				content='[[load.content]]'
+				timeline='[[load.timeline]]')
+
 		template(is='dom-if' if='{{layout.model}}')
-			h1 [[load.title]]
+			oj-layout-article(title='[[load.title]]' content='[[load.content]]')
+			
 		template(is='dom-if' if='{{layout.partnership}}')
-			h1 [[load.title]]
+			oj-layout-partners(title='[[load.title]]' content='[[load.content]]' partners='[[load.partners]]')
+
 		template(is='dom-if' if='{{layout.default}}')
-			h1 default layout
+			oj-layout-article(title='[[load.title]]' content='[[load.content]]')
 
 	// ---------------------------------------------------------------
 	script

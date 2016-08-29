@@ -1,0 +1,108 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+
+dom-module#oj-history
+	template
+		style
+			:stylus
+				@import '../_lib/css/elements.imports.styl'
+				:host
+					display: block
+				.event
+					display: flex
+					lost-column: 8/12 0 $gutter flex
+					+below(1100px)
+						lost-column: 1/1 0 $gutter flex
+				.date
+					lost-column: 2/8 2 $gutter
+					position: relative
+					padding-right: $gutter
+					border-right: .5rem solid $oj-green
+					text-align: right
+					color: $oj-violet
+					font-size: 1rem
+					line-height: 1.2em
+					font-weight: 700
+					font-family: P
+					letter-spacing: 0.08em
+					text-transform: uppercase
+					font-size: 1.2rem
+					+below(1100px)
+						lost-column: 3/12 2 $gutter flex
+					+below(600px)
+						lost-column: 4/12 2 $gutter flex
+					&:after
+						content: ''
+						display: block
+						position: absolute
+						top: -.25rem
+						right: -1rem
+						z-index: 2
+						size: 1rem
+						border: .25rem solid $oj-violet
+						border-radius: 50%
+						background-color: white
+						box-shadow: 0 2px 5px rgba($oj-violet, .5)
+				.content
+					lost-column: 6/8 2 $gutter
+					margin-bottom: 3rem
+					position: relative
+					+below(1100px)
+						lost-column: 7/12 2 $gutter flex
+						lost-offset: 1/12 row flex
+					+below(1100px)
+						lost-column: 8/12 2 $gutter flex
+						lost-offset: 0 row flex
+					h4
+						font-size: 1rem
+						line-height: 1.2em
+						font-weight: 700
+						font-family: P
+						letter-spacing: 0.08em
+						text-transform: uppercase
+						display: block
+						width: 100%
+						font-size: 1.2rem
+						margin-bottom: .5rem
+					p
+						font-size: 1.2rem
+						letter-spacing: 0
+						line-height: 1.5em
+					.image
+						display: block
+						width: 50%
+						margin: .5rem 1rem 1rem 0
+					.caption
+						display: block
+						width: 50%
+						p
+							font-size: .9rem
+							color: rgba($oj-dark, .7)
+
+
+
+		template(is='dom-repeat' items='{{timeline}}' as='event')
+			.event
+				.date [[event.date]]
+				.content
+					h4 [[event.title]]
+					marked-element#subtitles(markdown='[[event.text]]')
+						.markdown-html
+					template(is='dom-if' if='[[event.photo]]')
+						.image
+							img(src='[[event.photo.image]]' alt='[[event.title]]')
+						.caption
+							p [[event.photo.caption]]
+
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-history'
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return
