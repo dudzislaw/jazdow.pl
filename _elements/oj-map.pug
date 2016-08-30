@@ -1,4 +1,5 @@
 link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="ui-behaviors.html")
 
 dom-module#oj-map
 	// ---------------------------------------------------------------
@@ -11,10 +12,31 @@ dom-module#oj-map
 				:host
 					display: block
 					clearfix()
+					margin-top: 16rem
+					+below(1200px)
+						margin-top: 18rem
 				.map
 					display: block
 					width: 100%
 					height: 100%
+					overflow-x: hidden
+					svg
+						+below(1200px)
+							width: 120%
+							transform: translateX(-10%)
+						+below(1100px)
+							width: 130%
+							transform: translateX(-15%)
+						+below(800px)
+							width: 150%
+							transform: translateX(-20%)
+						+below(700px)
+							width: 160%
+							transform: translateX(-22%)
+						+below(600px)
+							width: 170%
+							transform: translateX(-25%)
+							
 				.map-land-1
 					fill: $oj-palegreen
 				.map-land-2
@@ -35,40 +57,56 @@ dom-module#oj-map
 				.filled
 					fill: $oj-map-dark
 				
-				:host ::content .house.open, .house.open
-					stroke: $oj-map-dark
-					stroke-linejoin: bevel
-					stroke-width: 0.5px
-					cursor: pointer
-					fill: $oj-yellow
-					&:hover
-						fill: #ffe954
+				:host ::content // This scope is necessary to style inside svg tag
+					.house
+						stroke: $oj-map-dark
+						stroke-linejoin: bevel
+						stroke-width: 0.5px
+						&.open
+							cursor: pointer
+							fill: $oj-yellow
+							&:hover
+								fill: #ffe954
+						&.closed
+							fill: #fff
+							
+					.house-number, text
+						fill: $oj-map-dark
+						font-family: $SC
+						font-size: 13px	
+						font-weight: 300
+						isolation: isolate
+						pointer-events: none
+						cursor: pointer
 				
-				:host ::content .house.closed, .house.closed
-					stroke: $oj-map-dark
-					stroke-linejoin: bevel
-					stroke-width: 0.5px
-					fill: #fff
-				
-				:host ::content .house-number, .house-number, text
-					fill: $oj-map-dark
-					font-family: $SC
-					font-size: 13px	
-					font-weight: 300
-					isolation: isolate
-					pointer-events: none
-					cursor: pointer
+				#house-label
+					position: fixed
+					display: block
+					z-index: 9
+					margin: 0 auto
+					padding: 0 0 2rem 0
+					left: 50%
+					transform: translateX(-50%)
+					bottom: 0
+					#house-label-content
+						font-family: $P
+						color: $oj-violet
+						font-weight: 700
+						font-size: 1.6rem
+						letter-spacing: .05em
+						text-align: center
+						text-decoration: underline
 
 		// ---------------------------------------------------------------
 		.map#map
 			svg#svg-map(xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', viewbox='0 0 1394 956')
 				defs
-					symbol#house(data-name='house-open', viewbox='0 0 55.1 40.07')
+					symbol#house(data-name='house-open', viewbox='0 0 56 41')
 						polygon(points='32.25 32.05 32.25 39.85 0.25 23.25 0.25 15.35 6.95 18.85 32.25 32.05')
 						polygon(points='43.55 16.95 42.15 18.85 35.05 28.25 32.25 32.05 6.95 18.85 0.25 15.35 11.45 0.25 18.25 3.75 43.55 16.95')
 						polygon(points='54.85 17.55 43.55 16.95 18.25 3.75 11.45 0.25 22.75 0.85 54.85 17.55')
 						polygon(points='54.85 17.55 54.85 25.45 43.55 32.65 32.25 39.85 32.25 32.05 35.05 28.25 42.15 18.85 43.55 16.95 54.85 17.55')
-					symbol#zabytek(data-name='zabytek', viewbox='0 0 30.6 17.6')
+					symbol#zabytek(data-name='zabytek', viewbox='0 0 30.5 17.5')
 						polygon.filled(points='0.1 0 0 8.8 15.3 8.8 15.3 0 0.1 0')
 						polygon.filled(points='15.3 8.8 15.3 17.6 30.6 8.8 15.3 8.8')
 						path.filled(d='M15.3,17L29.6,8.8,15.2,0.5H0.6v8L15.3,17m0,0.6L0,8.8V0H15.3L30.5,8.8,15.3,17.6h0Z')
@@ -222,19 +260,24 @@ dom-module#oj-map
 				g#oj-map-houses-open
 				g#oj-map-houses-closed
 				g#oj-map-numbers
+		
+		#house-label
+			#house-label-content
 
 	// ---------------------------------------------------------------
 	script
 		:coffee-script
 			Polymer
 				is: 'oj-map'
+				
+				behaviors: ['trap']
+				
 				properties:
 					houses:
 						type: Object
 						observer: '_housesLoaded'
 
-				_housesLoaded: (houses)->
-					
+				_housesLoaded: (houses)->	
 					Promise.resolve(this)
 					.then((ojmap)->
 						# Add houses to map
@@ -249,8 +292,11 @@ dom-module#oj-map
 						ojmap.$['oj-map-numbers'].appendChild closedNumbers
 						return ojmap
 					).then((ojmap)->
+						# Add listeners to houses
 						openHouses = ojmap.$['oj-map-houses-open'].children
 						for house in openHouses
+							ojmap.listen house, 'mouseenter', '_showHouseLabel'
+							ojmap.listen house, 'mouseleave', '_hideHouseLabel'
 							ojmap.listen house, 'tap', '_tap'
 					)
 					return
@@ -281,12 +327,37 @@ dom-module#oj-map
 						houseNumbers.appendChild houseNumber
 					return houseNumbers
 					
+				_showHouseLabel: (e)->
+					this.$['house-label-content'].innerText = e.target.attributes.name.value
+
+				_hideHouseLabel: (e)->
+					this.$['house-label-content'].innerText = ''
 
 				_tap: (e)->
 					console.dir e.target
 
+				_trap: (target, trap, bottom=true, top=true)->
+					if bottom
+						bottomStretch = (trap.offsetTop + trap.offsetHeight) - (window.scrollY + window.innerHeight)
+					else bottomStretch = 0
+
+					if top
+						topStretch = (trap.offsetTop + target.offsetHeight) - (window.scrollY + window.innerHeight)
+					else topStretch = 0
+
+					if topStretch > 0
+						target.style.transform = "translateY(#{topStretch}px)"
+					else if bottomStretch < 0
+						target.style.transform = "translateY(#{bottomStretch}px)"
+					else target.style.transform = "translateY(0px)"
+
+
 				ready: ->
+					document.addEventListener 'scroll', (->
+							this._trap(this.$['house-label-content'], this.$['map'], true, true)	
+						).bind this
 					return
+					
 				attached: ->
 					return
 				detached: ->

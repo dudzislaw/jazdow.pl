@@ -3,7 +3,30 @@ lang: pl
 
 title: Mapa osiedla domków finśkich na Jazdowie
 
-mapfile: /lib/ui/oj-map.svg
+legend:
+    title: Legenda:
+    symbols:
+        open:
+            icon: house
+            label: Domki otwarte
+        closed:
+            icon: house
+            label: Domki zamieszkałe
+        embassy:
+            icon: embassy
+            label: Ambasada
+        hospital:
+            icon: hospital
+            label: Szpital
+        kindergraden:
+            icon: kindergraden
+            label: Przedszkole
+        monument:
+            icon: monument
+            label: Obiekt w ewidencji zabytków
+        school:
+            icon: school
+            label: Szkoła podstawowa
 
 houses:
     open:
@@ -178,4 +201,4 @@ houses:
             coords: 840 431
 ---
 
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec id elit non mi porta gravida at eget metus. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+W domkach fińskich na Jazdowie działa obecnie 12 organizacji.
