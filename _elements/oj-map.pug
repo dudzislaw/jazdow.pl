@@ -295,7 +295,7 @@ dom-module#oj-map
 						for house in openHouses
 							ojmap.listen house, 'mouseenter', '_showHouseLabel'
 							ojmap.listen house, 'mouseleave', '_hideHouseLabel'
-							ojmap.listen house, 'tap', '_tap'
+							ojmap.listen house, 'tap', '_goToHouse'
 					)
 					return
 					
@@ -331,8 +331,8 @@ dom-module#oj-map
 				_hideHouseLabel: (e)->
 					this.$['house-label-content'].innerText = ''
 
-				_tap: (e)->
-					console.dir e.target
+				_goToHouse: (e)->
+					 window.location.href = window.location.href + e.target.id + '/'
 
 				ready: ->
 					document.addEventListener 'scroll', (->

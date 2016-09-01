@@ -47,7 +47,7 @@ cards:
     -
         title: Partnerstwo
         href: /#/partnerstwo/
-        cover: /lib/ui/oj-model.svg
+        cover: /lib/ui/oj-partners.svg
         caption: Partnerstwo dla osiedla Jazdów tworzą organizacje, instytucje publiczne i osoby prywatne.
 
 ---
