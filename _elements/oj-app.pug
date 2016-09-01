@@ -18,16 +18,10 @@ dom-module#oj-app
 						margin-top: $video-ratio
 						+below(1100px)
 							margin-top: 64vw
-				&.trap-menu
-					main
-						padding-top: 5.7rem
-					oj-menu#main_menu
-						position: fixed
-						top 0
-						box-shadow: 0 1px 5px rgba(black, .15)
 				main
 					margin-top: 0
 					transition: margin-top .5s ease
+					clearfix()
 
 
 	// ---------------------------------------------------------------
@@ -72,13 +66,7 @@ dom-module#oj-app
 						delay
 					)
 					
-				_trapMenu: ()->
-					pastTop = window.scrollY > this.$.main.offsetTop
-					this.toggleClass 'trap-menu', pastTop
-					
-
 				_routeChanged: (newRoute)->
-					this._trapMenu()
 					if this.route.path is '/' or !this.route.path
 						offset = this.$.main.offsetTop - window.innerHeight + 100
 						console.log this.$.main
@@ -89,9 +77,6 @@ dom-module#oj-app
 						window.scroll 0,0
 
 				ready: ->
-					window.addEventListener 'scroll', ((e)->
-						this._trapMenu()
-					).bind this
 					return
 					
 				attached: ->

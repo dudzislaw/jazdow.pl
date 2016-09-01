@@ -7,16 +7,15 @@ dom-module#oj-layout-cards
 			:stylus
 				@import '../_lib/css/elements.imports.styl'
 				:host
-					display: block
+					display: flex
 					background-color: white
 				.inner-section
+					margin-top: 8rem
+					margin-bottom: 8rem
 					lost-center: $grid-width 1rem flex
 					clearfix()
-					margin-top: 8rem
 					+below(1100px)
 						padding: 0 1rem
-
-
 
 
 		.inner-section

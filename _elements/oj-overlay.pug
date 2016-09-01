@@ -1,0 +1,28 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+
+dom-module#oj-overlay
+	template
+		style
+			:stylus
+				@import '../_lib/css/elements.imports.styl'
+				:host
+					display: block
+					position: fixed
+					z-index: 99
+					top: 0
+					bottom: 0
+					width: 100%
+					background-color: rgba(white, .95)
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-overlay'
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return

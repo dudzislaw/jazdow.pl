@@ -4,7 +4,7 @@ lang: pl
 title: Mapa osiedla domków finśkich na Jazdowie
 
 legend:
-    title: Legenda:
+    title: 'Legenda:'
     symbols:
         open:
             icon: house

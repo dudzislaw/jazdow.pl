@@ -1,0 +1,27 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+
+dom-module#layout-house
+	template
+		style
+			:stylus
+				@import '../_lib/css/elements.imports.styl'
+				:host
+					display: block
+					position: relative
+					margin-top: 12rem
+					clearfix()
+
+		
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'layout-house'
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return

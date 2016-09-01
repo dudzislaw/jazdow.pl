@@ -45,7 +45,7 @@ dom-module#oj-map-legend
 					display: block
 					color: $oj-violet
 					font-family: $SC
-					font-size: .96rem
+					font-size: 1rem
 					line-height: 1.2em
 				.s
 					stroke: $oj-map-dark
@@ -54,7 +54,10 @@ dom-module#oj-map-legend
 					stroke-linejoin: bevel
 				.f
 					fill: $oj-map-dark
+				.no-s
 					stroke: none
+				.no-f
+					fill: none
 				.house-symbol
 					&.open
 						cursor: pointer
@@ -64,35 +67,31 @@ dom-module#oj-map-legend
 
 
 		svg#legend-symbols(xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink' viewbox='0 0 0 0')
-			defs
-				symbol#house-symbol(viewbox='0 0 55.5 40.5')
-					polygon.s(points='32.25 32.05 32.25 39.85 0.25 23.25 0.25 15.35 6.95 18.85 32.25 32.05')
-					polygon.s(points='43.55 16.95 42.15 18.85 35.05 28.25 32.25 32.05 6.95 18.85 0.25 15.35 11.45 0.25 18.25 3.75 43.55 16.95')
-					polygon.s(points='54.85 17.55 43.55 16.95 18.25 3.75 11.45 0.25 22.75 0.85 54.85 17.55')
-					polygon.s(points='54.85 17.55 54.85 25.45 43.55 32.65 32.25 39.85 32.25 32.05 35.05 28.25 42.15 18.85 43.55 16.95 54.85 17.55')
-				symbol#embassy-symbol(viewbox='0 0 18.13 25.23')
-					g
-						rect.f(x='2.07', y='3.97', width='0.5', height='21.26')
-						path.f(d='M2.32,4.64A2.32,2.32,0,1,1,4.64,2.32,2.32,2.32,0,0,1,2.32,4.64Zm0-4.14A1.82,1.82,0,1,0,4.14,2.32,1.82,1.82,0,0,0,2.32.5Z')
-						path.f(d='M6.56,15.42V12.9L2.07,14.11V7L13.64,3.91V6.43l4.49-1.21v7.1l-0.19,0Zm0.5-3.17v2.52l10.57-2.83V5.88L13.14,7.09V4.57L2.57,7.39v6.06Z')
-				symbol#hospital-symbol(viewbox='0 0 14.07 14.08')
-					path.f(d='M9,14.08H5.09V9H0V5.09H5.09V0H9V5.09h5.09V9H9v5.09Zm-3.39-.5H8.48V8.49h5.09V5.59H8.48V0.5H5.59V5.59H0.5v2.9H5.59v5.09Z')
-				symbol#kindergraden-symbol(viewbox='0 0 20.16 20.16')
-					g
-						path.f(d='M10.08,20.16A10.08,10.08,0,1,1,20.16,10.08,10.09,10.09,0,0,1,10.08,20.16Zm0-19.66a9.58,9.58,0,1,0,9.58,9.58A9.59,9.59,0,0,0,10.08.5Z')
-						circle.f(cx='5.84', cy='8.04', r='0.85')
-						circle.f(cx='14.33', cy='8.04', r='0.85')
-						path.s(d='M10.09,16.27a6.18,6.18,0,0,1-6-4.87l0.49-.11a5.68,5.68,0,0,0,11.1,0l0.49,0.11A6.2,6.2,0,0,1,10.09,16.27Z')
-				symbol#monument-symbol(viewbox='0 0 15.28 22.92')
-					g
-						polygon.f(points='0 15.27 7.64 7.63 15.28 15.27 7.64 22.9 0 15.27')
-						polygon.f(points='7.65 7.64 0.01 0 15.28 0 7.65 7.64')
-						path.s(d='M14.78,0.5V15.07L7.64,22.21,0.51,15.07V0.5H14.78m0.5-.5H0V15.28l7.64,7.64,7.64-7.64V0h0Z')
-				symbol#school-symbol(viewbox='0 0 17.05 22.04')
-					g
-						path.f(d='M8.49,22L8.35,22A18.36,18.36,0,0,1,0,6.93V1L0.39,1.31a5.89,5.89,0,0,0,3.17,1A6.78,6.78,0,0,0,8.32.19L8.5,0,8.68,0.19A6.87,6.87,0,0,0,13.5,2.32a5.88,5.88,0,0,0,3.15-1L17,1V7.17H17A18.36,18.36,0,0,1,8.63,22ZM0.5,2v5a17.85,17.85,0,0,0,8,14.52,17.86,17.86,0,0,0,8-14.53V6.67h0.06V2a6.39,6.39,0,0,1-3,.86,7.39,7.39,0,0,1-5-2.1,7.27,7.27,0,0,1-4.94,2.1A6.4,6.4,0,0,1,.5,2Z')
-						path.f(d='M5.35,13.31V7.58L3.73,8.74V7.83L5.36,6.65H6.15V13.3H5.35Z')
-						path.f(d='M8.73,13.31v-0.7l2.69-3.32a1.48,1.48,0,0,0,.36-1,1,1,0,0,0-.92-1.07H10.69A1.07,1.07,0,0,0,9.56,8.43H8.73a1.85,1.85,0,0,1,1.75-1.94h0.25a1.93,1.93,0,0,1,1.63.77,1.72,1.72,0,0,1,.31,1,2.19,2.19,0,0,1-.57,1.42L9.73,12.54h3v0.77h-4Z')
+			symbol#house-symbol(viewbox='0 0 16.73 13')
+				polygon.s(points='9.77 9.69 9.77 12.03 0.25 7.08 0.25 4.74 2.26 5.79 9.77 9.69')
+				polygon.s(points='13.13 5.2 12.71 5.76 10.61 8.57 9.77 9.69 2.26 5.79 0.25 4.74 3.6 0.25 5.62 1.3 13.13 5.2')
+				polygon.s(points='16.48 5.39 13.13 5.2 5.62 1.3 3.6 0.25 6.96 0.43 16.48 5.39')
+				polygon.s(points='16.48 5.39 16.48 7.73 13.13 9.88 9.77 12.03 9.77 9.69 10.61 8.57 12.71 5.76 13.13 5.2 16.48 5.39')
+			symbol#embassy-symbol(viewbox='0 0 10 13')
+				line.s.no-f(x1='1.47', y1='2.44', x2='1.47', y2='14.97')
+				circle.s.no-f(cx='1.47', cy='1.47', r='1.22')
+				polygon.s.no-f(points='7.99 4.09 7.99 2.6 1.47 4.35 1.47 8.22 4.12 7.51 4.12 9 10.64 7.25 10.64 3.38 7.99 4.09')
+			symbol#hospital-symbol(viewbox='0 0 13.5 13.5')
+				polygon.s.no-f(points='13.25 5.13 8.38 5.13 8.38 0.25 5.13 0.25 5.13 5.13 0.25 5.13 0.25 8.38 5.13 8.38 5.13 13.25 8.38 13.25 8.38 8.38 13.25 8.38 13.25 5.13')
+			symbol#kindergarden-symbol(viewbox='0 0 12.08 12.08')
+				circle.s.no-f(cx='6.04', cy='6.04', r='5.79')
+				circle.f(cx='3.54', cy='4.84', r='0.5')
+				circle.f(cx='8.54', cy='4.84', r='0.5')
+				path.s.no-f(d='M2.63,6.79a3.5,3.5,0,0,0,6.83,0')
+			symbol#school-symbol(viewbox='0 0 10.21 13.25')
+				path.s.no-f(d='M10,4.21a10.67,10.67,0,0,1-4.86,8.73A10.67,10.67,0,0,1,.25,4.21V1a3.62,3.62,0,0,0,1.94.63A4.17,4.17,0,0,0,5.11.35,4.17,4.17,0,0,0,8,1.65,3.62,3.62,0,0,0,10,1V4.21Z')
+				path.f(d='M3.25,8V4.6l-0.93.68V4.75l1-.69H3.74V8H3.25Z')
+				path.f(d='M5.23,8V7.57l1.59-2A0.87,0.87,0,0,0,7,5a0.58,0.58,0,0,0-.64-0.63,0.63,0.63,0,0,0-.67.71H5.22A1.09,1.09,0,0,1,6.38,4a1.13,1.13,0,0,1,1,.45A1,1,0,0,1,7.52,5a1.29,1.29,0,0,1-.33.84L5.85,7.53H7.58V8H5.23Z')
+			symbol#monument-symbol(viewbox='0 0 9 13.5')
+				polygon.f(points='4.5 13.5 0 9 4.5 4.5 9 9 4.5 13.5')
+				polygon.f(points='4.5 4.5 0 0 9 0 4.5 4.5')
+				path.f(d='M8.5,0.5V8.79l-4,4-4-4V0.5h8M9,0H0V9l4.5,4.5L9,9V0H9Z')
+
 			title oj-map-legend
 		
 		
@@ -101,40 +100,74 @@ dom-module#oj-map-legend
 		#legend-board
 			.legend-row
 				.icon#icon-house-open
-					svg(role='img')
-						use.house-symbol.open(xlink:href="#house-symbol")
+					svg(role='img' viewbox='0 0 16.73 13')
+						g.house-symbol.open
+							polygon.s(points='9.77 9.69 9.77 12.03 0.25 7.08 0.25 4.74 2.26 5.79 9.77 9.69')
+							polygon.s(points='13.13 5.2 12.71 5.76 10.61 8.57 9.77 9.69 2.26 5.79 0.25 4.74 3.6 0.25 5.62 1.3 13.13 5.2')
+							polygon.s(points='16.48 5.39 13.13 5.2 5.62 1.3 3.6 0.25 6.96 0.43 16.48 5.39')
+							polygon.s(points='16.48 5.39 16.48 7.73 13.13 9.88 9.77 12.03 9.77 9.69 10.61 8.57 12.71 5.76 13.13 5.2 16.48 5.39')
+
 				label.label(for='#icon-house-open') [[legend.symbols.open.label]]
+
 			.legend-row
 				.icon#icon-house-closed
-					svg(role='img')
-						use.house-symbol.closed(xlink:href="#house-symbol")
+					svg(role='img' viewbox='0 0 16.73 13')
+						g.house-symbol.closed
+							polygon.s(points='9.77 9.69 9.77 12.03 0.25 7.08 0.25 4.74 2.26 5.79 9.77 9.69')
+							polygon.s(points='13.13 5.2 12.71 5.76 10.61 8.57 9.77 9.69 2.26 5.79 0.25 4.74 3.6 0.25 5.62 1.3 13.13 5.2')
+							polygon.s(points='16.48 5.39 13.13 5.2 5.62 1.3 3.6 0.25 6.96 0.43 16.48 5.39')
+							polygon.s(points='16.48 5.39 16.48 7.73 13.13 9.88 9.77 12.03 9.77 9.69 10.61 8.57 12.71 5.76 13.13 5.2 16.48 5.39')
 				label.label(for='#icon-house-closed') [[legend.symbols.closed.label]]
+
 			.legend-row
 				.icon#icon-embassy
-					svg(role='img')
-						use.embassy-symbol(xlink:href="#embassy-symbol")
+					svg(role='img' viewbox='0 0 10 13')
+						g.embassy-symbol
+							line.s.no-f(x1='1.47', y1='2.44', x2='1.47', y2='14.97')
+							circle.s.no-f(cx='1.47', cy='1.47', r='1.22')
+							polygon.s.no-f(points='7.99 4.09 7.99 2.6 1.47 4.35 1.47 8.22 4.12 7.51 4.12 9 10.64 7.25 10.64 3.38 7.99 4.09')
 				label.label(for='#icon-embassy') [[legend.symbols.embassy.label]]
+
 			.legend-row
 				.icon#icon-hospital
-					svg(role='img')
-						use.hospital-symbol(xlink:href="#hospital-symbol")
+					svg(role='img' viewbox='0 0 13.5 13.5')
+						g.hospital-symbol
+							polygon.s.no-f(points='13.25 5.13 8.38 5.13 8.38 0.25 5.13 0.25 5.13 5.13 0.25 5.13 0.25 8.38 5.13 8.38 5.13 13.25 8.38 13.25 8.38 8.38 13.25 8.38 13.25 5.13')
 				label.label(for='#icon-hospital') [[legend.symbols.hospital.label]]
+	
 			.legend-row
 				.icon#icon-kindergarden
-					svg(role='img')
-						use.kindergarden-symbol(xlink:href="#kindergraden-symbol")
+					svg(role='img' viewbox='0 0 12.08 12.08')
+						g.kindergarden-symbol
+							circle.s.no-f(cx='6.04', cy='6.04', r='5.79')
+							circle.f(cx='3.54', cy='4.84', r='0.5')
+							circle.f(cx='8.54', cy='4.84', r='0.5')
+							path.s.no-f(d='M2.63,6.79a3.5,3.5,0,0,0,6.83,0')
 				label.label(for='#icon-kindergarden') [[legend.symbols.kindergraden.label]]
-			.legend-row
-				.icon#icon-monument
-					svg(role='img')
-						use.monument-symbol(xlink:href="#monument-symbol")
-				label.label(for='#icon-monument') [[legend.symbols.monument.label]]
+	
 			.legend-row
 				.icon#icon-school
-					svg(role='img')
-						use.school-symbol(xlink:href="#school-symbol")
+					svg(role='img' viewbox='0 0 10.21 13.25')
+						g.school-symbol
+							path.s.no-f(d='M10,4.21a10.67,10.67,0,0,1-4.86,8.73A10.67,10.67,0,0,1,.25,4.21V1a3.62,3.62,0,0,0,1.94.63A4.17,4.17,0,0,0,5.11.35,4.17,4.17,0,0,0,8,1.65,3.62,3.62,0,0,0,10,1V4.21Z')
+							path.f(d='M3.25,8V4.6l-0.93.68V4.75l1-.69H3.74V8H3.25Z')
+							path.f(d='M5.23,8V7.57l1.59-2A0.87,0.87,0,0,0,7,5a0.58,0.58,0,0,0-.64-0.63,0.63,0.63,0,0,0-.67.71H5.22A1.09,1.09,0,0,1,6.38,4a1.13,1.13,0,0,1,1,.45A1,1,0,0,1,7.52,5a1.29,1.29,0,0,1-.33.84L5.85,7.53H7.58V8H5.23Z')
 				label.label(for='#icon-school') [[legend.symbols.school.label]]
+	
+			.legend-row
+				.icon#icon-monument
+					svg(role='img' viewbox='0 0 9 13.5')
+						g.monument-symbol
+							polygon.f(points='4.5 13.5 0 9 4.5 4.5 9 9 4.5 13.5')
+							polygon.f(points='4.5 4.5 0 0 9 0 4.5 4.5')
+							path.f(d='M8.5,0.5V8.79l-4,4-4-4V0.5h8M9,0H0V9l4.5,4.5L9,9V0H9Z')
+				label.label(for='#icon-monument') [[legend.symbols.monument.label]]
 
+			//- .legend-row
+			//- 	.icon#icon-monument
+			//- 		svg(role='img')
+			//- 			use.monument-symbol(xlink:href="#monument-symbol" viewbox='0 0 9 13.5')
+			//- 	label.label(for='#icon-monument') [[legend.symbols.monument.label]]
 
 
 	// ---------------------------------------------------------------
