@@ -1,15 +1,57 @@
 link(rel="import" href="../lib/bower_components/polymer/polymer.html")
 
-dom-module#layout-house
+dom-module#oj-layout-house
 	template
 		style
 			:stylus
 				@import '../_lib/css/elements.imports.styl'
 				:host
-					display: block
+					display: flex
 					position: relative
-					margin-top: 12rem
+					margin: 12rem 0
 					clearfix()
+				header#header
+					display: block
+					width: 100%
+					padding-bottom: 2rem
+				section#main
+					lost-column: 8/12 0 $gutter flex
+					lost-offset: 1/12 row flex
+				section#info
+					lost-column: 3/12 0 $gutter flex
+				#oj-slider
+					width: 100%
+					position: relative
+				.slide
+					position: absolute
+					width: 100%
+					height: auto
+				iron-image
+					width: 100%
+					padding-top: 56.25%
+					
+					
+
+		header#header
+			h1#org-name [[house.org.name]]
+			p#house-address [[house.address.street]]
+			
+		section#main
+			#image-gallery
+				#oj-slider
+					template(is='dom-repeat' items='[[house.images]]' as='image')
+						.slide(id='oj-slide-[[index]]')
+							iron-image(src='[[image.src]]' sizing='cover')
+							p [[image.title]]
+							p [[image.author]]
+						
+			#content
+				marked-element(markdown="[[content]]")
+					.markdown-html
+		
+		section#info
+			#info-details
+			#calendar
 
 		
 
@@ -17,9 +59,15 @@ dom-module#layout-house
 	script
 		:coffee-script
 			Polymer
-				is: 'layout-house'
+				is: 'oj-layout-house'
+				
+				properties:
+					slideHeight:
+						type: Number
+						computed: ''
 
 				ready: ->
+					console.dir this
 					return
 				attached: ->
 					return

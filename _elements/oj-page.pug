@@ -84,7 +84,7 @@ dom-module#oj-page
 			oj-layout-article.layout-a(title='[[pageLoad.title]]' content='[[pageLoad.content]]')
 
 		template(is='dom-if' if='{{viewData.view}}')
-			oj-overlay
+			oj-overlay#overlay
 				oj-layout-house.layout-a(house='[[viewLoad.house]]' content='[[viewLoad.content]]')
 
 	// ---------------------------------------------------------------
@@ -97,6 +97,8 @@ dom-module#oj-page
 					pageLayout:
 						type: Object
 						computed: '_computePageLayout(page)'
+				
+				observers: ['_viewChanged(viewData)']
 				
 				_computePageLayout: (page)->
 					pageLayout = {}
@@ -116,11 +118,14 @@ dom-module#oj-page
 				_computeViewURL: (view)->
 					if view then return "/data/domki/#{view}.json"
 					
+				_viewChanged: (viewData)->
+					if viewData.view then document.body.classList.add 'freeze'
+					else document.body.classList.remove 'freeze'
+					
+					
 				ready: ->
 					return
 				attached: ->
-					console.dir this.route.path
-					console.dir this.viewData.view
 					return
 				detached: ->
 					return

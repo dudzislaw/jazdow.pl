@@ -1,34 +1,22 @@
 link(rel="import" href="../lib/bower_components/polymer/polymer.html")
-link(rel="import" href="oj-layout-house.html")
 
-dom-module#oj-overlay
+dom-module#oj-slider
 	template
 		style
 			:stylus
 				@import '../_lib/css/elements.imports.styl'
 				:host
 					display: block
-					position: fixed
-					z-index: 99
-					top: 0
-					bottom: 0
-					overflow-y: auto
-					width: 100%
-					background-color: rgba(white, .85)
-
-		content
 
 	// ---------------------------------------------------------------
 	script
 		:coffee-script
 			Polymer
-				is: 'oj-overlay'
+				is: 'oj-slider'
 
 				ready: ->
 					return
-
 				attached: ->
 					return
-
 				detached: ->
 					return

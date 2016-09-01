@@ -26,6 +26,8 @@
     "bluebird": "^3.4.1",
     "axios": "^0.13.1",
     "app-route": "PolymerElements/app-route#^0.9.2",
-    "marked-element": "PolymerElements/marked-element#^1.2.0"
+    "marked-element": "PolymerElements/marked-element#^1.2.0",
+    "l2t-paper-slider": "^1.2.0",
+    "iron-image": "PolymerElements/iron-image#^1.2.5"
   }
 }

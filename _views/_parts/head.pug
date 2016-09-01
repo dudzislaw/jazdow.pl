@@ -10,3 +10,7 @@ each href in data.styles
 
 each href in data.imports
 	link(rel="import" href=href)
+
+script
+	:coffee-script
+		document.write "<base href='#{document.location.origin}' />"
