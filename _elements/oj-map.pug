@@ -1,4 +1,5 @@
 link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="ui-behaviors.html")
 
 dom-module#oj-map
 	// ---------------------------------------------------------------
@@ -11,15 +12,29 @@ dom-module#oj-map
 				:host
 					display: block
 					clearfix()
+					margin-top: 12rem
 				.map
 					display: block
 					width: 100%
 					height: 100%
-				text
-					fill: $oj-map-dark
-					font-family: $SC
-					font-weight: 300
-					isolation: isolate
+					overflow-x: hidden
+					svg
+						+below(1200px)
+							width: 120%
+							transform: translateX(-10%)
+						+below(1100px)
+							width: 130%
+							transform: translateX(-15%)
+						+below(800px)
+							width: 150%
+							transform: translateX(-20%)
+						+below(700px)
+							width: 160%
+							transform: translateX(-22%)
+						+below(600px)
+							width: 170%
+							transform: translateX(-25%)
+							
 				.map-land-1
 					fill: $oj-palegreen
 				.map-land-2
@@ -37,45 +52,59 @@ dom-module#oj-map
 					stroke-dasharray: 2 5
 				.street-label
 					font-size: 14px
-				.house-number
-					font-size: 13px	
 				.filled
 					fill: $oj-map-dark
 				
-				:host ::content .house.open, .house.open
-					stroke: $oj-map-dark
-					stroke-linejoin: bevel
-					stroke-width: 0.5px
-					cursor: pointer
-					fill: $oj-yellow
-					&:hover
-						fill: #ffe954
+				:host ::content // This scope is necessary to style inside svg tag
+					.house
+						stroke: $oj-map-dark
+						stroke-linejoin: bevel
+						stroke-width: 0.5px
+						&.open
+							cursor: pointer
+							fill: $oj-yellow
+							&:hover
+								fill: #ffe954
+						&.closed
+							fill: #fff
+							
+					.house-number, text
+						fill: $oj-map-dark
+						font-family: $SC
+						font-size: 13px	
+						font-weight: 300
+						isolation: isolate
+						pointer-events: none
+						cursor: pointer
 				
-				:host ::content .house.closed, .house.closed
-					stroke: $oj-map-dark
-					stroke-linejoin: bevel
-					stroke-width: 0.5px
-					fill: #fff
-				
-				.house-number
-					pointer-events: none
-					cursor: pointer
+				#house-label
+					position: fixed
+					display: block
+					z-index: 9
+					margin: 0 auto
+					padding: 0 0 2rem 0
+					left: 50%
+					transform: translateX(-50%)
+					bottom: 0
+					#house-label-content
+						font-family: $P
+						color: $oj-violet
+						font-weight: 700
+						font-size: 1.6rem
+						letter-spacing: .05em
+						text-align: center
+						text-decoration: underline
 
 		// ---------------------------------------------------------------
 		.map#map
 			svg#svg-map(xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', viewbox='0 0 1394 956')
 				defs
-					symbol#house-open(data-name='house-open', viewbox='0 0 55.1 40.07')
+					symbol#house(data-name='house-open', viewbox='0 0 56 41')
 						polygon(points='32.25 32.05 32.25 39.85 0.25 23.25 0.25 15.35 6.95 18.85 32.25 32.05')
 						polygon(points='43.55 16.95 42.15 18.85 35.05 28.25 32.25 32.05 6.95 18.85 0.25 15.35 11.45 0.25 18.25 3.75 43.55 16.95')
 						polygon(points='54.85 17.55 43.55 16.95 18.25 3.75 11.45 0.25 22.75 0.85 54.85 17.55')
 						polygon(points='54.85 17.55 54.85 25.45 43.55 32.65 32.25 39.85 32.25 32.05 35.05 28.25 42.15 18.85 43.55 16.95 54.85 17.55')
-					symbol#house-closed(data-name='house-closed', viewbox='0 0 55.1 40.07')
-						polygon(points='32.25 32.05 32.25 39.85 0.25 23.25 0.25 15.35 7.05 18.85 32.25 32.05')
-						polygon(points='43.55 16.85 42.15 18.75 35.15 28.25 32.25 32.05 7.05 18.85 0.25 15.35 11.55 0.25 18.35 3.75 43.55 16.85')
-						polygon(points='54.85 17.55 43.55 16.85 18.35 3.75 11.55 0.25 22.85 0.85 54.85 17.55')
-						polygon(points='54.85 17.55 54.85 25.35 43.55 32.65 32.25 39.85 32.25 32.05 35.15 28.25 42.15 18.75 43.55 16.85 54.85 17.55')
-					symbol#zabytek(data-name='zabytek', viewbox='0 0 30.6 17.6')
+					symbol#zabytek(data-name='zabytek', viewbox='0 0 30.5 17.5')
 						polygon.filled(points='0.1 0 0 8.8 15.3 8.8 15.3 0 0.1 0')
 						polygon.filled(points='15.3 8.8 15.3 17.6 30.6 8.8 15.3 8.8')
 						path.filled(d='M15.3,17L29.6,8.8,15.2,0.5H0.6v8L15.3,17m0,0.6L0,8.8V0H15.3L30.5,8.8,15.3,17.6h0Z')
@@ -195,33 +224,6 @@ dom-module#oj-map
 						polygon.building(points='1177.66 375.9 1177.66 395.6 1114.66 432.1 1114.66 412.4 1165.56 383 1177.66 375.9')
 						polygon.building(points='1174.06 368.2 1174.06 373.8 1169.16 371 1174.06 368.2')
 						line.building(x1='1174.06', y1='374.1', x2='1174.06', y2='373.8')
-				g#oj-map-houses-open
-					use.house.open#oj-10-8(width='55', height='40', transform='translate(877 408)', xlink:href='#house-open')
-					use.house.open#oj-8-1(width='55', height='40', transform='translate(949 470)', xlink:href='#house-open')
-					use.house.open#oj-8-2(width='55', height='40', transform='translate(1000 500)', xlink:href='#house-open')
-					use.house.open#oj-3-5(width='55', height='40', transform='translate(992 616)', xlink:href='#house-open')
-					use.house.open#oj-3-18(width='55', height='40', transform='translate(854 720)', xlink:href='#house-open')
-					use.house.open#oj-3-17(width='55', height='40', transform='translate(809 695.5)', xlink:href='#house-open')
-					use.house.open#oj-3-20(width='55', height='40', transform='translate(763.5 667)', xlink:href='#house-open')
-					use.house.open#oj-3-11(width='55', height='40', transform='translate(737 579)', xlink:href='#house-open')
-					use.house.open#oj-5a-3(width='55', height='40', transform='translate(603 551.5)', xlink:href='#house-open')
-					use.house.open#oj-5a-4(width='55', height='40', transform='translate(600 590.5)', xlink:href='#house-open')
-					use.house.open#oj-7-30(width='55', height='40', transform='translate(433.5 470)', xlink:href='#house-open')
-				g#oj-map-houses-closed
-					use.house.closed#oj-7-14(width='55', height='40', transform='translate(506 423)', xlink:href='#house-closed')
-					use.house.closed#oj-3-6(width='55', height='40', transform='translate(1039.5 645)', xlink:href='#house-closed' on-tap='_housetap')
-					use.house.closed#oj-3-4(width='55', height='40', transform='translate(925 602)', xlink:href='#house-closed')
-					use.house.closed#oj-3-9(width='55', height='40', transform='translate(877 628)', xlink:href='#house-closed')
-					use.house.closed#oj-3-12(width='55', height='40', transform='translate(811 621.5)', xlink:href='#house-closed')
-					use.house.closed#oj-3-8(width='55', height='40', transform='translate(779.5 555)', xlink:href='#house-closed')
-					use.house.closed#oj-10-2(width='55', height='40', transform='translate(759 395)', xlink:href='#house-closed')
-					use.house.closed#oj-10-5(width='55', height='40', transform='translate(748 345)', xlink:href='#house-closed')
-					use.house.closed#oj-3-19(width='55', height='40', transform='translate(632 647)', xlink:href='#house-closed')
-					use.house.closed#oj-5a-7(width='55', height='40', transform='translate(506.5 584.5)', xlink:href='#house-closed')
-					use.house.closed#oj-5a-1(width='55', height='40', transform='translate(500.5 505.5)', xlink:href='#house-closed')
-					use.house.closed#oj-5a-8(width='55', height='40', transform='translate(463 529)', xlink:href='#house-closed')
-					use.house.closed#oj-7-29(width='55', height='40', transform='translate(391 497)', xlink:href='#house-closed')
-					use.house.closed#oj-10-4(width='55', height='40', transform='translate(840 431)', xlink:href='#house-closed')
 				g#oj-map-streets
 					text.street-label(transform='matrix(0.87, -0.5, 0.5, 0.87, 41.15, 308.02)') ul. Piękna
 					text.street-label(transform='translate(435.7 282.35) rotate(28.11)') ul. Jazdów
@@ -229,33 +231,6 @@ dom-module#oj-map
 					text.street-label(transform='translate(350.99 639.22) rotate(30.95)') Park Ujazdowski
 					text.street-label(transform='matrix(0.87, -0.5, 0.5, 0.87, 289.41, 162.89)') ul. Górnośląska
 					text.street-label(transform='translate(1129.54 821.6) rotate(-38.97)') Trasa Łazienkowska
-				g#oj-map-numbers
-					text.house-number(transform='matrix(0.87, 0.5, -0.5, 0.87, 639.44, 658.59)') 3/19
-					text.house-number(transform='matrix(0.87, 0.5, -0.5, 0.87, 744.47, 590.47)') 3/11
-					text.house-number(transform='matrix(0.87, 0.5, -0.5, 0.87, 789.07, 568.41)') 3/8
-					text.house-number(transform='matrix(0.87, 0.5, -0.5, 0.87, 769.84, 679.03)') 3/20
-					text.house-number(transform='matrix(0.87, 0.5, -0.5, 0.87, 816.56, 706.95)') 3/17
-					text.house-number(transform='matrix(0.87, 0.5, -0.5, 0.87, 861.31, 731.87)') 3/18
-					text.house-number(transform='matrix(0.87, 0.5, -0.5, 0.87, 817.54, 633.29)') 3/12
-					text.house-number(transform='matrix(0.87, 0.5, -0.5, 0.87, 888.23, 642.26)') 3/9
-					text.house-number(transform='matrix(0.87, 0.5, -0.5, 0.87, 935.77, 615.3)') 3/4
-					text.house-number(transform='matrix(0.87, 0.5, -0.5, 0.87, 1002.97, 629.56)') 3/5
-					text.house-number(transform='matrix(0.87, 0.5, -0.5, 0.87, 1049.53, 658.45)') 3/6
-					text.house-number(transform='translate(513.39 596.85) rotate(27.5)') 5A/7
-					text.house-number(transform='translate(469.93 541.7) rotate(27.5)') 5A/8
-					text.house-number(transform='translate(507.97 517.92) rotate(27.5)') 5A/1
-					text.house-number(transform='translate(439.91 482.38) rotate(27.5)') 7/30
-					text.house-number(transform='translate(397.62 509.69) rotate(27.5)') 7/29
-					text.house-number(transform='translate(513.39 435.11) rotate(27.5)') 7/14
-					text.house-number(transform='translate(610.44 563.58) rotate(27.5)') 5A/3
-					text.house-number(transform='translate(824.67 319.75) rotate(27.5)') 10/6
-					text.house-number(transform='translate(755.91 358.13) rotate(27.5)') 10/5
-					text.house-number(transform='translate(765.87 406.86) rotate(27.5)') 10/2
-					text.house-number(transform='translate(883.77 420.66) rotate(27.5)') 10/8
-					text.house-number(transform='translate(846.48 443.31) rotate(27.5)') 10/4
-					text.house-number(transform='translate(958.07 484.15) rotate(27.5)') 8/1
-					text.house-number(transform='translate(1009.71 513.28) rotate(27.5)') 8/2
-					text.house-number(transform='translate(606.42 602.54) rotate(27.5)') 5A/4
 				g#oj-map-symbols
 					use(width='30.6', height='17.6', transform='matrix(0.75, 0, 0, -0.75, 979.42, 305.64)', xlink:href='#zabytek')
 					use(width='30.6', height='17.6', transform='matrix(0.75, 0, 0, -0.75, 688.02, 474.58)', xlink:href='#zabytek')
@@ -280,37 +255,91 @@ dom-module#oj-map
 						path.filled(d='M511.2,165.2v-6.6l-1.6,2.2v-1l1.6-2.3,0.8-.5v7.7Z', transform='translate(0.26)')
 						path.filled(d='M514.5,163.3v-0.8l2.7-5.4a6.47,6.47,0,0,0,.4-1.3c0-.8-0.4-1-1.1-0.6a2.31,2.31,0,0,0-1.1,2l-0.8.5a4,4,0,0,1,2-3.4,1.36,1.36,0,0,1,1.6-.1,1.69,1.69,0,0,1,.3,1,3.61,3.61,0,0,1-.6,2l-2.3,4.5,2.9-1.7v0.9Z', transform='translate(0.26)')
 
+				g#oj-map-houses-open
+				g#oj-map-houses-closed
+				g#oj-map-numbers
+		
+		#house-label
+			#house-label-content
+
 	// ---------------------------------------------------------------
 	script
 		:coffee-script
 			Polymer
 				is: 'oj-map'
+				
+				behaviors: ['trap']
+				
 				properties:
 					houses:
 						type: Object
 						observer: '_housesLoaded'
 
-				_housesLoaded: (houses)->
+				_housesLoaded: (houses)->	
+					Promise.resolve(this)
+					.then((ojmap)->
+						# Add houses to map
+						openHouses = ojmap._buildHouses(houses.open, 'open')
+						closedHouses = ojmap._buildHouses(houses.closed, 'closed')
+						ojmap.$['oj-map-houses-open'].appendChild openHouses
+						ojmap.$['oj-map-houses-closed'].appendChild closedHouses
+						# Add house numbers to map
+						openNumbers = ojmap._createNumbers(houses.open)
+						closedNumbers = ojmap._createNumbers(houses.closed)
+						ojmap.$['oj-map-numbers'].appendChild openNumbers
+						ojmap.$['oj-map-numbers'].appendChild closedNumbers
+						return ojmap
+					).then((ojmap)->
+						# Add listeners to houses
+						openHouses = ojmap.$['oj-map-houses-open'].children
+						for house in openHouses
+							ojmap.listen house, 'mouseenter', '_showHouseLabel'
+							ojmap.listen house, 'mouseleave', '_hideHouseLabel'
+							ojmap.listen house, 'tap', '_tap'
+					)
 					return
 					
-				_buildHouses: (houses)->
+				_buildHouses: (houses, houseType)->
 					newHouses = document.createDocumentFragment()
 					for house in houses
 						newHouse = document.createElementNS 'http://www.w3.org/2000/svg', 'use'
-						newHouse.setAttributeNS 'http://www.w3.org/1999/xlink', 'xlink:href', '#house-open'
+						newHouse.setAttributeNS 'http://www.w3.org/1999/xlink', 'xlink:href', '#house'
+						newHouse.setAttribute 'class', "house #{houseType}"
 						newHouse.setAttribute 'id', house.id
 						newHouse.setAttribute 'width', house.width
 						newHouse.setAttribute 'height', house.height
+						newHouse.setAttribute 'name', house.name
 						newHouse.setAttribute 'transform', "translate(#{house.coords})"
-						newHouse.setAttribute 'on-tap', '_housetap'
 						newHouses.appendChild(newHouse)
 					return newHouses
 
-				_housetap: ->
-					console.log 'tap tap!'
+				_createNumbers: (houses)->
+					houseNumbers = document.createDocumentFragment()
+					for house in houses
+						coords = house.coords.split ' '
+						newCoords = "#{parseFloat(coords[0]) + 6.5} #{parseFloat(coords[1]) + 12.5}"
+						houseNumber = document.createElementNS 'http://www.w3.org/2000/svg', 'text'
+						houseNumber.setAttribute 'class', 'house-number'
+						houseNumber.setAttribute 'transform', "translate(#{newCoords}) rotate(27.5)"
+						houseNumber.innerHTML = house.address
+						houseNumbers.appendChild houseNumber
+					return houseNumbers
+					
+				_showHouseLabel: (e)->
+					this.$['house-label-content'].innerText = e.target.attributes.name.value
+
+				_hideHouseLabel: (e)->
+					this.$['house-label-content'].innerText = ''
+
+				_tap: (e)->
+					console.dir e.target
 
 				ready: ->
+					document.addEventListener 'scroll', (->
+							trap(this.$['house-label-content'], this, true, true, 200)
+						).bind this
 					return
+					
 				attached: ->
 					return
 				detached: ->

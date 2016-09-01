@@ -8,22 +8,17 @@ dom-module#oj-layout-article
 				@import '../_lib/css/elements.imports.styl'
 				:host
 					display: block
-					margin-top: 8rem
-					margin-bottom: 8rem
-					lost-center: $grid-width 1rem flex
-					clearfix()
-					+below(1100px)
-						padding: 0 1rem
-						margin-top: 12rem
-				.inner-section
-					lost-center: $grid-width $gutter/2 flex
-
-
-		.inner-section
-			.article-content
-				h1.section-title [[title]]
-				marked-element(markdown="[[content]]")
-					.markdown-html
+				.article-content
+					lost-column: 2/3 0 $gutter flex
+					lost-move: 1/6 row $gutter
+					+below(1000px)
+						lost-column: 1/1 0 $gutter flex
+						lost-move: 0 row $gutter
+		
+		.article-content
+			h1.section-title [[title]]
+			marked-element(markdown="[[content]]")
+				.markdown-html
 
 
 	// ---------------------------------------------------------------

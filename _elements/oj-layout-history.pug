@@ -9,12 +9,6 @@ dom-module#oj-layout-history
 				@import '../_lib/css/elements.imports.styl'
 				:host
 					display: block
-					margin-top: 8rem
-					lost-center: $grid-width 1rem flex
-					clearfix()
-					+below(1100px)
-						padding: 0 1rem
-						margin-top: 12rem
 				.intro
 					lost-column: 3/4 0 $gutter
 					margin-bottom: 8rem
@@ -33,12 +27,11 @@ dom-module#oj-layout-history
 
 
 
-		.inner-section
-			.intro
-				h1.title [[title]]
-				marked-element(markdown="[[content]]")
-					.markdown-html
-			oj-history(timeline='[[timeline]]')
+		.intro
+			h1.title [[title]]
+			marked-element(markdown="[[content]]")
+				.markdown-html
+		oj-history(timeline='[[timeline]]')
 
 	// ---------------------------------------------------------------
 	script

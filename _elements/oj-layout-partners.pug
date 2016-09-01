@@ -8,13 +8,17 @@ dom-module#oj-layout-partners
 				@import '../_lib/css/elements.imports.styl'
 				:host
 					display: block
-				.inner-section
-					lost-center: $grid-width 1rem flex
-					clearfix()
-					margin-top: 8rem
+				.title
+					lost-column: 2/3 0 $gutter flex
+					display: block
+					letter-spacing: .075em
 					+below(1100px)
-						padding: 0 1rem
-						margin-top: 12rem
+						lost-offset: -1/6 row $gutter
+						text-align: center
+					+below(600px)
+						display: block
+						width: 100%
+						lost-offset: 0 row $gutter
 				.intro
 					lost-column: 3/4 0 $gutter
 					margin-bottom: 8rem
@@ -66,19 +70,18 @@ dom-module#oj-layout-partners
 							margin-bottom: 1rem
 
 
-		.inner-section
-			.intro
-				h1.title [[title]]
-				marked-element(markdown="[[content]]")
-					.markdown-html
+		.intro
+			h1.title [[title]]
+			marked-element(markdown="[[content]]")
+				.markdown-html
 
-			.partners-list
-				template(is='dom-repeat' items='[[partners]]')
-					.partner
-						a.partner-image(href='[[item.href]]' title='[[item.name]]')
-							img(src='[[item.image]]')
-						a.partner-name(href='[[item.href]]') [[item.name]]
-						p.partner-caption [[item.caption]]
+		.partners-list
+			template(is='dom-repeat' items='[[partners]]')
+				.partner
+					a.partner-image(href='[[item.href]]' title='[[item.name]]')
+						img(src='[[item.image]]')
+					a.partner-name(href='[[item.href]]') [[item.name]]
+					p.partner-caption [[item.caption]]
 
 	// ---------------------------------------------------------------
 	script

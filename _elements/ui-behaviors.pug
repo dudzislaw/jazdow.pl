@@ -1,0 +1,23 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+
+script
+	:coffee-script
+		Polymer
+			is: 'ui-behaviors'
+			
+			_trap: (target, trap, bottom=true, top=true)->
+				if bottom
+					bottomStretch = (trap.offsetTop + trap.offsetHeight) - (window.scrollY + window.innerHeight)
+				else bottomStretch = 0
+
+				if top
+					topStretch = (trap.offsetTop + target.offsetHeight) - (window.scrollY + window.innerHeight)
+				else topStretch = 0
+
+				if topStretch > 0
+					target.style.transform = "translateY(#{topStretch}px)"
+				else if bottomStretch < 0
+					target.style.transform = "translateY(#{bottomStretch}px)"
+				else target.style.transform = "translateY(0px)"
+				
+			

@@ -54,16 +54,22 @@ dom-module#oj-calendar
 	template
 		h4.calendar.header [[labels.header]] [[options.other.lastDay]]
 		#calendar
-			.cell.header.when [[labels.when]]
-			.cell.header.where [[labels.where]]
-			.cell.header.what [[labels.what]]
+			template(is='dom-if' if='[[labels.when]]')
+				.cell.header.when [[labels.when]]
+			template(is='dom-if' if='[[labels.where]]')
+				.cell.header.where [[labels.where]]
+			template(is='dom-if' if='[[labels.what]]')
+				.cell.header.what [[labels.what]]
 			template(is="dom-repeat" items="{{calendarEvents}}")
-				a.event-row(href="[[item.href]]" target="_blank" title='[[item.what]]')
-					.cell.content.when 
-						b {{item.when.day}} 
-						span {{item.when.weekday}}
-					.cell.content.where {{item.where}}
-					.cell.content.what {{item.what}}
+				a.event-row
+					template(is='dom-if' if='[[labels.when]]')
+						.cell.content.when
+							b {{item.when.day}} 
+							span {{item.when.weekday}}
+					template(is='dom-if' if='[[labels.where]]')
+						.cell.content.where {{item.where}}
+					template(is='dom-if' if='[[labels.what]]')
+						.cell.content.what {{item.what}}
 
 
 	// ---------------------------------------------------------------

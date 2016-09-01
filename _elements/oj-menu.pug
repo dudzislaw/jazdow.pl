@@ -7,8 +7,9 @@ dom-module#oj-menu
 			@import '../_lib/css/elements.imports.styl'
 			:host
 				display: block
+				position: absolute
 				width: 100%
-				z-index: 9
+				z-index: 999
 				padding: .75rem 2rem
 				margin: 0 auto
 				background-color: white
@@ -27,6 +28,10 @@ dom-module#oj-menu
 							color: white
 						#items
 							display: block
+				&.trap
+					position: fixed
+					top 0
+					box-shadow: 0 1px 5px rgba(black, .15)
 				#logo
 					display: block
 					float: left
@@ -96,11 +101,11 @@ dom-module#oj-menu
 					
 	// ---------------------------------------------------------------
 	template
-		a#logo(href='[[logo.href]]' title='[[logo.title]])' on-tap='toggleMenu' force='close')
+		a#logo(href='[[logo.href]]' title='[[logo.title]])' on-tap='_toggleMenu' force='close')
 		a#icon(on-tap='toggleMenu') menu
 		#items
 			template(is='dom-repeat' items='[[items]]')
-				a(href='[[item.href]]' title='[[item.title]]' on-tap='toggleMenu') [[item.title]]
+				a(href='[[item.href]]' title='[[item.title]]' on-tap='_toggleMenu') [[item.title]]
 	// ---------------------------------------------------------------
 	script
 		:coffee-script
@@ -120,7 +125,7 @@ dom-module#oj-menu
 						value: false
 						reflectToAttribute: true
 						
-				toggleMenu: (e)->
+				_toggleMenu: (e)->
 					force = e.target.getAttribute('force')
 					switch force
 						when 'open' then this.open = true
@@ -128,7 +133,14 @@ dom-module#oj-menu
 						else this.open = !this.open
 					return
 
+				_trap: ()->
+					pastTop = window.scrollY > this.parentElement.offsetTop
+					this.toggleClass 'trap', pastTop
+					
 				ready: ->
+					window.addEventListener 'scroll', ((e)->
+						this._trap()
+					).bind this
 					return
 
 				attached: ->

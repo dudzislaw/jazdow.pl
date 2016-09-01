@@ -9,14 +9,6 @@ dom-module#oj-layout-events
 				@import '../_lib/css/elements.imports.styl'
 				:host
 					display: block
-					margin-top: 8rem
-					lost-center: $grid-width 1rem flex
-					clearfix()
-					+below(1100px)
-						padding: 0 1rem
-						margin-top: 12rem
-				.inner-section
-					lost-center: $grid-width $gutter/2 flex
 				.title
 					lost-column: 2/3 0 $gutter flex
 					display: block
@@ -70,23 +62,22 @@ dom-module#oj-layout-events
 						lost-column: 1/1 0 $gutter flex
 						lost-offset: 0 row flex
 					
-		.inner-section
-			.intro
-			.info-col
-				h1.title [[title]]
-				marked-element(markdown="[[content]]")
-					.markdown-html
-			.extra-col
-				.calendar-illustration
-					img(src='[[image]]')
+		.intro
+		.info-col
+			h1.title [[title]]
+			marked-element(markdown="[[content]]")
+				.markdown-html
+		.extra-col
+			.calendar-illustration
+				img(src='[[image]]')
 
-			oj-calendar(
-				limit='[[params.limit]]'
-				show-days='[[params.showDays]]'
-				api-key='[[params.google.apikey]]'
-				calendar-ids='[[params.google.calendars]]'
-				labels='[[params.labels]]'
-				)
+		oj-calendar(
+			limit='[[params.limit]]'
+			show-days='[[params.showDays]]'
+			api-key='[[params.google.apikey]]'
+			calendar-ids='[[params.google.calendars]]'
+			labels='[[params.labels]]'
+			)
 		
 
 	// ---------------------------------------------------------------
