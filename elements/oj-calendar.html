@@ -1,0 +1,226 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<link rel="import" href="../lib/bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="oj-calendar">
+  <!-- ----------------------------------------------------------------->
+  <style>@media only screen and (max-width: 1100px) {
+  :host {
+    margin: 1rem 0 2rem 0;
+  }
+}
+.calendar.header {
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  font-family: 'P', 'Platform', 'Brandon', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+}
+#calendar {
+  width: 100%;
+  color: #5200cc;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -o-box-orient: horizontal;
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  -o-box-lines: multiple;
+  flex-flow: row wrap;
+  -o-box-pack: distribute;
+  justify-content: space-around;
+}
+.cell.header {
+  font-family: 'P', 'Platform', 'Brandon', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  border-bottom: 1px solid rgba(82,0,204,0.4);
+}
+a.event-row {
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+}
+a.event-row:hover {
+  background-color: rgba(82,0,204,0.05);
+}
+.cell.content {
+  padding: 1rem 0.5rem 1rem 0;
+  border-bottom: 1px solid rgba(82,0,204,0.4);
+}
+.cell.when {
+  flex-basis: 15%;
+  -o-box-flex: 1;
+  -ms-box-flex: 1;
+  box-flex: 1;
+  flex-grow: 1;
+}
+.cell.where {
+  flex-basis: 35%;
+  -o-box-flex: 1;
+  -ms-box-flex: 1;
+  box-flex: 1;
+  flex-grow: 1;
+}
+.cell.what {
+  flex-basis: 50%;
+  -o-box-flex: 1;
+  -ms-box-flex: 1;
+  box-flex: 1;
+  flex-grow: 1;
+}
+
+  </style>
+  <!-- ----------------------------------------------------------------->
+  <template>
+    <h4 class="calendar header">[[labels.header]] [[options.other.lastDay]]</h4>
+    <div id="calendar">
+      <template is="dom-if" if="[[labels.when]]">
+        <div class="cell header when">[[labels.when]]</div>
+      </template>
+      <template is="dom-if" if="[[labels.where]]">
+        <div class="cell header where">[[labels.where]]</div>
+      </template>
+      <template is="dom-if" if="[[labels.what]]">
+        <div class="cell header what">[[labels.what]]</div>
+      </template>
+      <template is="dom-repeat" items="{{calendarEvents}}"><a class="event-row">
+          <template is="dom-if" if="[[labels.when]]">
+            <div class="cell content when"><b>{{item.when.day}} </b><span>{{item.when.weekday}}</span></div>
+          </template>
+          <template is="dom-if" if="[[labels.where]]">
+            <div class="cell content where">{{item.where}}</div>
+          </template>
+          <template is="dom-if" if="[[labels.what]]">
+            <div class="cell content what">{{item.what}}</div>
+          </template></a></template>
+    </div>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-calendar',
+    properties: {
+      apiUrl: {
+        type: String,
+        value: 'https://www.googleapis.com/calendar/v3/'
+      },
+      limit: {
+        type: Number,
+        value: 10
+      },
+      apiKey: {
+        type: String
+      },
+      calendarIds: {
+        type: Array
+      },
+      maxResults: {
+        type: Number,
+        value: 10
+      },
+      showDays: {
+        type: Number,
+        value: 10
+      },
+      options: {
+        type: Object,
+        computed: '_computeOptions(apiKey, apiUrl, calendarIds, maxResults, showDays, limit)',
+        observer: '_getEvents'
+      },
+      calendarEvents: {
+        type: Array,
+        value: function() {
+          return [];
+        }
+      }
+    },
+    _computeCalendarUrls: function(apiUrl, calendarIds) {
+      if (calendarIds) {
+        return calendarIds.map(function(calID) {
+          return apiUrl + 'calendars/' + calID + '/events';
+        });
+      }
+    },
+    _computeOptions: function(apiKey, apiUrl, calendarIds, maxResults, showDays, limit) {
+      return {
+        urls: this._computeCalendarUrls(apiUrl, calendarIds),
+        params: {
+          key: apiKey,
+          maxResults: maxResults,
+          limit: limit,
+          timeMin: moment('2016-01-01T02:07:39+02:00').format(),
+          timeMax: moment().add(showDays, 'days').format(),
+          orderBy: 'startTime',
+          singleEvents: true
+        },
+        other: {
+          lastDay: moment().add(showDays, 'days').locale('pl').format('D MMMM YYYY')
+        }
+      };
+    },
+    _getEvents: function() {
+      var options;
+      options = this.options;
+      if (!options || !options.urls) {
+        return;
+      }
+      return axios.all(options.urls.map(function(url) {
+        return axios.get(url, {
+          params: options.params
+        });
+      })).then(function(responses) {
+        return responses.map(function(response) {
+          return response.data.items;
+        });
+      }).then(function(calendars) {
+        return calendars.reduce(function(prev, current) {
+          return prev.concat(current);
+        });
+      }).then(function(events) {
+        return events.map(function(event) {
+          var dateString, whendate;
+          dateString = event.start.dateTime || event.start.date;
+          whendate = moment(dateString).locale('pl');
+          return {
+            when: {
+              day: whendate.format('DD.MM'),
+              weekday: whendate.format('dd')
+            },
+            where: event.organizer.displayName,
+            what: event.summary
+          };
+        });
+      }).then(function(events) {
+        return events.sort(function(a, b) {
+          var ref, ref1;
+          return (ref = a.when < b.when) != null ? ref : {
+            1: (ref1 = a.when > b.when) != null ? ref1 : -{
+              1: 0
+            }
+          };
+        });
+      }).then(function(events) {
+        return events.slice(0, options.limit);
+      }).then((function(events) {
+        return this.calendarEvents = events;
+      }).bind(this))["catch"](function(error) {
+        return console.log(error);
+      });
+    },
+    ready: function() {},
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

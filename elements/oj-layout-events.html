@@ -1,0 +1,255 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<link rel="import" href="../lib/bower_components/marked-element/marked-element.html">
+<link rel="import" href="oj-calendar.html">
+<dom-module id="oj-layout-events">
+  <template>
+    <style>:host {
+  display: block;
+}
+.title {
+  flex: 0 0 auto;
+  width: calc(99.99% * 2/3 - (2.4rem - 2.4rem * 2/3));
+  display: block;
+  letter-spacing: 0.075em;
+}
+.title:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+.title:last-child {
+  margin-right: 0;
+}
+.title:nth-child(0n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 1100px) {
+  .title {
+    margin-left: calc(99.99% * (-1/6 * -1) - (2.4rem - 2.4rem * (-1/6 * -1)) + 2.4rem) !important;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .title {
+    display: block;
+    width: 100%;
+    margin-left: 0 !important;
+    margin-right: 2.4rem !important;
+  }
+}
+.info-col {
+  flex: 0 0 auto;
+  width: calc(99.99% * 2/3 - (2.4rem - 2.4rem * 2/3));
+}
+.info-col:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+.info-col:last-child {
+  margin-right: 0;
+}
+.info-col:nth-child(2n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+.info-col p {
+  flex: 0 0 auto;
+  width: calc(99.99% * 3/4 - (2.4rem - 2.4rem * 3/4));
+}
+.info-col p:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+.info-col p:last-child {
+  margin-right: 0;
+}
+.info-col p:nth-child(0n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 1100px) {
+  .info-col {
+    flex: 0 0 auto;
+    width: calc(99.99% * 1/1 - (2.4rem - 2.4rem * 1/1));
+  }
+  .info-col:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .info-col:last-child {
+    margin-right: 0;
+  }
+  .info-col:nth-child(0n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+  .info-col p {
+    flex: 0 0 auto;
+    width: calc(99.99% * 8/12 - (2.4rem - 2.4rem * 8/12));
+    margin-left: calc(99.99% * (-2/12 * -1) - (2em - 2em * (-2/12 * -1)) + 2em) !important;
+    text-align: center;
+    font-size: 1.8rem;
+  }
+  .info-col p:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .info-col p:last-child {
+    margin-right: 0;
+  }
+  .info-col p:nth-child(1n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .info-col p {
+    flex: 0 0 auto;
+    width: calc(99.99% * 1/1 - (2.4rem - 2.4rem * 1/1));
+    margin-left: 0 !important;
+    margin-right: 2em !important;
+  }
+  .info-col p:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .info-col p:last-child {
+    margin-right: 0;
+  }
+  .info-col p:nth-child(0n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+.extra-col {
+  flex: 0 0 auto;
+  width: calc(99.99% * 1/3 - (2.4rem - 2.4rem * 1/3));
+}
+.extra-col:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+.extra-col:last-child {
+  margin-right: 0;
+}
+.extra-col:nth-child(2n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 1100px) {
+  .extra-col {
+    display: block;
+    margin: 0;
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 1100px) {
+  .extra-col .calendar-illustration {
+    flex: 0 0 auto;
+    width: calc(99.99% * 2/3 - (2.4rem - 2.4rem * 2/3));
+    margin-left: calc(99.99% * (-1/4 * -1) - (2.4rem - 2.4rem * (-1/4 * -1)) + 2.4rem) !important;
+  }
+  .extra-col .calendar-illustration:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .extra-col .calendar-illustration:last-child {
+    margin-right: 0;
+  }
+  .extra-col .calendar-illustration:nth-child(0n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+  .extra-col .calendar-illustration img {
+    width: 100%;
+    transform: translateY(2rem);
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .extra-col .calendar-illustration {
+    width: 12rem;
+    margin: 0 auto;
+  }
+}
+oj-calendar {
+  margin: 4rem 0;
+  flex: 0 0 auto;
+  width: calc(99.99% * 1/1 - (2.4rem - 2.4rem * 1/1));
+  margin-bottom: 10rem;
+}
+oj-calendar:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+oj-calendar:last-child {
+  margin-right: 0;
+}
+oj-calendar:nth-child(0n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 1100px) {
+  oj-calendar {
+    flex: 0 0 auto;
+    width: calc(99.99% * 1/1 - (2.4rem - 2.4rem * 1/1));
+    text-align: center;
+  }
+  oj-calendar:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  oj-calendar:last-child {
+    margin-right: 0;
+  }
+  oj-calendar:nth-child(0n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+@media only screen and (max-width: 800px) {
+  oj-calendar {
+    flex: 0 0 auto;
+    width: calc(99.99% * 1/1 - (2.4rem - 2.4rem * 1/1));
+    margin-left: 0 !important;
+    margin-right: 2em !important;
+  }
+  oj-calendar:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  oj-calendar:last-child {
+    margin-right: 0;
+  }
+  oj-calendar:nth-child(0n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+
+    </style>
+    <div class="intro"></div>
+    <div class="info-col">
+      <h1 class="title">[[title]]</h1>
+      <marked-element markdown="[[content]]">
+        <div class="markdown-html"></div>
+      </marked-element>
+    </div>
+    <div class="extra-col">
+      <div class="calendar-illustration"><img src="[[image]]"></div>
+    </div>
+    <oj-calendar limit="[[params.limit]]" show-days="[[params.showDays]]" api-key="[[params.google.apikey]]" calendar-ids="[[params.google.calendars]]" labels="[[params.labels]]"></oj-calendar>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-layout-events',
+    ready: function() {},
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

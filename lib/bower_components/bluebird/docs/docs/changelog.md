@@ -3,6 +3,51 @@ id: changelog
 title: Changelog
 ---
 
+## 3.4.5 (2016-08-31)
+
+Bugfixes:
+
+ - Fix unhandled error regression introduced in 3.4.3 [#1217](.)
+
+## 3.4.4 (2016-08-30)
+
+Bugfixes:
+
+ - Fix benchmark parallel in node 6 [#1165](.)
+ - Fix memory leak with Promise.each [#1057](.)
+ - Fix thenable passed to .return being evaluated too early [#1210](.)
+ - Fix "unhandledrejection" event not having .detail field when using DOM3 event listener api [#1209](.)
+ - Fix [Promise.join](.) not ensuring asynchronous callback [#1153](.)
+ - Fix domains leaking when synchronous error is thrown while a domain is active [#1125](.)
+
+
+
+## 3.4.3 (2016-08-25)
+
+Bugfixes:
+
+ - The "a promise was created in a handler but not returned from it" warning now highlights the file, line and column where the return statement is missing.
+  - The "a promise was created in a handler but not returned from it" warning now adds the bluebird API method used to create the non-returned promise at the top of the warning stack
+
+## 3.4.2 (2016-08-24)
+
+
+Bugfixes:
+
+ - Add missing link to unhandled warning docs \([#1205](.)\)
+ - Fix [Promise.delay](.) not having a long stack trace \([#1182](.)\)
+ - Fix false unhandled rejection when a rejected promise originating from one copy of bluebird is passed to another copy's [.return](.) or [.catchReturn](.) \([#1186](.)\)
+ - Fix Promise.resolve is not a function error \([#1192](.)\)
+ - Fix global events not being fired through DOM 3 API inside a worker \([#1190](.)\)
+ - Fix .cancel() not immediately marking a promise as being cancelled if it has cancellable parent \([#1187](.)\)
+ - Fix maximum callstack exceeded with [Promise.coroutine](.) \([#1170](.)\)
+
+## 3.4.1 (2016-06-17)
+
+Features:
+
+ - Added [Promise.getNewLibraryCopy](.)
+
 ## 3.4.0 (2016-05-17)
 
 Features:

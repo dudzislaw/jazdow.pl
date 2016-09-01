@@ -1,0 +1,218 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<link rel="import" href="../lib/bower_components/marked-element/marked-element.html">
+<dom-module id="oj-layout-partners">
+  <template>
+    <style>:host {
+  display: block;
+}
+.title {
+  flex: 0 0 auto;
+  width: calc(99.99% * 2/3 - (2.4rem - 2.4rem * 2/3));
+  display: block;
+  letter-spacing: 0.075em;
+}
+.title:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+.title:last-child {
+  margin-right: 0;
+}
+.title:nth-child(0n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 1100px) {
+  .title {
+    margin-left: calc(99.99% * (-1/6 * -1) - (2.4rem - 2.4rem * (-1/6 * -1)) + 2.4rem) !important;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .title {
+    display: block;
+    width: 100%;
+    margin-left: 0 !important;
+    margin-right: 2.4rem !important;
+  }
+}
+.intro {
+  flex: 0 0 auto;
+  width: calc(99.99% * 3/4 - (2.4rem - 2.4rem * 3/4));
+  margin-bottom: 8rem;
+}
+.intro:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+.intro:last-child {
+  margin-right: 0;
+}
+.intro:nth-child(0n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 1100px) {
+  .intro {
+    flex: 0 0 auto;
+    width: calc(99.99% * 1/1 - (2.4rem - 2.4rem * 1/1));
+  }
+  .intro:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .intro:last-child {
+    margin-right: 0;
+  }
+  .intro:nth-child(0n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+  .intro p {
+    flex: 0 0 auto;
+    width: calc(99.99% * 8/12 - (2.4rem - 2.4rem * 8/12));
+    margin-left: calc(99.99% * (-2/12 * -1) - (2em - 2em * (-2/12 * -1)) + 2em) !important;
+    text-align: center;
+    font-size: 1.8rem;
+  }
+  .intro p:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .intro p:last-child {
+    margin-right: 0;
+  }
+  .intro p:nth-child(1n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .intro p {
+    flex: 0 0 auto;
+    width: calc(99.99% * 1/1 - (2.4rem - 2.4rem * 1/1));
+    margin-left: 0 !important;
+    margin-right: 2em !important;
+  }
+  .intro p:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .intro p:last-child {
+    margin-right: 0;
+  }
+  .intro p:nth-child(0n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+.partners-list {
+  display: flex;
+  flex-flow: row wrap;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+.partners-list .partner {
+  flex: 0 0 auto;
+  width: calc(99.99% * 1/3 - (2.4rem - 2.4rem * 1/3));
+  margin-bottom: 6rem;
+}
+.partners-list .partner:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+.partners-list .partner:last-child {
+  margin-right: 0;
+}
+.partners-list .partner:nth-child(3n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 600px) {
+  .partners-list .partner {
+    flex: 0 0 auto;
+    width: calc(99.99% * 1/2 - (2.4rem - 2.4rem * 1/2));
+    text-align: center;
+  }
+  .partners-list .partner:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .partners-list .partner:last-child {
+    margin-right: 0;
+  }
+  .partners-list .partner:nth-child(2n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+.partners-list .partner .partner-image {
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  width: 100%;
+  max-width: 14rem;
+  height: 10rem;
+  margin-bottom: 2rem;
+}
+@media only screen and (max-width: 600px) {
+  .partners-list .partner .partner-image {
+    text-align: center;
+    -o-box-pack: center;
+    justify-content: center;
+    margin: 0 auto 2rem auto;
+  }
+}
+.partners-list .partner .partner-image img {
+  max-width: 100%;
+  max-height: 10rem;
+}
+.partners-list .partner .partner-name {
+  display: block;
+  font-family: 'P', 'Platform', 'Brandon', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #5200cc;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #5200cc;
+}
+.partners-list .partner .partner-caption {
+  font-size: 1.2rem;
+  line-height: 1.5em;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
+    </style>
+    <div class="intro">
+      <h1 class="title">[[title]]</h1>
+      <marked-element markdown="[[content]]">
+        <div class="markdown-html"></div>
+      </marked-element>
+    </div>
+    <div class="partners-list">
+      <template is="dom-repeat" items="[[partners]]">
+        <div class="partner"><a class="partner-image" href="[[item.href]]" title="[[item.name]]"><img src="[[item.image]]"></a><a class="partner-name" href="[[item.href]]">[[item.name]]</a>
+          <p class="partner-caption">[[item.caption]]</p>
+        </div>
+      </template>
+    </div>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-layout-partners',
+    ready: function() {},
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

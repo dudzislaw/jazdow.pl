@@ -1,0 +1,82 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<dom-module id="oj-card">
+  <template>
+    <style>:host {
+  flex: 0 0 auto;
+  width: calc(99.99% * 4/12 - (2.4rem - 2.4rem * 4/12));
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -o-box-orient: vertical;
+  flex-direction: column;
+  -o-box-pack: justify;
+  justify-content: space-between;
+  padding: 0.8rem 1.25rem 1.25rem 1.25rem;
+  color: #5200cc;
+  background-color: #fdebe8;
+}
+:host:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+:host:last-child {
+  margin-right: 0;
+}
+:host:nth-child(3n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 600px) {
+  :host {
+    flex: 0 0 auto;
+    width: calc(99.99% * 8/12 - (2.4rem - 2.4rem * 8/12));
+    margin-left: calc(99.99% * (-2/12 * -1) - (2em - 2em * (-2/12 * -1)) + 2em) !important;
+    margin-bottom: 2.4rem;
+    text-align: center;
+  }
+  :host:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  :host:last-child {
+    margin-right: 0;
+  }
+  :host:nth-child(1n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+:host .card-title {
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+:host .card-content {
+  margin-bottom: 2rem;
+  height: 5rem;
+}
+:host .card-caption {
+  font-size: 1.2rem;
+  line-height: 1.5em;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
+    </style><a class="card" href="[[href]]">
+      <h3 class="card-title">[[title]]</h3>
+      <div class="card-content"> <img src="[[cover]]" title="[[title]]"></div>
+      <p class="card-caption">[[caption]]</p></a>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-card',
+    ready: function() {},
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

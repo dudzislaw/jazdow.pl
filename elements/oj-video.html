@@ -1,0 +1,261 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<link rel="import" href="../lib/bower_components/marked-element/marked-element.html">
+<dom-module id="oj-video">
+  <!-- ---------------------------------------------------------------	-->
+  <style>:host {
+  z-index: -100;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: auto;
+}
+@media only screen and (max-width: 1100px) {
+  :host {
+    top: 5.5rem;
+  }
+}
+#big-logo {
+  display: block;
+  position: absolute;
+  top: 10rem;
+  text-align: center;
+  z-index: 10;
+  color: #fff;
+}
+@media only screen and (max-width: 1100px) {
+  #big-logo {
+    display: none;
+  }
+}
+#big-logo:before {
+  content: 'f';
+  font-family: 'icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+/* Enable Ligatures ================ */
+  -ms-font-feature-settings: "liga" 1;
+  -o-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+/* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: block;
+  font-size: 14rem;
+}
+#big-logo:after {
+  content: 'g';
+  font-family: 'icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+/* Enable Ligatures ================ */
+  -ms-font-feature-settings: "liga" 1;
+  -o-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+/* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: block;
+  font-size: 9rem;
+  margin-top: 75%;
+}
+#video_overlay {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 50vw;
+  color: #fff;
+  cursor: pointer;
+}
+#subtitles {
+  position: absolute;
+  top: 4rem;
+  right: 2rem;
+  display: inline-block;
+}
+@media only screen and (max-width: 1100px) {
+  #subtitles {
+    top: 2rem;
+    right: 1rem;
+  }
+}
+.markdown-html * {
+  color: #fff;
+  font-family: 'P', 'Platform', 'Brandon', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  text-align: right;
+  letter-spacing: 0.125em;
+  list-style-type: none;
+}
+#bannertext {
+  position: absolute;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -o-box-orient: vertical;
+  flex-direction: column;
+  -o-box-pack: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  left: 25%;
+}
+#bannertext p {
+  display: block;
+  margin: -18% auto 0 auto;
+  max-width: 6em;
+  font-family: 'P', 'Platform', 'Brandon', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1em;
+  color: rgba(255,255,255,0.9);
+  padding: 1rem 0;
+  border-top: 8px solid rgba(255,255,255,0.9);
+  border-bottom: 8px solid rgba(255,255,255,0.9);
+  font-size: 5rem;
+}
+@media only screen and (max-width: 1600px) {
+  #bannertext p {
+    font-size: 4rem;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  #bannertext p {
+    font-size: 3.5rem;
+  }
+}
+video {
+  width: 100%;
+  height: auto;
+  z-index: -1;
+}
+
+  </style>
+  <!-- ---------------------------------------------------------------	-->
+  <template>
+    <div id="video_overlay" on-tap="_playToggle"><a id="big-logo"></a>
+      <marked-element id="subtitles" markdown="[[currentSubs.0]]">
+        <div class="markdown-html"></div>
+      </marked-element>
+      <div id="bannertext">
+        <p>[[currentSubs.1]]</p>
+      </div>
+      <content></content>
+    </div>
+    <video id="video" playsinline="playsinline" muted="muted" loop="loop" autoplay="autoplay" poster="[[sources.poster]]">
+      <source id="webm" src="[[sources.webm]]" type="video/webm">
+      <source id="mp4" src="[[sources.mp4]]" type="video/mp4">
+    </video>
+  </template>
+  <!-- ---------------------------------------------------------------	-->
+  <script>(function() {
+  Polymer({
+    is: 'oj-video',
+    properties: {
+      sources: {
+        type: Object,
+        value: function() {
+          return {
+            webm: "/assets/videos/video.webm",
+            mp4: "/assets/videos/video.mp4",
+            poster: "/assets/videos/poster.jpg"
+          };
+        }
+      },
+      options: {
+        type: Object,
+        value: function() {
+          return {
+            muted: 'muted',
+            loop: 'loop',
+            autoplay: 'autoplay'
+          };
+        }
+      },
+      currentTime: {
+        type: Number,
+        reflectToAttribute: true,
+        value: 0
+      },
+      currentCues: {
+        type: Array,
+        reflectToAttribute: true,
+        value: function() {
+          return [0, 0];
+        },
+        computed: '_computeCurrentCues(currentTime, subs)'
+      },
+      subs: {
+        type: Array,
+        reflectToAttribute: true,
+        value: function() {
+          return [[[0, 'start 1'], [5, 'next 1']], [[0, 'start 2'], [5, 'next 2']]];
+        }
+      },
+      currentSubs: {
+        type: Array,
+        reflectToAttribute: true,
+        computed: '_computeCurrentSubs(currentTime, currentCues, subs)',
+        value: function() {
+          return ['a', 'b'];
+        }
+      }
+    },
+    _computeCurrentCues: function(time, subs) {
+      var cue, cues, i, j, len;
+      cues = this.currentCues;
+      for (i = j = 0, len = cues.length; j < len; i = ++j) {
+        cue = cues[i];
+        if (time < subs[i][1][0]) {
+          cues[i] = 0;
+        } else if (cue >= subs[i].length - 1) {
+          cues[i] = cue;
+        } else if (time > subs[i][cue + 1][0]) {
+          cues[i] = cue + 1;
+        } else {
+          cues[i] = cue;
+        }
+      }
+      return cues;
+    },
+    _computeCurrentSubs: function(time, cues, subs) {
+      return cues.map(function(cue, i) {
+        return subs[i][cue][1];
+      });
+    },
+    _playToggle: function() {
+      var video;
+      video = this.$.video;
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    },
+    ready: function() {
+      var updateProgress, video;
+      video = this.$.video;
+      updateProgress = setInterval((function() {
+        if (video.paused) {
+
+        } else {
+          return this.currentTime = video.currentTime;
+        }
+      }).bind(this), 500);
+    },
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

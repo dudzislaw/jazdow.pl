@@ -1,0 +1,112 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<link rel="import" href="oj-map-legend.html">
+<link rel="import" href="oj-map.html">
+<dom-module id="oj-layout-map">
+  <template>
+    <style>:host {
+  display: block;
+  position: relative;
+  margin-top: 12rem;
+  zoom: 1;
+}
+:host:before,
+:host:after {
+  content: "";
+  display: table;
+}
+:host:after {
+  clear: both;
+}
+.intro {
+  width: 100%;
+  position: absolute;
+  z-index: 9;
+  padding: 0 2rem;
+  zoom: 1;
+}
+.intro:before,
+.intro:after {
+  content: "";
+  display: table;
+}
+.intro:after {
+  clear: both;
+}
+.content {
+  display: block;
+  float: right;
+  width: 32rem;
+  margin-right: 6rem;
+}
+@media only screen and (max-width: 600px) {
+  .content {
+    width: 100%;
+    margin-right: 0;
+    text-align: center;
+  }
+}
+.content h1 {
+  text-decoration: underline;
+}
+.content .marked-html {
+  display: block;
+  max-width: 80%;
+  text-align: inherit;
+}
+.content p {
+  font-size: 1.2rem;
+  color: #5200cc;
+}
+.legend {
+  display: block;
+}
+.map-section {
+  display: block;
+  zoom: 1;
+  width: 100%;
+  padding: 0 1rem;
+}
+.map-section:before,
+.map-section:after {
+  content: "";
+  display: table;
+}
+.map-section:after {
+  clear: both;
+}
+@media only screen and (max-width: 1100px) {
+  .map-section {
+    padding: 0;
+  }
+}
+
+    </style>
+    <div class="intro">
+      <div class="content" id="content">
+        <h1>[[title]]</h1>
+        <marked-element markdown="[[content]]">
+          <div class="markdown-html"></div>
+        </marked-element>
+      </div>
+    </div>
+    <div class="map-section">
+      <oj-map id="map" houses="[[houses]]"></oj-map>
+    </div>
+    <div class="legend">
+      <oj-map-legend id="legend" legend="[[legend]]"></oj-map-legend>
+    </div>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-layout-map',
+    ready: function() {},
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

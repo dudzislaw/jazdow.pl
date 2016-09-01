@@ -1,0 +1,32 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<link rel="import" href="oj-layout-house.html">
+<dom-module id="oj-overlay">
+  <template>
+    <style>:host {
+  display: block;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
+  width: 100%;
+  background-color: rgba(255,255,255,0.95);
+}
+
+    </style>
+    <content></content>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-overlay',
+    ready: function() {},
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

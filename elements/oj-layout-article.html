@@ -1,0 +1,66 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<link rel="import" href="../lib/bower_components/marked-element/marked-element.html">
+<dom-module id="oj-layout-article">
+  <template>
+    <style>:host {
+  display: block;
+}
+.article-content {
+  flex: 0 0 auto;
+  width: calc(99.99% * 2/3 - (2.4rem - 2.4rem * 2/3));
+  position: relative;
+  left: calc(99.99% * 1/6 - (2.4rem - 2.4rem * 1/6) + 2.4rem);
+}
+.article-content:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+.article-content:last-child {
+  margin-right: 0;
+}
+.article-content:nth-child(0n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 1000px) {
+  .article-content {
+    flex: 0 0 auto;
+    width: calc(99.99% * 1/1 - (2.4rem - 2.4rem * 1/1));
+    position: relative;
+    left: calc(99.99% * 0 - (2.4rem - 2.4rem * 0) + 2.4rem);
+  }
+  .article-content:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .article-content:last-child {
+    margin-right: 0;
+  }
+  .article-content:nth-child(0n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+
+    </style>
+    <div class="article-content">
+      <h1 class="section-title">[[title]]</h1>
+      <marked-element markdown="[[content]]">
+        <div class="markdown-html"></div>
+      </marked-element>
+    </div>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-layout-article',
+    ready: function() {},
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

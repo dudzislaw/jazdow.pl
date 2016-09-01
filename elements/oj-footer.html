@@ -1,0 +1,211 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<dom-module id="oj-footer">
+  <!-- ----------------------------------------------------------------->
+  <style>:host {
+  display: block;
+  width: 100%;
+  zoom: 1;
+  padding: 4.5rem 0 0 0;
+  background-image: url("/assets/images/jazdow-pw.png");
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  background-color: #fafafc;
+}
+:host:before,
+:host:after {
+  content: "";
+  display: table;
+}
+:host:after {
+  clear: both;
+}
+@media only screen and (max-width: 800px) {
+  :host {
+    padding: 2.5rem 0 0 0;
+  }
+}
+:host .inner-section {
+  display: flex;
+  flex-flow: row wrap;
+  max-width: 84rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  zoom: 1;
+}
+:host .inner-section:before,
+:host .inner-section:after {
+  content: "";
+  display: table;
+}
+:host .inner-section:after {
+  clear: both;
+}
+@media only screen and (max-width: 1100px) {
+  :host .inner-section {
+    padding: 0 1rem;
+  }
+}
+:host .contacts {
+  flex: 0 0 auto;
+  width: calc(99.99% * 3/4 - (2.4rem - 2.4rem * 3/4));
+  margin-bottom: 8rem;
+  padding-bottom: 2rem;
+  background-color: rgba(250,250,252,0.7);
+}
+:host .contacts:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+:host .contacts:last-child {
+  margin-right: 0;
+}
+:host .contacts:nth-child(2n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 800px) {
+  :host .contacts {
+    flex: 0 0 auto;
+    width: calc(99.99% * 1/1 - (2.4rem - 2.4rem * 1/1));
+    margin-bottom: 3rem;
+    padding: 3rem 0;
+  }
+  :host .contacts:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  :host .contacts:last-child {
+    margin-right: 0;
+  }
+  :host .contacts:nth-child(1n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+:host .contacts .contact {
+  display: block;
+  float: left;
+  margin-right: 2.4rem;
+}
+:host .contacts .contact .contact-title {
+  font-size: 1rem;
+  line-height: 1.2em;
+  font-weight: 700;
+  font-family: P;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+:host .contacts .contact .contact-details p {
+  font-size: 1.2rem;
+  line-height: 1.5em;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+:host .social {
+  flex: 0 0 auto;
+  width: calc(99.99% * 1/4 - (2.4rem - 2.4rem * 1/4));
+}
+:host .social:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+:host .social:last-child {
+  margin-right: 0;
+}
+:host .social:nth-child(2n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 800px) {
+  :host .social {
+    flex: 0 0 auto;
+    width: calc(99.99% * 1/1 - (2.4rem - 2.4rem * 1/1));
+    margin-bottom: 6rem;
+    text-align: center;
+  }
+  :host .social:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  :host .social:last-child {
+    margin-right: 0;
+  }
+  :host .social:nth-child(1n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+:host .social .social-icon {
+  font-family: 'icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+/* Enable Ligatures ================ */
+  -ms-font-feature-settings: "liga" 1;
+  -o-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+/* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  float: right;
+  color: #5200cc;
+  font-size: 2rem;
+  text-align: right;
+  margin-left: 2.4rem;
+}
+:host .social .social-icon#facebook:after {
+  content: 'b';
+}
+:host .social .social-icon#google:after {
+  content: 'a';
+}
+:host .social .social-icon#instagram:after {
+  content: 'd';
+}
+@media only screen and (max-width: 800px) {
+  :host .social .social-icon {
+    float: none;
+    margin-left: 0;
+    margin-right: 2.4rem;
+    display: inline-block;
+  }
+}
+
+  </style>
+  <!-- ----------------------------------------------------------------->
+  <template>
+    <div class="inner-section">
+      <div class="contacts">
+        <div class="contact">
+          <h4 class="contact-title">Kontakt:</h4>
+          <div class="contact-details">
+            <p></p><p>Otwarty Jazd&#xF3;w<br>ul. Jazd&#xF3;w 3/11<br>&#x2028;00-122 Warszawa</p> <p>otwarty@jazdow.pl</p>
+<p></p>
+          </div>
+        </div>
+      </div>
+      <div class="social"><a class="social-icon" id="facebook" href="https://facebook.com/jazdow/" title="facebook"></a><a class="social-icon" id="instagram" href="https://www.instagram.com/jazdow/" title="instagram"></a>
+      </div>
+    </div>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-footer',
+    ready: function() {},
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

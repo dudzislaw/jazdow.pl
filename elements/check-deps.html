@@ -1,0 +1,23 @@
+
+<script>(function() {
+  window.checkDeps = {
+    check: function(element, deps) {
+      var dep, i, len, results;
+      results = [];
+      for (i = 0, len = deps.length; i < len; i++) {
+        dep = deps[i];
+        results.push((function(dep) {
+          if (typeof window[dep] === 'undefined') {
+            return console.error(element + ' needs ' + dep);
+          } else {
+            return console.info(element + ' is using ' + dep);
+          }
+        })(dep));
+      }
+      return results;
+    }
+  };
+
+}).call(this);
+
+</script>

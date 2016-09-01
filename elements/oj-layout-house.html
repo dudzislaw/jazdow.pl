@@ -1,0 +1,217 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<link rel="import" href="../lib/bower_components/l2t-paper-slider/l2t-paper-slider.html">
+<dom-module id="oj-layout-house">
+  <template>
+    <style>:host {
+  position: relative;
+  margin: 12rem 0;
+  zoom: 1;
+}
+:host:before,
+:host:after {
+  content: "";
+  display: table;
+}
+:host:after {
+  clear: both;
+}
+header#header {
+  display: block;
+  width: 100%;
+  position: relative;
+  padding-bottom: 2rem;
+  zoom: 1;
+}
+header#header:before,
+header#header:after {
+  content: "";
+  display: table;
+}
+header#header:after {
+  clear: both;
+}
+header#header h1 {
+  display: block;
+  max-width: 75%;
+  margin-bottom: 1rem;
+}
+header#header p {
+  max-width: 75%;
+  font-size: 1.2rem;
+  color: #5200cc;
+  font-family: 'SC', 'Monaco', monospace;
+  line-height: 1.2em;
+}
+header#header .back {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: 'P', 'Platform', 'Brandon', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 0.25em;
+  border: 1px solid #5200cc;
+}
+header#header .back:hover {
+  background-color: #5200cc;
+  color: #fff;
+}
+article {
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+}
+section#main {
+  flex: 0 0 auto;
+  width: calc(99.99% * 8/12 - (2.4rem - 2.4rem * 8/12));
+  margin-right: calc(99.99% * 1/12 - (2em - 2em * 1/12) + (2em * 2)) !important;
+}
+section#main:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+section#main:last-child {
+  margin-right: 0;
+}
+section#main:nth-child(2n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+#calendar {
+  margin-bottom: 4rem;
+}
+section#info {
+  flex: 0 0 auto;
+  width: calc(99.99% * 3/12 - (2.4rem - 2.4rem * 3/12));
+}
+section#info:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+section#info:last-child {
+  margin-right: 0;
+}
+section#info:nth-child(2n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+#info-details {
+  font-size: 1rem;
+}
+#info-details h5 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  border-bottom: 1px solid #5200cc;
+}
+#info-details .detail {
+  padding: 0.25rem 0;
+}
+#oj-slider {
+  width: 100%;
+  position: relative;
+}
+#image-gallery {
+  border-bottom: 1px solid #5200cc;
+  margin-bottom: 2rem;
+}
+.slide-caption {
+  min-height: 2.4rem;
+}
+l2t-paper-slider {
+  --paper-slide-dot: rgba(82,0,204,0.5);
+  --paper-slide-dot-selected: #5200cc;
+  --paper-slide-height: auto;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+l2t-paper-slider:focus {
+  outline: none;
+}
+iron-image {
+  width: 100%;
+  padding-top: 56.25%;
+}
+paper-slide p {
+  font-family: 'SC', 'Monaco', monospace;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+  margin-bottom: 0;
+  color: #5200cc;
+}
+
+    </style>
+    <header id="header">
+      <h1 id="org-name">[[house.org.name]]</h1>
+      <p id="house-address">[[house.address.street]]</p><a class="back" href="[[house.back.href]]">[[house.back.label]]</a>
+    </header>
+    <article>
+      <section id="main">
+        <div id="image-gallery">
+          <l2t-paper-slider total-slides="[[house.images.length]]" hidenav="true" sensitivity="high">
+            <template is="dom-repeat" items="[[house.images]]" as="image">
+              <paper-slide>
+                <iron-image src="[[image.src]]" sizing="cover"></iron-image>
+                <div class="slide-caption">
+                  <p>[[image.title]]</p>
+                  <p>[[image.author]]</p>
+                </div>
+              </paper-slide>
+            </template>
+          </l2t-paper-slider>
+        </div>
+        <div id="calendar">
+          <oj-calendar limit="50" show-days="365" api-key="[[house.calendar.apikey]]" calendar-ids="[[house.calendar.ids]]" labels="[[house.calendar.labels]]"></oj-calendar>
+        </div>
+        <div id="content">
+          <marked-element markdown="[[content]]">
+            <div class="markdown-html"></div>
+          </marked-element>
+        </div>
+      </section>
+      <section id="info">
+        <div id="info-details">
+          <h5>[[house.info.header]]</h5>
+          <template is="dom-if" if="[[house.info.website]]">
+            <div class="detail" id="detail-website"> <a href="[[house.info.website.value]]" title="[[house.org.name]]" target="_blank">[[house.info.website.label]]</a></div>
+          </template>
+          <template is="dom-if" if="[[house.info.fb]]">
+            <div class="detail" id="detail-fb"><a href="[[house.info.fb.value]]" title="[[house.org.name]] &#x2013; facebook" target="_blank">[[house.info.fb.label]]</a></div>
+          </template>
+          <template is="dom-if" if="[[house.info.email]]">
+            <div class="detail" id="detail-email">[[house.info.email.value]]</div>
+          </template>
+          <template is="dom-if" if="[[house.info.phone]]">
+            <div class="detail" id="detail-phone">[[house.info.phone.value]]</div>
+          </template>
+          <template is="dom-if" if="[[house.info.person]]">
+            <div class="detail" id="detail-person"> [[house.info.person.value]]</div>
+          </template>
+        </div>
+      </section>
+    </article>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-layout-house',
+    properties: {
+      slideHeight: {
+        type: Number,
+        computed: ''
+      }
+    },
+    ready: function() {},
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

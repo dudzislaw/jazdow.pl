@@ -1,0 +1,209 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<dom-module id="oj-menu">
+  <!-- ----------------------------------------------------------------->
+  <style>:host {
+  display: block;
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+  padding: 0.75rem 2rem;
+  margin: 0 auto;
+  background-color: #fff;
+  zoom: 1;
+}
+:host:before,
+:host:after {
+  content: "";
+  display: table;
+}
+:host:after {
+  clear: both;
+}
+@media only screen and (max-width: 1100px) {
+  :host {
+    padding: 0.75rem 1rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(255,255,255,0.95);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+  }
+  :host[open] {
+    padding-bottom: 0;
+  }
+  :host[open] a#icon {
+    background-color: #5200cc;
+    color: #fff;
+  }
+  :host[open] #items {
+    display: block;
+  }
+}
+:host.trap {
+  position: fixed;
+  top: 0;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.15);
+}
+:host #logo {
+  display: block;
+  float: left;
+  width: 4rem;
+  height: 4rem;
+}
+:host #logo:after {
+  font-family: 'icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+/* Enable Ligatures ================ */
+  -ms-font-feature-settings: "liga" 1;
+  -o-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+/* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: 'f';
+  display: block;
+  color: #5200cc;
+  font-size: 4rem;
+  line-height: 1em;
+}
+:host a#icon {
+  display: none;
+  float: right;
+  color: #5200cc;
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  border: 1px solid #5200cc;
+  border-radius: 3px;
+  cursor: pointer;
+}
+:host a#icon:hover {
+  background-color: #5200cc;
+  color: #fff;
+}
+@media only screen and (max-width: 1100px) {
+  :host a#icon {
+    display: block;
+    margin-top: 0.25rem;
+  }
+}
+:host #items {
+  display: block;
+  float: right;
+  margin: 0;
+  font-family: P;
+  font-weight: 700;
+  list-style-type: none;
+  text-transform: uppercase;
+  text-align: right;
+  letter-spacing: 0.125em;
+  font-size: 1rem;
+}
+@media only screen and (max-width: 1100px) {
+  :host #items {
+    width: 100%;
+    margin-top: 2rem;
+    display: none;
+  }
+}
+:host #items a {
+  display: block;
+  line-height: 1em;
+  padding: 1.5rem 0 1.75rem 0;
+  cursor: pointer;
+  color: inherit;
+  float: left;
+  margin-left: 3rem;
+}
+:host #items a:hover {
+  color: #5200cc;
+}
+:host #items a[selected] {
+  border-bottom: 4px solid #404040;
+}
+:host #items a[selected]:hover {
+  border-color: #5200cc;
+}
+@media only screen and (max-width: 1100px) {
+  :host #items a {
+    float: none;
+    margin-left: 0;
+    border-bottom: 1px solid #d8d8d8;
+  }
+  :host #items a:first-of-type {
+    border-top: 1px solid #d8d8d8;
+  }
+  :host #items a[selected] {
+    border-bottom: 1px solid #d8d8d8;
+    color: #5200cc;
+  }
+}
+
+  </style>
+  <!-- ----------------------------------------------------------------->
+  <template><a id="logo" href="[[logo.href]]" title="[[logo.title]])" on-tap="_toggleMenu" force="close"></a><a id="icon" on-tap="toggleMenu">menu</a>
+    <div id="items">
+      <template is="dom-repeat" items="[[items]]"><a href="[[item.href]]" title="[[item.title]]" on-tap="_toggleMenu">[[item.title]]</a></template>
+    </div>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-menu',
+    properties: {
+      items: {
+        type: Array
+      },
+      logo: {
+        type: Object,
+        value: function() {
+          return {
+            src: 'logo.svg',
+            href: '/',
+            title: 'Home page'
+          };
+        }
+      },
+      open: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      }
+    },
+    _toggleMenu: function(e) {
+      var force;
+      force = e.target.getAttribute('force');
+      switch (force) {
+        case 'open':
+          this.open = true;
+          break;
+        case 'close':
+          this.open = false;
+          break;
+        default:
+          this.open = !this.open;
+      }
+    },
+    _trap: function() {
+      var pastTop;
+      pastTop = window.scrollY > this.parentElement.offsetTop;
+      return this.toggleClass('trap', pastTop);
+    },
+    ready: function() {
+      window.addEventListener('scroll', (function(e) {
+        return this._trap();
+      }).bind(this));
+    },
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

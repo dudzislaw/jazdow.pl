@@ -1,0 +1,234 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<dom-module id="oj-history">
+  <template>
+    <style>:host {
+  display: block;
+}
+.event {
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  flex: 0 0 auto;
+  width: calc(99.99% * 8/12 - (2.4rem - 2.4rem * 8/12));
+}
+.event:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+.event:last-child {
+  margin-right: 0;
+}
+.event:nth-child(0n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 1100px) {
+  .event {
+    flex: 0 0 auto;
+    width: calc(99.99% * 1/1 - (2.4rem - 2.4rem * 1/1));
+  }
+  .event:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .event:last-child {
+    margin-right: 0;
+  }
+  .event:nth-child(0n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+.date {
+  flex: 0 0 auto;
+  width: calc(99.99% * 2/8 - (2.4rem - 2.4rem * 2/8));
+  position: relative;
+  padding-right: 2.4rem;
+  border-right: 0.5rem solid #1afcaf;
+  text-align: right;
+  color: #5200cc;
+  font-size: 1rem;
+  line-height: 1.2em;
+  font-weight: 700;
+  font-family: P;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+.date:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+.date:last-child {
+  margin-right: 0;
+}
+.date:nth-child(2n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 1100px) {
+  .date {
+    flex: 0 0 auto;
+    width: calc(99.99% * 3/12 - (2.4rem - 2.4rem * 3/12));
+  }
+  .date:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .date:last-child {
+    margin-right: 0;
+  }
+  .date:nth-child(2n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .date {
+    flex: 0 0 auto;
+    width: calc(99.99% * 4/12 - (2.4rem - 2.4rem * 4/12));
+  }
+  .date:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .date:last-child {
+    margin-right: 0;
+  }
+  .date:nth-child(2n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+.date:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -0.25rem;
+  right: -1rem;
+  z-index: 2;
+  width: 1rem;
+  height: 1rem;
+  border: 0.25rem solid #5200cc;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(82,0,204,0.5);
+}
+.content {
+  flex: 0 0 auto;
+  width: calc(99.99% * 6/8 - (2.4rem - 2.4rem * 6/8));
+  margin-bottom: 3rem;
+  position: relative;
+}
+.content:nth-child(1n) {
+  margin-right: 2.4rem;
+  margin-left: 0;
+}
+.content:last-child {
+  margin-right: 0;
+}
+.content:nth-child(2n) {
+  margin-right: 0;
+  margin-left: auto;
+}
+@media only screen and (max-width: 1100px) {
+  .content {
+    flex: 0 0 auto;
+    width: calc(99.99% * 7/12 - (2.4rem - 2.4rem * 7/12));
+    margin-right: calc(99.99% * 1/12 - (2em - 2em * 1/12) + (2em * 2)) !important;
+  }
+  .content:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .content:last-child {
+    margin-right: 0;
+  }
+  .content:nth-child(2n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .content {
+    flex: 0 0 auto;
+    width: calc(99.99% * 8/12 - (2.4rem - 2.4rem * 8/12));
+    margin-left: 0 !important;
+    margin-right: 2em !important;
+  }
+  .content:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  .content:last-child {
+    margin-right: 0;
+  }
+  .content:nth-child(2n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+.content h4 {
+  font-size: 1rem;
+  line-height: 1.2em;
+  font-weight: 700;
+  font-family: P;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  width: 100%;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.content p {
+  font-size: 1.2rem;
+  letter-spacing: 0;
+  line-height: 1.5em;
+}
+.content .image {
+  display: block;
+  width: 50%;
+  margin: 0.5rem 1rem 1rem 0;
+}
+.content .caption {
+  display: block;
+  width: 50%;
+}
+.content .caption p {
+  font-size: 0.9rem;
+  color: rgba(64,64,64,0.7);
+}
+
+    </style>
+    <template is="dom-repeat" items="{{timeline}}" as="event">
+      <div class="event">
+        <div class="date">[[event.date]]</div>
+        <div class="content">
+          <h4>[[event.title]]</h4>
+          <marked-element id="subtitles" markdown="[[event.text]]">
+            <div class="markdown-html"></div>
+          </marked-element>
+          <template is="dom-if" if="[[event.photo]]">
+            <div class="image"><img src="[[event.photo.image]]" alt="[[event.title]]"></div>
+            <div class="caption">
+              <p>[[event.photo.caption]]</p>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-history',
+    ready: function() {},
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

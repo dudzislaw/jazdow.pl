@@ -1,0 +1,146 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<link rel="import" href="../lib/bower_components/app-route/app-route.html">
+<link rel="import" href="../lib/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="oj-video.html">
+<link rel="import" href="oj-overlay.html">
+<link rel="import" href="oj-layout-about.html">
+<link rel="import" href="oj-layout-cards.html">
+<link rel="import" href="oj-layout-events.html">
+<link rel="import" href="oj-layout-map.html">
+<link rel="import" href="oj-layout-house.html">
+<link rel="import" href="oj-layout-history.html">
+<link rel="import" href="oj-layout-partners.html">
+<link rel="import" href="oj-layout-article.html">
+<dom-module id="oj-page">
+  <!-- ----------------------------------------------------------------->
+  <style>:host {
+  display: block;
+}
+.layout-a {
+  display: block;
+  margin-top: 12rem;
+  display: flex;
+  flex-flow: row wrap;
+  max-width: 84rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  zoom: 1;
+}
+.layout-a:before,
+.layout-a:after {
+  content: "";
+  display: table;
+}
+.layout-a:after {
+  clear: both;
+}
+@media only screen and (max-width: 1100px) {
+  .layout-a {
+    padding: 0 1rem;
+  }
+}
+
+  </style>
+  <!-- ----------------------------------------------------------------->
+  <template>
+    <app-route id="route" route="{{route}}" pattern="/:view" active="{{pageActive}}" data="{{viewData}}"></app-route>
+    <iron-ajax id="page-ajax" auto="auto" url="[[_computePageURL(page)]]" handle-as="json" last-response="{{pageLoad}}"></iron-ajax>
+    <iron-ajax id="view-ajax" auto="auto" url="[[_computeViewURL(viewData.view)]]" handle-as="json" last-response="{{viewLoad}}"></iron-ajax>
+    <template is="dom-if" if="{{pageLayout.home}}">
+      <oj-video sources="[[pageLoad.video.sources]]" subs="[[pageLoad.video.subs]]"></oj-video>
+      <oj-layout-about title="[[pageLoad.about.title]]" content="[[pageLoad.content]]" lang="[[pageLoad.lang]]"></oj-layout-about>
+      <oj-layout-cards cards="[[pageLoad.cards]]"></oj-layout-cards>
+    </template>
+    <template is="dom-if" if="{{pageLayout.events}}">
+      <oj-layout-events class="layout-a" title="[[pageLoad.title]]" image="[[pageLoad.image]]" content="[[pageLoad.content]]" params="[[pageLoad.events]]" lang="[[pageLoad.lang]]"></oj-layout-events>
+    </template>
+    <template is="dom-if" if="{{pageLayout.map}}">
+      <oj-layout-map title="[[pageLoad.title]]" content="[[pageLoad.content]]" houses="[[pageLoad.houses]]" legend="[[pageLoad.legend]]"></oj-layout-map>
+    </template>
+    <template is="dom-if" if="{{pageLayout.history}}">
+      <oj-layout-history class="layout-a" title="[[pageLoad.title]]" content="[[pageLoad.content]]" timeline="[[pageLoad.timeline]]"></oj-layout-history>
+    </template>
+    <template is="dom-if" if="{{pageLayout.model}}">
+      <oj-layout-article class="layout-a" title="[[pageLoad.title]]" content="[[pageLoad.content]]"></oj-layout-article>
+    </template>
+    <template is="dom-if" if="{{pageLayout.partnership}}">
+      <oj-layout-partners class="layout-a" title="[[pageLoad.title]]" content="[[pageLoad.content]]" partners="[[pageLoad.partners]]"></oj-layout-partners>
+    </template>
+    <template is="dom-if" if="{{pageLayout.default}}">
+      <oj-layout-article class="layout-a" title="[[pageLoad.title]]" content="[[pageLoad.content]]"></oj-layout-article>
+    </template>
+    <template is="dom-if" if="{{viewData.view}}">
+      <oj-overlay id="overlay">
+        <oj-layout-house class="layout-a" house="[[viewLoad.house]]" content="[[viewLoad.content]]"></oj-layout-house>
+      </oj-overlay>
+    </template>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-page',
+    properties: {
+      pageLayout: {
+        type: Object,
+        computed: '_computePageLayout(page)'
+      }
+    },
+    observers: ['_viewChanged(viewData)'],
+    _computePageLayout: function(page) {
+      var pageLayout;
+      pageLayout = {};
+      switch (page) {
+        case '':
+          pageLayout.home = true;
+          break;
+        case 'wydarzenia':
+        case 'events':
+          pageLayout.events = true;
+          break;
+        case 'mapa':
+        case 'map':
+          pageLayout.map = true;
+          break;
+        case 'historia':
+        case 'history':
+          pageLayout.history = true;
+          break;
+        case 'model':
+          pageLayout.model = true;
+          break;
+        case 'partnerstwo':
+        case 'partnership':
+          pageLayout.partnership = true;
+          break;
+        default:
+          pageLayout["default"] = true;
+      }
+      return pageLayout;
+    },
+    _computePageURL: function(page) {
+      return "/data/" + page + "/index.json";
+    },
+    _computeViewURL: function(view) {
+      if (view) {
+        return "/data/domki/" + view + ".json";
+      }
+    },
+    _viewChanged: function(viewData) {
+      if (viewData.view) {
+        return document.body.classList.add('freeze');
+      } else {
+        return document.body.classList.remove('freeze');
+      }
+    },
+    ready: function() {},
+    attached: function() {},
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

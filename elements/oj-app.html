@@ -1,0 +1,90 @@
+
+<link rel="import" href="../lib/bower_components/polymer/polymer.html">
+<link rel="import" href="../lib/bower_components/app-route/app-location.html">
+<link rel="import" href="../lib/bower_components/app-route/app-route.html">
+<link rel="import" href="../lib/bower_components/iron-image/iron-image.html">
+<link rel="import" href="oj-menu.html">
+<link rel="import" href="oj-page.html">
+<link rel="import" href="oj-footer.html">
+<dom-module id="oj-app">
+  <!-- ----------------------------------------------------------------->
+  <style>:host {
+  display: block;
+}
+:host.video-bg main {
+  margin-top: 50vw;
+}
+@media only screen and (max-width: 1100px) {
+  :host.video-bg main {
+    margin-top: 64vw;
+  }
+}
+:host main {
+  margin-top: 0;
+  transition: margin-top 0.5s ease;
+  zoom: 1;
+}
+:host main:before,
+:host main:after {
+  content: "";
+  display: table;
+}
+:host main:after {
+  clear: both;
+}
+
+  </style>
+  <!-- ----------------------------------------------------------------->
+  <template>
+    <app-location id="location" route="{{route}}" use-hash-as-path="use-hash-as-path"></app-location>
+    <app-route id="route" route="{{route}}" pattern="/:page" data="{{pageData}}" tail="{{pageTail}}"></app-route>
+    <main id="main">
+      <oj-menu id="main_menu" logo="{&quot;title&quot;:&quot;Otwary Jazd&#xF3;w &#x2013; Strona G&#x142;&#xF3;wna&quot;,&quot;href&quot;:&quot;/#/&quot;}" items="[{&quot;title&quot;:&quot;wydarzenia&quot;,&quot;href&quot;:&quot;/#/wydarzenia/&quot;},{&quot;title&quot;:&quot;mapa&quot;,&quot;href&quot;:&quot;/#/mapa/&quot;},{&quot;title&quot;:&quot;historia&quot;,&quot;href&quot;:&quot;/#/historia/&quot;},{&quot;title&quot;:&quot;model&quot;,&quot;href&quot;:&quot;/#/model/&quot;},{&quot;title&quot;:&quot;partnerstwo&quot;,&quot;href&quot;:&quot;/#/partnerstwo/&quot;},{&quot;title&quot;:&quot;kontakt&quot;,&quot;href&quot;:&quot;#page-footer&quot;}]"></oj-menu>
+      <oj-page page="[[pageData.page]]" route="[[pageTail]]"></oj-page>
+      <oj-footer></oj-footer>
+    </main>
+  </template>
+  <!-- ----------------------------------------------------------------->
+  <script>(function() {
+  Polymer({
+    is: 'oj-app',
+    observers: ['_routeChanged(route)'],
+
+    /*
+    	_scrollToPosition: (delay, offset)->
+    		setTimeout(
+    			(->
+    				$.Velocity.animate(
+    					$('html')
+    					'scroll',
+    					{duration: 300, offset: offset}
+    				)
+    	
+    			).bind(this),
+    			delay
+    		)
+     */
+    _routeChanged: function(newRoute) {
+      var offset;
+      if (this.route.path === '/' || !this.route.path) {
+        offset = this.$.main.offsetTop - window.innerHeight + 100;
+        console.log(this.$.main);
+        return this.toggleClass('video-bg', true);
+      } else {
+        this.toggleClass('video-bg', false);
+        return window.scroll(0, 0);
+      }
+    },
+    ready: function() {},
+    attached: function() {
+      if (!this.route.path) {
+        this.set('route.path', '/');
+      }
+    },
+    detached: function() {}
+  });
+
+}).call(this);
+
+  </script>
+</dom-module>

@@ -3,82 +3,19 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0">
-    <title>Strona główna - Otwarty Jazdów</title>
+    <title>Otwarty Jazdów</title>
     <script src="/lib/js/vendor.min.js"></script>
     <script src="/lib/js/main.min.js"></script>
     <link rel="stylesheet" href="/lib/css/screen.css">
-    <link rel="import" href="/lib/elements/oj-video.html">
-    <link rel="import" href="/lib/elements/oj-expander.html">
-    <link rel="import" href="/lib/elements/oj-menu.html">
-    <link rel="import" href="/lib/elements/oj-menu-item.html">
-    <link rel="import" href="/lib/elements/oj-calendar.html">
-  </head>
-  <body class="video-bg">
-    <div class="trap-top"></div>
-    <section id="video-background" class="bg">
-      <oj-video id="video" poster="../../assets/videos/poster.jpg" track="../../assets/videos/video-pl.vtt" banner="../../assets/videos/banner-pl.vtt" lang="pl" source="{&quot;webm&quot;:&quot;../../assets/videos/video.webm&quot;,&quot;mp4&quot;:&quot;../../assets/videos/video.mp4&quot;}"><a id="big-logo" href="/"></a></oj-video>
-    </section>
-    <section id="main-menu-container" class="full">
-      <oj-menu id="main-menu" logo="{&quot;title&quot;:&quot;Otwary Jazdów – Strona Główna&quot;,&quot;href&quot;:&quot;/&quot;}">
-        <oj-menu-item href="/wydarzenia/" title="wydarzenia">wydarzenia</oj-menu-item>
-        <oj-menu-item href="/mapa/" title="mapa">mapa</oj-menu-item>
-        <oj-menu-item href="/historia/" title="historia">historia</oj-menu-item>
-        <oj-menu-item href="/model/" title="model">model</oj-menu-item>
-        <oj-menu-item href="/partnerstwo/" title="partnerstwo">partnerstwo</oj-menu-item>
-        <oj-menu-item href="#page-footer" title="kontakt">kontakt</oj-menu-item>
-      </oj-menu>
-    </section>
-    <section id="home-about" class="full">
-      <div class="inner-section home-about">
-        <h1 class="section-title">Otwarty Jazdów to społeczność warszawskiego osiedla drewnianych domków fińskich, prowadząca ogólnodostępne działania społeczne, kulturalne i ekologiczne.</h1>
-        <oj-expander reveal="1" show-text="czytaj dalej" hide-text="ukryj tekst" is-hidden="false"><p>Naszą misją jest łączenie różnych grup, aby wspólnie rozwijać przestrzeń publiczną, tworzyć ofertę społeczną i kulturalną dostępną dla każdego, sprawdzać w praktyce alternatywne modele finansowania i wymiany bezpieniężnej, wspólnie uprawiać ogrody i po prostu dobrze spędzać czas wolny.</p>
-<p>Historia osiedla Jazdów sięga końca II Wojny Światowej. Domki fińskie, sprowadzone tu w 1945 roku, służyły za mieszkania pracownikom Biura Odbudowy Stolicy.</p>
-<p>Dziś Otwarty Jazdów łączy w sobie funkcje rezydencjalne i te związane z misją publiczną. W 27 drewnianych domkach i przyległych ogrodach żyją i działają obok siebie mieszkańcy, organizacje pozarządowe, miejscy ogrodnicy i pszczelarze, akademicy i studenci, artyści oraz pracownicy firm, spółdzielni, ambasad i instytucji publicznych.</p>
+    <link rel="import" href="/elements/oj-app.html">
+    <script>(function() {
+  document.write("<base href='" + document.location.origin + "' />");
 
-        </oj-expander>
-      </div>
-    </section>
-    <section id="home-cards" class="full">
-      <div class="inner-section home-cards"><a href="/historia/" class="card">
-          <h3 class="card-title">historia</h3>
-          <div class="card-content"><img src="/lib/ui/oj-history.svg"></div>
-          <p class="card-caption">Zobacz na osi czasu historię domków fińskich i Otwartego Jazdowa.</p></a><a href="/model/" class="card">
-          <h3 class="card-title">Model</h3>
-          <div class="card-content"><img src="/lib/ui/oj-model.svg"></div>
-          <p class="card-caption">Tworzymy model społecznościowego zarządzania przestrzenią miejską.</p></a><a href="/partnerstwo/" class="card">
-          <h3 class="card-title">Partnerstwo</h3>
-          <div class="card-content">35</div>
-          <p class="card-caption">Partnerstwo dla osiedla Jazdów tworzą organizacje, instytucje publiczne i osoby prywatne.</p></a>
-      </div>
-    </section>
-    <section id="home-events" class="full">
-      <div class="inner-section home-events">
-        <div class="calendar-info-col">
-          <h1 class="section-title">Wydarzenia</h1>
-          <p>W domkach fińskich działa wiele organizacji, oferujących ciekawe wydarzenia. Chcesz w nich uczestniczyć? Zobacz co dzieje się na Jazdowie w najbliższych dniach:</p>
-        </div>
-        <div class="extra-col">
-          <div class="calendar-illustration"><img src="/assets/images/arch-duo.png"></div>
-        </div>
-        <div class="calendar-col">
-          <oj-calendar limit="10" show-days="7" api-key="AIzaSyB_td3L7GKbbTBdTf9IivwESNuyDrfzpyU" calendar-ids="[&quot;smrfb88k185n4bnm7lh1q4sijc@group.calendar.google.com&quot;,&quot;jdbscspb3vqjm9q5kno1vuegv4@group.calendar.google.com&quot;]"></oj-calendar><a href="/wydarzenia/" class="oj-button-a">cały kalendarz</a>
-        </div>
-      </div>
-    </section>
-    <footer id="page-footer">
-      <div class="inner-section page-footer">
-        <div class="contacts">
-          <div class="contact">
-            <h4 class="contact-title">Kontakt:</h4>
-            <div class="contact-details">
-              <p><p>Otwarty Jazdów<br>ul. Jazdów 3/11<br> 00-122 Warszawa</p> <p>otwarty@jazdow.pl</p>
-</p>
-            </div>
-          </div>
-        </div>
-        <div class="social"><a id="facebook" href="https://facebook.com/jazdow/" title="facebook" class="social-icon"></a><a id="instagram" href="https://www.instagram.com/jazdow/" title="instagram" class="social-icon"></a>
-        </div>
-      </div>
-    </footer>
+}).call(this);
+
+    </script>
+  </head>
+  <body>
+    <oj-app></oj-app>
   </body>
 </html>
