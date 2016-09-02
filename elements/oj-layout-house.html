@@ -64,6 +64,11 @@ article {
   display: box;
   display: flex;
 }
+@media only screen and (max-width: 800px) {
+  article {
+    display: block;
+  }
+}
 section#main {
   flex: 0 0 auto;
   width: calc(99.99% * 8/12 - (2.4rem - 2.4rem * 8/12));
@@ -79,6 +84,32 @@ section#main:last-child {
 section#main:nth-child(2n) {
   margin-right: 0;
   margin-left: auto;
+}
+@media only screen and (max-width: 1100px) {
+  section#main {
+    margin-left: 0 !important;
+    margin-right: 2em !important;
+  }
+}
+@media only screen and (max-width: 800px) {
+  section#main {
+    width: calc(99.999999% * 1);
+  }
+  section#main:nth-child(1n) {
+    float: left;
+    margin-right: 0;
+    clear: none;
+  }
+  section#main:last-child {
+    margin-right: 0;
+  }
+  section#main:nth-child(0n) {
+    margin-right: 0;
+    float: right;
+  }
+  section#main:nth-child(0n + 1) {
+    clear: left;
+  }
 }
 #calendar {
   margin-bottom: 4rem;
@@ -98,8 +129,51 @@ section#info:nth-child(2n) {
   margin-right: 0;
   margin-left: auto;
 }
+@media only screen and (max-width: 1100px) {
+  section#info {
+    flex: 0 0 auto;
+    width: calc(99.99% * 4/12 - (2.4rem - 2.4rem * 4/12));
+  }
+  section#info:nth-child(1n) {
+    margin-right: 2.4rem;
+    margin-left: 0;
+  }
+  section#info:last-child {
+    margin-right: 0;
+  }
+  section#info:nth-child(2n) {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+@media only screen and (max-width: 800px) {
+  section#info {
+    width: calc(99.999999% * 1);
+  }
+  section#info:nth-child(1n) {
+    float: left;
+    margin-right: 0;
+    clear: none;
+  }
+  section#info:last-child {
+    margin-right: 0;
+  }
+  section#info:nth-child(0n) {
+    margin-right: 0;
+    float: right;
+  }
+  section#info:nth-child(0n + 1) {
+    clear: left;
+  }
+}
 #info-details {
   font-size: 1rem;
+}
+@media only screen and (max-width: 800px) {
+  #info-details {
+    margin-top: 4rem;
+    font-size: 1.4rem;
+  }
 }
 #info-details h5 {
   font-size: 1rem;
@@ -166,7 +240,7 @@ paper-slide p {
           </l2t-paper-slider>
         </div>
         <div id="calendar">
-          <oj-calendar limit="50" show-days="365" api-key="[[house.calendar.apikey]]" calendar-ids="[[house.calendar.ids]]" labels="[[house.calendar.labels]]"></oj-calendar>
+          <oj-calendar limit="[[house.calendar.limit]]" show-days="[[house.calendar.days]]" api-key="[[house.calendar.apikey]]" calendar-ids="[[house.calendar.ids]]" labels="[[house.calendar.labels]]"></oj-calendar>
         </div>
         <div id="content">
           <marked-element markdown="[[content]]">
