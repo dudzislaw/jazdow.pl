@@ -42,15 +42,28 @@ dom-module#oj-layout-house
 							color: white
 				article
 					display: flex
+					+below(800px)
+						display: block
 				section#main
 					lost-column: 8/12 2 $gutter flex
 					lost-offset: 1/12 row flex
+					+below(1100px)
+						lost-offset: 0 row flex
+					+below(800px)
+						lost-column: 1 0 0 no-flex
 				#calendar
 					margin-bottom: 4rem
 				section#info
 					lost-column: 3/12 2 $gutter flex
+					+below(1100px)
+						lost-column: 4/12 2 $gutter flex
+					+below(800px)
+						lost-column: 1 0 0 no-flex
 				#info-details
 					font-size: 1rem
+					+below(800px)
+						margin-top: 4rem
+						font-size: 1.4rem
 					h5
 						font-size: 1rem;
 						text-transform: uppercase
@@ -104,8 +117,8 @@ dom-module#oj-layout-house
 							
 				#calendar
 					oj-calendar(
-						limit='50'
-						show-days='365'
+						limit='[[house.calendar.limit]]'
+						show-days='[[house.calendar.days]]'
 						api-key='[[house.calendar.apikey]]'
 						calendar-ids='[[house.calendar.ids]]'
 						labels='[[house.calendar.labels]]'

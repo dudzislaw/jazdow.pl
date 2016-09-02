@@ -1,0 +1,38 @@
+<svg width='130px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 66">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke: #5200cc;
+        stroke-width: 2px;
+      }
+
+      .cls-1 {
+        stroke-linejoin: bevel;
+      }
+
+      .cls-2, .cls-3 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        stroke-dasharray: 2 5;
+      }
+    </style>
+  </defs>
+  <title>oj-mapicon</title>
+  <g>
+    <g>
+      <polygon class="cls-1" points="52.82 29.92 51.76 31.33 46.51 38.35 44.42 41.15 25.62 31.38 20.59 28.77 28.98 17.53 34.02 20.16 52.82 29.92"/>
+      <polygon class="cls-1" points="44.42 41.15 44.42 47 20.59 34.62 20.59 28.77 25.62 31.38 44.42 41.15"/>
+      <polygon class="cls-1" points="61.21 30.39 52.82 29.92 34.02 20.16 28.98 17.53 37.38 17.99 61.21 30.39"/>
+      <polygon class="cls-1" points="61.21 30.39 61.21 36.24 52.82 41.62 44.42 47 44.42 41.15 46.51 38.35 51.76 31.33 52.82 29.92 61.21 30.39"/>
+    </g>
+    <path class="cls-2" d="M128.45,25.6C98.23,60.31,44.76,65,44.76,65L0.1,60.72"/>
+    <g>
+      <line class="cls-3" x1="79.78" y1="6.48" x2="79.78" y2="37.83"/>
+      <circle class="cls-3" cx="79.78" cy="4.05" r="3.05"/>
+      <polygon class="cls-3" points="96.1 10.6 96.1 6.88 79.78 11.25 79.78 20.95 86.4 19.16 86.4 22.88 102.72 18.51 102.72 8.81 96.1 10.6"/>
+    </g>
+  </g>
+</svg>

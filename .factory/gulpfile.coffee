@@ -57,9 +57,6 @@ paths =
 # Bower deps - will be merged to lib/js/vendor.min.js by bower-deps task
 bower_deps = [
 	paths.bower + 'axios/dist/axios.min.js'
-	paths.bower + 'jquery/dist/jquery.slim.min.js'
-	paths.bower + 'animejs/anime.min.js'
-	paths.bower + 'velocity/velocity.min.js'
 	paths.bower + 'moment/min/moment-with-locales.min.js'
 	paths.bower + 'webcomponentsjs/webcomponents-lite.js'
 
@@ -263,11 +260,17 @@ gulp.task 'coffee', ->
 
 
 #--------------------
-# UI AND FONTS
+# UI, MISC, AND ASSETS
 # Just mirror them to dest folder
 
 gulp.task 'ui', ->
 	stream = gulp.src(paths.ui, { base: '../_lib/' }).pipe(gulp.dest('../dist/lib/'))
+	return
+
+
+gulp.task 'misc', ->
+	miscFiles = ['../_views/CNAME']
+	stream = gulp.src(miscFiles).pipe(gulp.dest('../dist/'))
 	return
 
 
@@ -349,6 +352,7 @@ gulp.task 'default', [
 	'views'
 	'coffee'
 	'stylus'
+	'misc'
 	'ui'
 	'assets'
 	'watch'

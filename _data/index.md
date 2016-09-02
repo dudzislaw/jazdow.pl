@@ -20,9 +20,48 @@ video:
             -
                 - 0.1
                 - >
+                    Łąka kwietna<br>
                     Motyka i Słońce <br>
-                    8/12
+                    3/9
+            -
+                - 10
+                - >
+                    Warszawskie Combo Taneczne<br>
+                    Ladodomek<br>
+                    7/30
+            -
+                - 22
+                - >
+                    Dom Tańca<br>
+                    3/6
+            -
+                - 36
+                - >
+                    Budowa pieca z gliny<br>
+                    Motyka i Słońce
+                    3/9
+            -
+                - 44
+                - >
+                    Miejskie pszczoły<br>
+                    3/8
+            -
+                - 49
+                - >
+                    Urodziny "Pańskiej Skórki"<br>
+                    PM na Trawie<br>
+                    3/12
+            -
+                - 57
+                - >
+                    Warszawskie Kroje<br>
+                    Motyka i Słońce<br>
+                    3/9
+
         - # Subs 2
+            -
+                - 0
+                - Witamy w Otwartym Jazdowie
             -
                 - 0
                 - cześć!
@@ -30,12 +69,22 @@ video:
                 - 3
                 - Witamy w Otwartym Jazdowie
             -
-                - 7
+                - 10
                 - ''
 
 cards:
     -
-        title: historia
+        title: Wydarzenia
+        href: /#/wydarzenia/
+        cover: /lib/ui/oj-events.svg
+        caption: Zobacz co dzieje się w Otwarym Jazdowie w najbliższych dniach.
+    -
+        title: Mapa
+        href: /#/mapa/
+        cover: /lib/ui/oj-mapicon.svg
+        caption: Interaktywna mapa Jazdowa. Zobacz co się mieści w każdym z domków.
+    -
+        title: Historia
         href: /#/historia/
         cover: /lib/ui/oj-history.svg
         caption: Zobacz na osi czasu historię domków fińskich i Otwartego Jazdowa.

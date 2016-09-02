@@ -53,7 +53,7 @@ dom-module#oj-app
 				is: 'oj-app'
 
 				observers: ['_routeChanged(route)']
-
+				###
 				_scrollToPosition: (delay, offset)->
 					setTimeout(
 						(->
@@ -62,17 +62,17 @@ dom-module#oj-app
 								'scroll',
 								{duration: 300, offset: offset}
 							)
-
+				
 						).bind(this),
 						delay
 					)
-					
+				###	
 				_routeChanged: (newRoute)->
 					if this.route.path is '/' or !this.route.path
 						offset = this.$.main.offsetTop - window.innerHeight + 100
 						console.log this.$.main
 						this.toggleClass 'video-bg', true
-						this._scrollToPosition(500, offset)
+						#this._scrollToPosition(500, offset)
 					else
 						this.toggleClass 'video-bg', false
 						window.scroll 0,0
