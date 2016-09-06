@@ -13,7 +13,7 @@ Uses also:
 **go to factory**
 
 ```shell
-cd _factory
+cd .factory
 ```
 
 **install npm modules**
