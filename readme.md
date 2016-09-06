@@ -1,12 +1,15 @@
 # Static Factory
 
-This is a  static generator for websites. Forked from theme-factory. It uses Gulp to build scripts and styles, it uses JADE as a template language, to which you pass markdown and front-matter data.
+This is a  static generator for websites.
+Gulp as a build tool,
+JADE as a template language,
+markdown and front-matter as data source.
 Uses also:
 
 - stylus with nib, lost and autoprefixer
 - coffeescript
 - bower
-- polymer (if needed)
+- polymer
 
 ### Usage
 
