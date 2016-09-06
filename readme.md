@@ -43,4 +43,4 @@ gulp
 **Done!**
 
 go to:
-http://localhost:3000/html
+https://localhost:3000/
