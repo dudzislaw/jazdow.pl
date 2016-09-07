@@ -156,7 +156,7 @@ a.event-row:hover {
           key: apiKey,
           maxResults: maxResults,
           limit: limit,
-          timeMin: moment('2016-01-01T02:07:39+02:00').format(),
+          timeMin: moment().format(),
           timeMax: moment().add(showDays, 'days').format(),
           orderBy: 'startTime',
           singleEvents: true
@@ -185,6 +185,16 @@ a.event-row:hover {
           return prev.concat(current);
         });
       }).then(function(events) {
+        return events.filter(function(event) {
+          var test;
+          console.log(event);
+          console.log(event.visibility);
+          test = event.visibility && event.visibility === !'private';
+          console.log(test);
+          return test;
+        });
+      }).then(function(events) {
+        console.log(events);
         return events.map(function(event) {
           var dateString, whendate;
           dateString = event.start.dateTime || event.start.date;
