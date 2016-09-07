@@ -187,14 +187,10 @@ a.event-row:hover {
       }).then(function(events) {
         return events.filter(function(event) {
           var test;
-          console.log(event);
-          console.log(event.visibility);
-          test = event.visibility && event.visibility === !'private';
-          console.log(test);
+          test = typeof event.visibility === 'undefined' || event.visibility === !'private';
           return test;
         });
       }).then(function(events) {
-        console.log(events);
         return events.map(function(event) {
           var dateString, whendate;
           dateString = event.start.dateTime || event.start.date;
