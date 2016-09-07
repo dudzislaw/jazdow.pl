@@ -118,7 +118,7 @@ dom-module#oj-calendar
 							key: apiKey
 							maxResults: maxResults
 							limit: limit
-							timeMin: moment('2016-01-01T02:07:39+02:00').format()
+							timeMin: moment().format()
 							timeMax: moment().add(showDays, 'days').format()
 							orderBy: 'startTime'
 							singleEvents: true
@@ -147,6 +147,11 @@ dom-module#oj-calendar
 							prev.concat(current)
 						)
 					) # AT THIS POINT WE HAVE AN ARRAY OF EVENTS
+					.then (events)->
+						return events.filter( (event)->
+							test = typeof event.visibility is 'undefined' or event.visibility is not 'private'
+							return test
+						) # AT THIS POINT WE HAVE AN ARRAY OF EVENTS, REMOVED PRIVATE
 					.then( (events)->
 						return events.map( (event)->
 							dateString = event.start.dateTime or event.start.date

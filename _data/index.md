@@ -69,7 +69,7 @@ video:
                 - 3
                 - Witamy w Otwartym Jazdowie
             -
-                - 10
+                - 40
                 - ''
 
 cards:

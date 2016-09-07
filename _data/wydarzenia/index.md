@@ -15,11 +15,13 @@ events:
         where: Gdzie
         what: Co
     google:
-        apikey: AIzaSyB_td3L7GKbbTBdTf9IivwESNuyDrfzpyU
+        apikey: AIzaSyCqPvcXZrwtDN4EiF7rxB7SzDhj_ggps-I
+        #apikey: AIzaSyB_td3L7GKbbTBdTf9IivwESNuyDrfzpyU
         calendars:
-            - smrfb88k185n4bnm7lh1q4sijc@group.calendar.google.com # Domek A
-            - jdbscspb3vqjm9q5kno1vuegv4@group.calendar.google.com # Domek B
-            - b9uofuijr95inoivgbv95upe0g@group.calendar.google.com # Domek C
+            - jazdow.pl_u5ra3catvvqa054bhfgi2ko008@group.calendar.google.com # PM NA Trawie
+            #- smrfb88k185n4bnm7lh1q4sijc@group.calendar.google.com # Domek A
+            #- jdbscspb3vqjm9q5kno1vuegv4@group.calendar.google.com # Domek B
+            #- b9uofuijr95inoivgbv95upe0g@group.calendar.google.com # Domek C
 ---
 W domkach fińskich działa wiele organizacji, oferujących ciekawe wydarzenia. Zobacz co dzieje się na Jazdowie w najbliższych dniach.
 

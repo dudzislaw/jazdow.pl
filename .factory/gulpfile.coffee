@@ -26,6 +26,7 @@ browserSync = require('browser-sync').create()
 htmlInjector = require('bs-html-injector')
 path = require('path')
 del = require('del')
+rename = require('gulp-rename')
 notifier = require('node-notifier')
 gutil = require('gulp-util')
 ghPages = require('gulp-gh-pages')
@@ -153,7 +154,6 @@ gulp.task 'views', ->
 
 
 
-
 #--------------------
 # PUG – POLYMER ELEMENTS
 # compile polymer elements, write to dist/elements, also passing in site data from data.md
@@ -269,7 +269,7 @@ gulp.task 'ui', ->
 
 
 gulp.task 'misc', ->
-	miscFiles = ['../_views/CNAME']
+	miscFiles = ['!../_views/**/*.pug', '!../_views/**/_*', '../_views/**/*'] # Everything but pug
 	stream = gulp.src(miscFiles).pipe(gulp.dest('../dist/'))
 	return
 
@@ -318,16 +318,70 @@ gulp.task 'serve', ->
 		https: true
 		files: [
 			'../dist/data/**/*'
-			'../dist/**/*.html'
 			'../dist/lib/**/*.css'
 			'../dist/lib/js/**/*'
 			'../dist/lib/ui/**/*'
 			'../dist/lib/fonts/**/*'
 			'../dist/assets/**/*'
 		]
+		plugins: [
+			{
+				module: "bs-html-injector",
+				options: {
+					files: ["../dist/**/*.html"]
+				}
+			}
+		]
 		open: false
 		reloadOnRestart: true
 	)
+	return
+
+
+#--------------------
+# SERVE
+# browserSync server with HTML injection
+gulp.task 'demo-serve', ->
+	browserSync.init(
+		server:
+			baseDir: '../dist'
+		https: true
+		port: 3003
+		files: [
+			'../dist/lib/**/*.css'
+		]
+		plugins: [
+			{
+				module: "bs-html-injector",
+				options: {
+					files: ["../dist/demo.v.html"]
+				}
+			}
+		]
+		open: false
+		reloadOnRestart: true
+	)
+	return
+
+#--------------------
+# !!! EXPERIMENTAL !!!
+# vulcanize into a demo file
+
+gulp.task 'vulcanize-demo', ->
+	stream = gulp.src(['../dist/demo.html'])
+	.pipe(vulcanize({
+		inlineScripts: false
+		inlineCss: false
+		stripComments: true
+		excludes: [
+			'../dist/lib/js/vendor.min.js'
+			'../dist/lib/js/init.min.js'
+			'../dist/lib/css/screen.css'
+			# '../dist/lib/bower_components/polymer/polymer.html'
+		]
+	}))
+	.pipe(rename('demo.v.html'))
+	.pipe(gulp.dest('../dist/'))
 	return
 
 
