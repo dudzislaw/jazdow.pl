@@ -1,7 +1,7 @@
 ---
 lang: pl
 
-title: Partnerstwo dla osiedla Jazdów
+title: Otwarty Jazdów - Partnerstwo dla Osiedla Jazdów
 
 partners:
 # ORGANIZATIONS
