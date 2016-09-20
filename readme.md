@@ -11,6 +11,7 @@ Uses also:
 - bower
 - polymer
 
+### aaa
 ### Usage
 
 **go to factory**
@@ -31,16 +32,33 @@ npm install
 bower install
 ```
 
+**install bower with sudo if fails**
+```shell
+sudo bower --allow-root install
+```
+
 **build vendor.min.js file with all bower dependencies**
 
 ```shell
 gulp bower-deps
 ```
 
+**build vendor.min.js file with all bower dependencies with sudo if fails**
+
+```shell
+sudo gulp bower-deps
+```
+
 **run gulp**
 
 ```shell
 gulp
+```
+
+**run gulp with sudo if fails**
+
+```shell
+sudo gulp
 ```
 
 **Done!**
