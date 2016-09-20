@@ -31,7 +31,7 @@ npm install
 bower install
 ```
 
-**install bower (with sudo if fails**
+**install bower (with sudo if fails)**
 ```shell
 sudo bower --allow-root install
 ```
@@ -42,7 +42,7 @@ sudo bower --allow-root install
 gulp bower-deps
 ```
 
-**build vendor.min.js file with all bower dependencies (with sudo if failss**
+**build vendor.min.js file with all bower dependencies (with sudo if fails)**
 
 ```shell
 sudo gulp bower-deps
