@@ -11,10 +11,6 @@ Uses also:
 - bower
 - polymer
 
-<<<<<<< HEAD
-### aaa
-=======
->>>>>>> ada4bde0d3f65139762bca5a128211763ba81fb1
 ### Usage
 
 **go to factory**
@@ -35,44 +31,35 @@ npm install
 bower install
 ```
 
-<<<<<<< HEAD
-**install bower with sudo if fails**
+**install bower (with sudo if fails**
 ```shell
 sudo bower --allow-root install
 ```
 
-=======
->>>>>>> ada4bde0d3f65139762bca5a128211763ba81fb1
 **build vendor.min.js file with all bower dependencies**
 
 ```shell
 gulp bower-deps
 ```
 
-<<<<<<< HEAD
-**build vendor.min.js file with all bower dependencies with sudo if fails**
+**build vendor.min.js file with all bower dependencies (with sudo if failss**
 
 ```shell
 sudo gulp bower-deps
 ```
 
-=======
->>>>>>> ada4bde0d3f65139762bca5a128211763ba81fb1
 **run gulp**
 
 ```shell
 gulp
 ```
 
-<<<<<<< HEAD
-**run gulp with sudo if fails**
+**run gulp (with sudo if fails)**
 
 ```shell
 sudo gulp
 ```
 
-=======
->>>>>>> ada4bde0d3f65139762bca5a128211763ba81fb1
 **Done!**
 
 go to:
