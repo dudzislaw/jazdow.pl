@@ -1,0 +1,191 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="../lib/bower_components/iron-ajax/iron-ajax.html")
+
+dom-module#oj-calendar
+	// ---------------------------------------------------------------
+	style
+		:stylus
+			@import '../_lib/css/elements.imports.styl'
+			:host
+				+below(1100px)
+					margin: 1rem 0 2rem 0
+			.calendar.header
+				padding: .5rem .5rem .5rem 0
+				font-family: $P
+				font-weight: 700
+				font-size: 1.4rem
+				letter-spacing: 0.05em
+				margin-bottom: 2rem
+			#calendar
+				width: 100%
+				color: $oj-violet
+				display: flex
+				flex-flow: row wrap
+				justify-content: space-around
+			.cell.header
+				font-family: $P
+				font-weight: 700
+				font-size: 1rem
+				letter-spacing: 0.05em
+				text-transform: uppercase
+				padding: .5rem .5rem .5rem 0
+				border-bottom: 1px solid rgba($oj-violet, .4)
+			a.event-row
+				display: flex
+				width: 100%
+				cursor: pointer
+				&:hover
+					background-color: rgba($oj-violet, .05)
+			.cell.content
+				padding: 1rem .5rem 1rem 0
+				border-bottom: 1px solid rgba($oj-violet, .4)
+			.cell.when
+				flex-basis: 15%
+				flex-grow: 1
+			.cell.where
+				flex-basis: 35%
+				flex-grow: 1
+			.cell.what
+				flex-basis: 50%
+				flex-grow: 1
+					
+
+	// ---------------------------------------------------------------
+	template
+		h4.calendar.header [[labels.header]] [[options.other.lastDay]]
+		#calendar
+			template(is='dom-if' if='[[labels.when]]')
+				.cell.header.when [[labels.when]]
+			template(is='dom-if' if='[[labels.where]]')
+				.cell.header.where [[labels.where]]
+			template(is='dom-if' if='[[labels.what]]')
+				.cell.header.what [[labels.what]]
+			template(is="dom-repeat" items="{{calendarEvents}}")
+				a.event-row
+					template(is='dom-if' if='[[labels.when]]')
+						.cell.content.when
+							b {{item.when.day}} 
+							span {{item.when.weekday}}
+					template(is='dom-if' if='[[labels.where]]')
+						.cell.content.where {{item.where}}
+					template(is='dom-if' if='[[labels.what]]')
+						.cell.content.what {{item.what}}
+
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-calendar'
+				properties:
+					apiUrl:
+						type: String
+						value: 'https://www.googleapis.com/calendar/v3/'
+					limit: # total limit of events
+						type: Number
+						value: 10
+					apiKey: 
+						type: String
+					calendarIds: 
+						type: Array
+					maxResults: #limit per calendar
+						type: Number
+						value: 10
+					showDays: 
+						type: Number
+						value: 10
+					options:
+						type: Object
+						computed: '_computeOptions(apiKey, apiUrl, calendarIds, maxResults, showDays, limit)'
+						observer: '_getEvents'
+					# Async:
+					calendarEvents:
+						type: Array
+						value: ->
+							return []
+
+
+				_computeCalendarUrls: (apiUrl, calendarIds)->
+					if calendarIds
+						return calendarIds.map((calID)->
+							return apiUrl + 'calendars/' + calID + '/events'
+						)
+					
+				_computeOptions: (apiKey, apiUrl, calendarIds, maxResults, showDays, limit)->
+					return {
+						urls: this._computeCalendarUrls(apiUrl, calendarIds)
+						params:
+							key: apiKey
+							maxResults: maxResults
+							limit: limit
+							timeMin: moment().format()
+							timeMax: moment().add(showDays, 'days').format()
+							orderBy: 'startTime'
+							singleEvents: true
+						other:
+							lastDay: moment().add(showDays, 'days').locale('pl').format('D MMMM YYYY')
+					}
+
+				_getEvents: ->
+					options = this.options
+
+					if not options or not options.urls
+						return
+
+					axios.all(
+						options.urls.map( (url)->
+							return axios.get(url, params: options.params)
+						)
+					) # AT THIS POINT WE HAVE AN ARRAY OF AXIOS RESPONSES
+					.then( (responses)->
+						return responses.map( (response)->
+							return response.data.items
+						)
+					) # AT THIS POINT WE HAVE A FULL ARRAY OF CALENDARS
+					.then( (calendars)->
+						return calendars.reduce( (prev, current)->
+							prev.concat(current)
+						)
+					) # AT THIS POINT WE HAVE AN ARRAY OF EVENTS
+					.then (events)->
+						return events.filter( (event)->
+							test = typeof event.visibility is 'undefined' or event.visibility is not 'private'
+							return test
+						) # AT THIS POINT WE HAVE AN ARRAY OF EVENTS, REMOVED PRIVATE
+					.then( (events)->
+						return events.map( (event)->
+							dateString = event.start.dateTime or event.start.date
+							whendate = moment(dateString).locale('pl')
+							return {
+								when: 
+									day: whendate.format('DD.MM')
+									weekday: whendate.format('dd')
+								where: event.organizer.displayName
+								what: event.summary
+							}
+						)
+					) # AT THIS POINT WE HAVE AN ARRAY OF TRIMMED EVENTS
+					.then( (events)->
+						return events.sort( (a, b)->
+							return (a.when < b.when) ? 1 : (a.when > b.when) ? -1 : 0
+						)
+					) # AT THIS POINT WE HAVE A TRIMMED ARRAY OF EVENTS, SORTED BY DATE
+					.then( (events)->
+						return events.slice(0, options.limit)
+					) # AT THIS POINT WE HAVE A TRIMMED ARRAY OF EVENTS, ORDERED BY DATE, LIMITED BY LIMIT
+					.then( ((events)->
+							this.calendarEvents = events
+						).bind(this) # REMEMBER: .bind(this)
+					)
+					.catch( (error)->
+						console.log error
+					)
+
+				ready: ->
+					return
+					
+				attached: ->
+					return
+
+				detached: ->
+					return

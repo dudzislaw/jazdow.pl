@@ -1,0 +1,97 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="../lib/bower_components/marked-element/marked-element.html")
+
+dom-module#oj-layout-partners
+	template
+		style
+			:stylus
+				@import '../_lib/css/elements.imports.styl'
+				:host
+					display: block
+				.title
+					lost-column: 2/3 0 $gutter flex
+					display: block
+					letter-spacing: .075em
+					+below(1100px)
+						lost-offset: -1/6 row $gutter
+						text-align: center
+					+below(600px)
+						display: block
+						width: 100%
+						lost-offset: 0 row $gutter
+				.intro
+					lost-column: 3/4 0 $gutter
+					margin-bottom: 8rem
+					+below(1100px)
+						lost-column: 1/1 0 $gutter flex
+						p
+							lost-column: 8/12 1 $gutter flex
+							lost-offset: -2/12 row flex
+							text-align: center
+							font-size: 1.8rem
+					+below(600px)
+						p
+							lost-column: 1/1 0 $gutter flex
+							lost-offset: 0 row flex
+				.partners-list
+					lost-center: 100% 0 flex
+					.partner
+						lost-column: 1/3 3 $gutter
+						margin-bottom: 6rem
+						+below(600px)
+							lost-column: 1/2 2 $gutter flex
+							text-align: center
+						.partner-image
+							display: flex
+							width: 100%
+							max-width: 14rem
+							height: 10rem
+							margin-bottom: 2rem
+							+below(600px)
+								text-align: center
+								justify-content: center
+								margin: 0 auto 2rem auto
+							img
+								max-width: 100%
+								max-height: 10rem
+						.partner-name
+							display: block
+							font-family: $P
+							color: $oj-violet
+							font-size: 1.3rem
+							font-weight: 700
+							letter-spacing: 0.05em
+							padding: .5rem 0
+							border-bottom: 1px solid $oj-violet
+						.partner-caption
+							font-size: 1.2rem
+							line-height 1.5em
+							letter-spacing 0.04em
+							margin-bottom: 1rem
+
+
+		.intro
+			h1.title [[title]]
+			marked-element(markdown="[[content]]")
+				.markdown-html
+
+		.partners-list
+			template(is='dom-repeat' items='[[partners]]')
+				.partner
+					a.partner-image(href='[[item.href]]' title='[[item.name]]')
+						img(src='[[item.image]]')
+					a.partner-name(href='[[item.href]]') [[item.name]]
+					p.partner-caption [[item.caption]]
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-layout-partners'
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return

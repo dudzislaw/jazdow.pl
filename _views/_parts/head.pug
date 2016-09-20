@@ -1,0 +1,16 @@
+meta(charset='UTF-8')
+meta(name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0')
+title #{data.site_title}
+
+each src in data.scripts
+	script(src=src)
+
+each href in data.styles
+	link(rel='stylesheet' href=href)
+
+each href in data.imports
+	link(rel="import" href=href)
+
+script
+	:coffee-script
+		document.write "<base href='#{document.location.origin}' />"

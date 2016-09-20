@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 260.5 14.97">
+	<defs>
+		<style>
+			.s {
+			stroke-miterlimit: 10;
+			stroke-linejoin: bevel;
+			fill: none;
+			stroke: #231f20;
+			stroke-width: 0.5px;
+			}
+
+			.f {
+			fill: #231f20;
+			}
+		</style>
+		<symbol id="house" viewBox="0 0 16.73 12.25">
+			<polygon class="s" points="9.77 9.69 9.77 12.03 0.25 7.08 0.25 4.74 2.26 5.79 9.77 9.69"/>
+			<polygon class="s" points="13.13 5.2 12.71 5.76 10.61 8.57 9.77 9.69 2.26 5.79 0.25 4.74 3.6 0.25 5.62 1.3 13.13 5.2"/>
+			<polygon class="s" points="16.48 5.39 13.13 5.2 5.62 1.3 3.6 0.25 6.96 0.43 16.48 5.39"/>
+			<polygon class="s" points="16.48 5.39 16.48 7.73 13.13 9.88 9.77 12.03 9.77 9.69 10.61 8.57 12.71 5.76 13.13 5.2 16.48 5.39"/>
+		</symbol>
+		<symbol id="monument" viewBox="0 0 9 13.5">
+			<polygon class="f" points="4.5 13.5 0 9 4.5 4.5 9 9 4.5 13.5"/>
+			<polygon class="f" points="4.5 4.5 0 0 9 0 4.5 4.5"/>
+			<path class="f" d="M8.5,0.5V8.79l-4,4-4-4V0.5h8M9,0H0V9l4.5,4.5L9,9V0H9Z"/>
+		</symbol>
+		<symbol id="embassy" viewBox="0 0 10.89 14.97">
+			<line class="s" x1="1.47" y1="2.44" x2="1.47" y2="14.97"/>
+			<circle class="s" cx="1.47" cy="1.47" r="1.22"/>
+			<polygon class="s" points="7.99 4.09 7.99 2.6 1.47 4.35 1.47 8.22 4.12 7.51 4.12 9 10.64 7.25 10.64 3.38 7.99 4.09"/>
+		</symbol>
+		<symbol id="school" viewBox="0 0 10.21 13.25">
+			<path class="s" d="M10,4.21a10.67,10.67,0,0,1-4.86,8.73A10.67,10.67,0,0,1,.25,4.21V1a3.62,3.62,0,0,0,1.94.63A4.17,4.17,0,0,0,5.11.35,4.17,4.17,0,0,0,8,1.65,3.62,3.62,0,0,0,10,1V4.21Z"/>
+			<path class="f" d="M3.25,8V4.6l-0.93.68V4.75l1-.69H3.74V8H3.25Z"/>
+			<path class="f" d="M5.23,8V7.57l1.59-2A0.87,0.87,0,0,0,7,5a0.58,0.58,0,0,0-.64-0.63,0.63,0.63,0,0,0-.67.71H5.22A1.09,1.09,0,0,1,6.38,4a1.13,1.13,0,0,1,1,.45A1,1,0,0,1,7.52,5a1.29,1.29,0,0,1-.33.84L5.85,7.53H7.58V8H5.23Z"/>
+		</symbol>
+		<symbol id="kindergarden" viewBox="0 0 12.08 12.08">
+			<circle class="s" cx="6.04" cy="6.04" r="5.79"/>
+			<circle class="f" cx="3.54" cy="4.84" r="0.5"/>
+			<circle class="f" cx="8.54" cy="4.84" r="0.5"/>
+			<path class="s" d="M2.63,6.79a3.5,3.5,0,0,0,6.83,0"/>
+		</symbol>
+		<symbol id="hospital" viewBox="0 0 8.5 8.5">
+			<polygon class="s" points="8.25 3.25 5.25 3.25 5.25 0.25 3.25 0.25 3.25 3.25 0.25 3.25 0.25 5.25 3.25 5.25 3.25 8.25 5.25 8.25 5.25 5.25 8.25 5.25 8.25 3.25"/>
+		</symbol>
+	</defs>
+	<title>Map legend symbols</title>
+</svg>

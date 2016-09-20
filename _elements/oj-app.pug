@@ -1,0 +1,88 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="../lib/bower_components/app-route/app-location.html")
+link(rel="import" href="../lib/bower_components/app-route/app-route.html")
+link(rel="import" href="../lib/bower_components/iron-image/iron-image.html")
+
+link(rel="import" href="oj-menu.html")
+link(rel="import" href="oj-page.html")
+link(rel="import" href="oj-footer.html")
+
+dom-module#oj-app
+	// ---------------------------------------------------------------
+	style
+		:stylus
+			@import '../_lib/css/elements.imports.styl'
+			:host
+				display: block
+				&.video-bg
+					main
+						margin-top: $video-ratio
+						+below(1100px)
+							margin-top: 64vw
+				main
+					margin-top: 0
+					transition: margin-top .5s ease
+					clearfix()
+
+
+	// ---------------------------------------------------------------
+	template
+		app-location#location(
+			route='{{route}}'
+			use-hash-as-path
+		)
+		app-route#route(
+			route='{{route}}'
+			pattern='/:page'
+			data='{{pageData}}'
+			tail='{{pageTail}}'
+		)
+		
+		main#main
+		
+			oj-menu#main_menu(logo=JSON.stringify(data.home_logo) items=JSON.stringify(data.main_menu.pl))
+
+			oj-page(page='[[pageData.page]]' route='[[pageTail]]')
+
+			oj-footer
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-app'
+
+				observers: ['_routeChanged(route)']
+				###
+				_scrollToPosition: (delay, offset)->
+					setTimeout(
+						(->
+							$.Velocity.animate(
+								$('html')
+								'scroll',
+								{duration: 300, offset: offset}
+							)
+				
+						).bind(this),
+						delay
+					)
+				###	
+				_routeChanged: (newRoute)->
+					if this.route.path is '/' or !this.route.path
+						offset = this.$.main.offsetTop - window.innerHeight + 100
+						console.log this.$.main
+						this.toggleClass 'video-bg', true
+						#this._scrollToPosition(500, offset)
+					else
+						this.toggleClass 'video-bg', false
+						window.scroll 0,0
+
+				ready: ->
+					return
+					
+				attached: ->
+					if !this.route.path
+						this.set 'route.path', '/'
+					return
+				detached: ->
+					return

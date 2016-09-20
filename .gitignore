@@ -1,0 +1,3 @@
+.factory/node_modules
+.factory/.publish
+dist

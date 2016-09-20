@@ -1,0 +1,47 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="../lib/bower_components/marked-element/marked-element.html")
+link(rel="import" href="oj-history.html")
+
+dom-module#oj-layout-history
+	template
+		style
+			:stylus
+				@import '../_lib/css/elements.imports.styl'
+				:host
+					display: block
+				.intro
+					lost-column: 3/4 0 $gutter
+					margin-bottom: 8rem
+					+below(1100px)
+						lost-column: 8/12 0 $gutter flex
+						lost-offset: -1/12 row flex
+					+below(600px)
+						lost-column: 1/1 0 $gutter flex
+						lost-offset: 0 row flex
+					.title
+						+below(1100px)
+							text-align: left
+					p
+						+below(1100px)
+							font-size: 1.8rem
+
+
+
+		.intro
+			h1.title [[title]]
+			marked-element(markdown="[[content]]")
+				.markdown-html
+		oj-history(timeline='[[timeline]]')
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-layout-history'
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return

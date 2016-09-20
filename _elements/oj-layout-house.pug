@@ -1,0 +1,165 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="../lib/bower_components/l2t-paper-slider/l2t-paper-slider.html")
+
+dom-module#oj-layout-house
+	template
+		style
+			:stylus
+				@import '../_lib/css/elements.imports.styl'
+				:host
+					position: relative
+					margin: 12rem 0
+					clearfix()
+				header#header
+					display: block
+					width: 100%
+					position: relative
+					padding-bottom: 2rem
+					clearfix()
+					h1
+						display: block
+						max-width: 75%
+						margin-bottom: 1rem
+					p
+						max-width: 75%
+						font-size: 1.2rem
+						color: $oj-violet
+						font-family: $SC
+						line-height: 1.2em
+					.back
+						display: block
+						position: absolute
+						top: 0
+						right: 0
+						font-family: $P
+						font-size: .9rem
+						text-transform: uppercase
+						letter-spacing: 0.15em
+						padding: .25em
+						border: 1px solid $oj-violet
+						&:hover
+							background-color: $oj-violet
+							color: white
+				article
+					display: flex
+					+below(800px)
+						display: block
+				section#main
+					lost-column: 8/12 2 $gutter flex
+					lost-offset: 1/12 row flex
+					+below(1100px)
+						lost-offset: 0 row flex
+					+below(800px)
+						lost-column: 1 0 0 no-flex
+				#calendar
+					margin-bottom: 4rem
+				section#info
+					lost-column: 3/12 2 $gutter flex
+					+below(1100px)
+						lost-column: 4/12 2 $gutter flex
+					+below(800px)
+						lost-column: 1 0 0 no-flex
+				#info-details
+					font-size: 1rem
+					+below(800px)
+						margin-top: 4rem
+						font-size: 1.4rem
+					h5
+						font-size: 1rem;
+						text-transform: uppercase
+						letter-spacing: 0.15em
+						margin-bottom: 0.5rem
+						margin-top: 0.5rem
+						border-bottom: 1px solid $oj-violet
+					.detail
+						padding: .25rem 0
+				#oj-slider
+					width: 100%
+					position: relative
+				#image-gallery
+					border-bottom: 1px solid $oj-violet
+					margin-bottom: 2rem
+				.slide-caption
+					min-height: 2.4rem
+				l2t-paper-slider
+					--paper-slide-dot: rgba($oj-violet, .5)
+					--paper-slide-dot-selected: $oj-violet
+					--paper-slide-height: auto
+					cursor: grab
+					&:focus
+						outline: none
+				iron-image
+					width: 100%
+					padding-top: 56.25%
+				paper-slide
+					p
+						font-family: $SC
+						font-size: .9rem
+						line-height: 1.2rem
+						margin-bottom: 0
+						color: $oj-violet
+					
+
+		header#header
+			h1#org-name [[house.org.name]]
+			p#house-address [[house.address.street]]
+			a.back(href='[[house.back.href]]') [[house.back.label]]
+		article
+			section#main
+				#image-gallery
+					l2t-paper-slider(total-slides='[[house.images.length]]' hideNav='true' sensitivity='high')
+						template(is='dom-repeat' items='[[house.images]]' as='image')
+							paper-slide
+								iron-image(src='[[image.src]]' sizing='cover')
+								.slide-caption
+									p [[image.title]]
+									p [[image.author]]
+							
+				#calendar
+					oj-calendar(
+						limit='[[house.calendar.limit]]'
+						show-days='[[house.calendar.days]]'
+						api-key='[[house.calendar.apikey]]'
+						calendar-ids='[[house.calendar.ids]]'
+						labels='[[house.calendar.labels]]'
+						)
+				#content
+					marked-element(markdown="[[content]]")
+						.markdown-html
+
+			
+			section#info
+				#info-details
+					h5 [[house.info.header]]
+					template(is='dom-if' if='[[house.info.website]]')
+						.detail#detail-website 
+							a(href='[[house.info.website.value]]' title='[[house.org.name]]' target='_blank') [[house.info.website.label]]
+					template(is='dom-if' if='[[house.info.fb]]')
+						.detail#detail-fb
+							a(href='[[house.info.fb.value]]' title='[[house.org.name]] – facebook' target='_blank') [[house.info.fb.label]]
+					template(is='dom-if' if='[[house.info.email]]')
+						.detail#detail-email [[house.info.email.value]]
+					template(is='dom-if' if='[[house.info.phone]]')
+						.detail#detail-phone [[house.info.phone.value]]
+					template(is='dom-if' if='[[house.info.person]]')
+						.detail#detail-person  [[house.info.person.value]]
+
+		
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-layout-house'
+				
+				properties:
+					slideHeight:
+						type: Number
+						computed: ''
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return

@@ -1,0 +1,74 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="oj-map-legend.html")
+link(rel="import" href="oj-map.html")
+
+dom-module#oj-layout-map
+	template
+		style
+			:stylus
+				@import '../_lib/css/elements.imports.styl'
+				:host
+					display: block
+					position: relative
+					margin-top: 12rem
+					clearfix()
+				.intro
+					width: 100%
+					position: absolute
+					z-index: 9
+					padding: 0 2rem
+					clearfix()
+				.content
+					display: block
+					float: right
+					width: 32rem
+					margin-right: 6rem
+					+below(600px)
+						width: 100%
+						margin-right: 0
+						text-align: center
+					h1
+						text-decoration: underline
+					.marked-html
+						display: block
+						max-width: 80%
+						text-align: inherit
+					p
+						font-size: 1.2rem
+						color: $oj-violet
+						
+				.legend
+					display: block
+				
+				.map-section
+					display: block
+					clearfix()
+					width: 100%
+					padding: 0 1rem
+					+below(1100px)
+						padding: 0
+
+		.intro
+			.content#content
+				h1 [[title]]
+				marked-element(markdown="[[content]]")
+					.markdown-html
+			
+		.map-section
+			oj-map#map(houses='[[houses]]')
+
+		.legend
+			oj-map-legend#legend(legend='[[legend]]')
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-layout-map'
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return

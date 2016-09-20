@@ -1,0 +1,35 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="../lib/bower_components/marked-element/marked-element.html")
+
+dom-module#oj-layout-article
+	template
+		style
+			:stylus
+				@import '../_lib/css/elements.imports.styl'
+				:host
+					display: block
+				.article-content
+					lost-column: 2/3 0 $gutter flex
+					lost-move: 1/6 row $gutter
+					+below(1000px)
+						lost-column: 1/1 0 $gutter flex
+						lost-move: 0 row $gutter
+		
+		.article-content
+			h1.section-title [[title]]
+			marked-element(markdown="[[content]]")
+				.markdown-html
+
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-layout-article'
+
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return

@@ -1,0 +1,77 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+
+dom-module#oj-expander
+	// ---------------------------------------------------------------
+	style
+		:stylus
+			@import '../_lib/css/elements.imports.styl'
+			:host
+				#content
+					//- ::content > *
+					//- 	display: block
+				#read-more
+					font-size 1rem
+					font-weight 500
+					letter-spacing 0.05em
+					text-decoration: underline
+					font-family: P
+					font-weight: 700
+					cursor: pointer
+					color: $oj-violet
+
+
+	// ---------------------------------------------------------------
+	template
+		#content
+			content
+		a#read-more(on-tap="_toggleHide") [[currentText]]
+
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-expander'
+				properties:
+					reveal: 
+						type: Number
+						value: 1
+					showText:
+						type: String
+						value: 'Read more'
+					hideText:
+						type: String
+						value: 'Hide this'
+					currentText: String
+					isHidden: 
+						type: Boolean
+						value: false
+
+				_hide: ->
+					for item, key in this.$.content.children
+						if key >= this.reveal
+							item.style.display = 'none'
+					this.currentText = this.showText
+					this.isHidden = true
+					return
+					
+				_reveal: ->
+					for item, key in this.$.content.children
+						item.style.display = 'inherit'
+					this.currentText = this.hideText
+					this.isHidden = false
+					return
+
+				_toggleHide: ->
+					if this.isHidden then this._reveal() else this._hide()
+					return
+
+				ready: ->
+					if this.isHidden then this._hide()
+					return
+
+				attached: ->
+					return
+
+				detached: ->
+					return

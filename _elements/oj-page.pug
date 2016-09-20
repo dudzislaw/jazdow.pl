@@ -1,0 +1,131 @@
+link(rel="import" href="../lib/bower_components/polymer/polymer.html")
+link(rel="import" href="../lib/bower_components/app-route/app-route.html")
+link(rel="import" href="../lib/bower_components/iron-ajax/iron-ajax.html")
+link(rel="import" href="oj-video.html")
+link(rel="import" href="oj-overlay.html")
+link(rel="import" href="oj-layout-about.html")
+link(rel="import" href="oj-layout-cards.html")
+link(rel="import" href="oj-layout-events.html")
+link(rel="import" href="oj-layout-map.html")
+link(rel="import" href="oj-layout-house.html")
+link(rel="import" href="oj-layout-history.html")
+link(rel="import" href="oj-layout-partners.html")
+link(rel="import" href="oj-layout-article.html")
+
+dom-module#oj-page
+	// ---------------------------------------------------------------
+	style
+		:stylus
+			@import '../_lib/css/elements.imports.styl'
+			:host
+				display: block
+			.layout-a
+				display: block
+				margin-top: 12rem
+				lost-center: $grid-width 1rem flex
+				clearfix()
+				+below(1100px)
+					padding: 0 1rem
+
+
+	// ---------------------------------------------------------------
+	template
+		app-route#route(
+			route='{{route}}'
+			pattern='/:view'
+			active='{{pageActive}}'
+			data='{{viewData}}'
+		)
+		//- PAGE DATA
+		iron-ajax#page-ajax(
+			auto
+			url='[[_computePageURL(page)]]'
+			handle-as='json'
+			last-response='{{pageLoad}}'
+		)
+
+		//- VIEW DATA (domek)
+		iron-ajax#view-ajax(
+			auto
+			url='[[_computeViewURL(viewData.view)]]'
+			handle-as='json'
+			last-response='{{viewLoad}}'
+		)
+
+		template(is='dom-if' if='{{pageLayout.home}}')
+			oj-video(sources='[[pageLoad.video.sources]]' subs='[[pageLoad.video.subs]]')
+			oj-layout-about(title='[[pageLoad.about.title]]' content='[[pageLoad.content]]' lang='[[pageLoad.lang]]')
+			oj-layout-cards(cards='[[pageLoad.cards]]')
+
+		template(is='dom-if' if='{{pageLayout.events}}')
+			oj-layout-events.layout-a(
+				title='[[pageLoad.title]]'
+				image='[[pageLoad.image]]'
+				content='[[pageLoad.content]]'
+				params='[[pageLoad.events]]'
+				lang='[[pageLoad.lang]]')
+
+		template(is='dom-if' if='{{pageLayout.map}}')
+			oj-layout-map(title='[[pageLoad.title]]' content='[[pageLoad.content]]' houses='[[pageLoad.houses]]' legend='[[pageLoad.legend]]')
+
+		template(is='dom-if' if='{{pageLayout.history}}')
+			oj-layout-history.layout-a(
+				title='[[pageLoad.title]]'
+				content='[[pageLoad.content]]'
+				timeline='[[pageLoad.timeline]]')
+
+		template(is='dom-if' if='{{pageLayout.model}}')
+			oj-layout-article.layout-a(title='[[pageLoad.title]]' content='[[pageLoad.content]]')
+			
+		template(is='dom-if' if='{{pageLayout.partnership}}')
+			oj-layout-partners.layout-a(title='[[pageLoad.title]]' content='[[pageLoad.content]]' partners='[[pageLoad.partners]]')
+
+		template(is='dom-if' if='{{pageLayout.default}}')
+			oj-layout-article.layout-a(title='[[pageLoad.title]]' content='[[pageLoad.content]]')
+
+		template(is='dom-if' if='{{viewData.view}}')
+			oj-overlay#overlay
+				oj-layout-house.layout-a(house='[[viewLoad.house]]' content='[[viewLoad.content]]')
+
+	// ---------------------------------------------------------------
+	script
+		:coffee-script
+			Polymer
+				is: 'oj-page'
+				
+				properties:
+					pageLayout:
+						type: Object
+						computed: '_computePageLayout(page)'
+				
+				observers: ['_viewChanged(viewData)']
+				
+				_computePageLayout: (page)->
+					pageLayout = {}
+					switch page
+						when ''								then pageLayout.home = true
+						when 'wydarzenia','events' 			then pageLayout.events = true
+						when 'mapa','map' 					then pageLayout.map = true
+						when 'historia','history' 			then pageLayout.history = true
+						when 'model' 						then pageLayout.model = true
+						when 'partnerstwo','partnership' 	then pageLayout.partnership = true
+						else pageLayout.default = true
+					return pageLayout
+				
+				_computePageURL: (page)->
+					return "/data/#{page}/index.json"
+					
+				_computeViewURL: (view)->
+					if view then return "/data/domki/#{view}.json"
+					
+				_viewChanged: (viewData)->
+					if viewData.view then document.body.classList.add 'freeze'
+					else document.body.classList.remove 'freeze'
+					
+					
+				ready: ->
+					return
+				attached: ->
+					return
+				detached: ->
+					return
