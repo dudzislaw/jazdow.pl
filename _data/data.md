@@ -34,9 +34,9 @@ main_menu:
         -
             title: model
             href: /#/model/
-#        -
-#            title: partnerstwo
-#            href: /#/partnerstwo/
+        -
+            title: partnerstwo
+            href: /#/partnerstwo/
         -
             title: kontakt
             href: "#page-footer"

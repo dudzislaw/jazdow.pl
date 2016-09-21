@@ -93,11 +93,11 @@ cards:
         href: /#/model/
         cover: /lib/ui/oj-model.svg
         caption: Tworzymy model społecznościowego zarządzania przestrzenią miejską.
-#    -
-#        title: Partnerstwo
-#        href: /#/partnerstwo/
-#        cover: /lib/ui/oj-partners.svg
-#        caption: Partnerstwo dla Osiedla Jazdów tworzą organizacje pozarządowe, grupy nieformalne, instytucje publiczne i osoby prywatne.
+    -
+        title: Partnerstwo
+        href: /#/partnerstwo/
+        cover: /lib/ui/oj-partners.svg
+        caption: Partnerstwo dla Osiedla Jazdów tworzą organizacje pozarządowe, grupy nieformalne, instytucje publiczne i osoby prywatne.
 
 ---
 Naszą misją jest łączenie różnych grup, aby wspólnie rozwijać przestrzeń publiczną, tworzyć ofertę społeczną i kulturalną dostępną dla każdego, sprawdzać w praktyce alternatywne modele finansowania i wymiany bezpieniężnej, wspólnie uprawiać ogrody i po prostu dobrze spędzać czas wolny.
