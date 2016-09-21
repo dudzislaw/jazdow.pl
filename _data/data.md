@@ -14,7 +14,7 @@ scripts:
 # This is sitewide data accessible with data.<attr>
 home_url: /
 
-site_title: Otwarty Jazdów
+site_title: Otwarty Jazdów - Partnerstwo dla Osiedla Jazdów
 
 home_logo:
     title: Otwary Jazdów – Strona Główna
@@ -53,9 +53,9 @@ main_menu:
         -
             title: model
             href: /#/model-en/
-        -
-            title: partnership
-            href: /#/partnership/
+#        -
+#            title: partnership
+#            href: /#/partnership/
         -
             title: contact
             href: "#page-footer"
@@ -66,13 +66,17 @@ contacts:
             pl: "Kontakt:"
             en: "Contact:"
         details: >
-            <p>Otwarty Jazdów<br>ul. Jazdów 3/11<br> 00-122 Warszawa</p>
+            <p>Otwarty Jazdów</p>
             <p>otwarty@jazdow.pl</p>
 social:
     -
-        type: facebook
-        href: https://facebook.com/jazdow/
+        type: youtube
+        href: http://youtube.com/osiedlejazdow/
     -
         type: instagram
-        href: https://www.instagram.com/jazdow/
+        href: http://instagram.com/jazdow/
+    -
+        type: facebook
+        href: http://facebook.com/jazdow/
+
 ---

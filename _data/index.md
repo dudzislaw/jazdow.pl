@@ -5,7 +5,7 @@ title: Strona główna
 
 about:
     title: >
-        Otwarty Jazdów to społeczność warszawskiego osiedla drewnianych domków fińskich, prowadząca ogólnodostępne działania społeczne, kulturalne i ekologiczne.
+        Otwarty Jazdów to społeczność warszawskiego osiedla drewnianych domków fińskich, prowadząca ogólnodostępne działania społeczne, kulturalne, edukacyjne, artystyczne.
 
 video:
     sources:
@@ -20,54 +20,54 @@ video:
             -
                 - 0.1
                 - >
-                    Łąka kwietna<br>
+                    łąka kwietna<br>
                     Motyka i Słońce <br>
-                    3/9
+                    Jazdów 3/9
             -
                 - 10
                 - >
                     Warszawskie Combo Taneczne<br>
-                    Ladodomek<br>
-                    7/30
+                    Ladomek<br>
+                    Jazdów 7/30
             -
                 - 22
                 - >
                     Dom Tańca<br>
-                    3/6
+                    Jazdów 3/20
             -
                 - 36
                 - >
-                    Budowa pieca z gliny<br>
-                    Motyka i Słońce
-                    3/9
+                    budowa pieca z gliny<br>
+                    Motyka i Słońce<br>
+                    Jazdów 3/9
             -
                 - 44
                 - >
                     Miejskie pszczoły<br>
-                    3/8
+                    Jazdów 3/8
             -
                 - 49
                 - >
-                    Urodziny "Pańskiej Skórki"<br>
+                    urodziny "Pańskiej Skórki"<br>
                     PM na Trawie<br>
-                    3/12
+                    Jazdów 3/12
             -
                 - 57
                 - >
                     Warszawskie Kroje<br>
                     Motyka i Słońce<br>
-                    3/9
+                    Jazdów 3/9
 
         - # Subs 2
             -
                 - 0
-                - Witamy w Otwartym Jazdowie
+                - witamy w Otwartym Jazdowie
             -
                 - 0
                 - cześć!
             -
                 - 3
-                - Witamy w Otwartym Jazdowie
+                - witamy w Otwartym Jazdowie
             -
                 - 40
                 - ''
@@ -97,11 +97,11 @@ cards:
         title: Partnerstwo
         href: /#/partnerstwo/
         cover: /lib/ui/oj-partners.svg
-        caption: Partnerstwo dla osiedla Jazdów tworzą organizacje, instytucje publiczne i osoby prywatne.
+        caption: Partnerstwo dla Osiedla Jazdów tworzą organizacje pozarządowe, grupy nieformalne, instytucje publiczne i osoby prywatne.
 
 ---
 Naszą misją jest łączenie różnych grup, aby wspólnie rozwijać przestrzeń publiczną, tworzyć ofertę społeczną i kulturalną dostępną dla każdego, sprawdzać w praktyce alternatywne modele finansowania i wymiany bezpieniężnej, wspólnie uprawiać ogrody i po prostu dobrze spędzać czas wolny.
 
 Historia osiedla Jazdów sięga końca II Wojny Światowej. Domki fińskie, sprowadzone tu w 1945 roku, służyły za mieszkania pracownikom Biura Odbudowy Stolicy.
 
-Dziś Otwarty Jazdów łączy w sobie funkcje rezydencjalne i te związane z misją publiczną. W 27 drewnianych domkach i przyległych ogrodach żyją i działają obok siebie mieszkańcy, organizacje pozarządowe, miejscy ogrodnicy i pszczelarze, akademicy i studenci, artyści oraz pracownicy firm, spółdzielni, ambasad i instytucji publicznych.
+Dziś Otwarty Jazdów łączy w sobie funkcje związane z misją publiczną i mieszkalne. W 27 domkach i przyległych ogrodach żyją i działają obok siebie mieszkańcy, organizacje pozarządowe, miejscy ogrodnicy i pszczelarze, akademicy i studenci, artyści oraz pracownicy firm, spółdzielni, ambasad i instytucji publicznych.
