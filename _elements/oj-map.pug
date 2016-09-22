@@ -8,7 +8,7 @@ dom-module#oj-map
 			:stylus
 				@import '../_lib/css/elements.imports.styl'
 				$oj-map-dark = $oj-violet
-				
+
 				:host
 					display: block
 					clearfix()
@@ -34,7 +34,7 @@ dom-module#oj-map
 						+below(600px)
 							width: 170%
 							transform: translateX(-25%)
-							
+
 				.map-land-1
 					fill: $oj-palegreen
 				.map-land-2
@@ -54,7 +54,7 @@ dom-module#oj-map
 					font-size: 14px
 				.filled
 					fill: $oj-map-dark
-				
+
 				:host ::content // This scope is necessary to style inside svg tag
 					.house
 						stroke: $oj-map-dark
@@ -67,16 +67,16 @@ dom-module#oj-map
 								fill: #ffe954
 						&.closed
 							fill: #fff
-							
+
 					.house-number, text
 						fill: $oj-map-dark
 						font-family: $SC
-						font-size: 13px	
+						font-size: 13px
 						font-weight: 300
 						isolation: isolate
 						pointer-events: none
 						cursor: pointer
-				
+
 				#house-label
 					position: fixed
 					display: block
@@ -258,7 +258,7 @@ dom-module#oj-map
 				g#oj-map-houses-open
 				g#oj-map-houses-closed
 				g#oj-map-numbers
-		
+
 		#house-label
 			#house-label-content
 
@@ -267,15 +267,15 @@ dom-module#oj-map
 		:coffee-script
 			Polymer
 				is: 'oj-map'
-				
+
 				behaviors: ['trap']
-				
+
 				properties:
 					houses:
 						type: Object
 						observer: '_housesLoaded'
 
-				_housesLoaded: (houses)->	
+				_housesLoaded: (houses)->
 					Promise.resolve(this)
 					.then((ojmap)->
 						# Add houses to map
@@ -295,10 +295,10 @@ dom-module#oj-map
 						for house in openHouses
 							ojmap.listen house, 'mouseenter', '_showHouseLabel'
 							ojmap.listen house, 'mouseleave', '_hideHouseLabel'
-							ojmap.listen house, 'tap', '_goToHouse'
+							# ojmap.listen house, 'tap', '_goToHouse'
 					)
 					return
-					
+
 				_buildHouses: (houses, houseType)->
 					newHouses = document.createDocumentFragment()
 					for house in houses
@@ -324,7 +324,7 @@ dom-module#oj-map
 						houseNumber.innerHTML = house.address
 						houseNumbers.appendChild houseNumber
 					return houseNumbers
-					
+
 				_showHouseLabel: (e)->
 					this.$['house-label-content'].innerText = e.target.attributes.name.value
 
@@ -339,7 +339,7 @@ dom-module#oj-map
 							trap(this.$['house-label-content'], this, true, true, 200)
 						).bind this
 					return
-					
+
 				attached: ->
 					return
 				detached: ->
