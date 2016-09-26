@@ -10,4 +10,7 @@ Interesują nas zagadnienia związane ze strukturą decyzyjną (wewnątrz badany
 
 Powstały model jako prototyp mógłby zostać wdrożony na Osiedlu Jazdów w Warszawie. Długofalowym celem jest jednak wypracowanie powszechnych rozwiązań, które pomogą rozwijać przestrzeń miejską w stałej współpracy mieszkańców, ośrodków badawczych, administracji publicznej i podmiotów ekonomii społecznej.
 
+[Energia społeczności dla wspólnej przestrzeni. Program konferencji](/assets/files/Energia_społeczności_dla_wspólnej_przestrzeni._Program_konferencji.pdf)
+[Citizen­powered Urban Commons. Program konferencji](/assets/files/Citizen-poweredUrbanCommons.Conferenceprogram.pdf)
+
 ## Projekt Civic-managed areas jest prowadzony przez Otwarty Jazdów - Partnerstwo dla Osiedla Jazdów dzięki wsparciu European Cultural Foundation i Biura Obsługi Ruchu Inicjatyw Społecznych

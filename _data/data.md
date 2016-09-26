@@ -68,6 +68,8 @@ contacts:
         details: >
             <p>Otwarty Jazdów</p>
             <p>otwarty@jazdow.pl</p>
+            <p>&nbsp;</p>
+            <p>Strona powstała dzięki wsparciu European Cultural Foundation</p>
 social:
     -
         type: youtube
